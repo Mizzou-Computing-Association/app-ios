@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import WebKit
 
 
 class TigerTalksDetailViewController: UIViewController {
 
     
+    @IBOutlet weak var videoWebView: WKWebView!
+    let testVideoCode = "RmHqOSrkZnk"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        getVideo(videoCode: testVideoCode)
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,6 +27,19 @@ class TigerTalksDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func getVideo(videoCode: String) {
+        
+        //let urlString = "https://www.youtube.com/embed/\(videoCode)"
+        
+        if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
+            videoWebView.load(URLRequest(url: url))
+        }
+        
+        
+        
+        
+    }
 
     /*
     // MARK: - Navigation

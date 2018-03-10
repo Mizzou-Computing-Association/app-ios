@@ -450,6 +450,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="L4c-tJ-OdM"/>
                     </view>
+                    <connections>
+                        <outlet property="videoWebView" destination="d23-F4-gkA" id="f9u-ab-qI7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Vq-zm-46X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
