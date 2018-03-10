@@ -8,8 +8,11 @@
 
 import UIKit
 
+
 class TigerTalksDetailViewController: UIViewController {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
