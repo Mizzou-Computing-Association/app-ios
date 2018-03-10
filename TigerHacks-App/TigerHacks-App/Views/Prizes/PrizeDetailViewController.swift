@@ -11,11 +11,19 @@ import UIKit
 class PrizeDetailViewController: UIViewController {
 
     @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var rewardLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    var titleText:String?
+    var rewardText:String?
+    var descriptionText:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navItem.title = titleText
+        rewardLabel.text = "Reward: \(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
+        descriptionLabel.text = "Description: \(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
     }
 
     override func didReceiveMemoryWarning() {

@@ -163,17 +163,47 @@
                     <view key="view" contentMode="scaleToFill" id="vzX-iQ-Fzg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgg-1e-eRc">
+                                <rect key="frame" x="16" y="88" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="96A-ZE-ekP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouK-Ya-UhU">
+                                <rect key="frame" x="16" y="153" width="343" height="178"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="178" id="NPD-Bm-D9K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Q8L-CZ-kZP" firstAttribute="trailing" secondItem="ouK-Ya-UhU" secondAttribute="trailing" constant="16" id="c8s-XB-Csy"/>
+                            <constraint firstItem="bgg-1e-eRc" firstAttribute="leading" secondItem="Q8L-CZ-kZP" secondAttribute="leading" constant="16" id="hGU-SH-oKZ"/>
+                            <constraint firstItem="bgg-1e-eRc" firstAttribute="top" secondItem="Q8L-CZ-kZP" secondAttribute="top" constant="24" id="hIk-Zl-51U"/>
+                            <constraint firstItem="ouK-Ya-UhU" firstAttribute="top" secondItem="bgg-1e-eRc" secondAttribute="bottom" constant="15" id="jH3-9r-lNm"/>
+                            <constraint firstItem="ouK-Ya-UhU" firstAttribute="leading" secondItem="bgg-1e-eRc" secondAttribute="leading" id="pYC-6j-rUo"/>
+                            <constraint firstItem="Q8L-CZ-kZP" firstAttribute="trailing" secondItem="bgg-1e-eRc" secondAttribute="trailing" constant="16" id="vzX-th-mfa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Q8L-CZ-kZP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="always" id="JPp-08-Ke7"/>
                     <connections>
+                        <outlet property="descriptionLabel" destination="ouK-Ya-UhU" id="37a-dS-T57"/>
                         <outlet property="navItem" destination="JPp-08-Ke7" id="g8O-hw-FDl"/>
+                        <outlet property="rewardLabel" destination="bgg-1e-eRc" id="GTg-RX-KTJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yDA-8t-oeR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2017" y="949"/>
+            <point key="canvasLocation" x="2016.8" y="948.57571214392806"/>
         </scene>
         <!--Schedule View Controller-->
         <scene sceneID="drw-hz-MK2">

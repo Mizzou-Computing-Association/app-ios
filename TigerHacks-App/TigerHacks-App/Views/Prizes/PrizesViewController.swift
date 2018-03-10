@@ -12,7 +12,11 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     @IBOutlet weak var prizeTableView: UITableView!
     
-    
+    let testPrizes = [Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
+                            title: "Cerner Make the World Better Prize",
+                            reward: "4 trips to a Cerner sponsored hospital facility",
+                            description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
+                            prizeType: PrizeType.main)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +38,14 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return testPrizes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
+        
+        cell.prizeTitle.text = testPrizes[indexPath.row].title
+        cell.prizeReward.text = testPrizes[indexPath.row].reward
         
         return cell
     }
@@ -53,6 +60,9 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let selectedRow = prizeTableView.indexPathForSelectedRow?.first
         
         //Assign values to any outlets in Prize Detail Below
+        destination.descriptionText = testPrizes[selectedRow!].description
+        destination.titleText = testPrizes[selectedRow!].title
+        destination.rewardText = testPrizes[selectedRow!].reward
         
         destination.navItem.title = "butts"
 //        if let row = selectedRow{
