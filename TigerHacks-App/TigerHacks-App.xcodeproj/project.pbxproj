@@ -8,22 +8,54 @@
 
 /* Begin PBXBuildFile section */
 		834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30AD20532FFB003DA584 /* AppDelegate.swift */; };
-		834C30B020532FFB003DA584 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30AF20532FFB003DA584 /* ViewController.swift */; };
 		834C30B320532FFB003DA584 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B120532FFB003DA584 /* Main.storyboard */; };
 		834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834C30B420532FFB003DA584 /* TigerHacks_App.xcdatamodeld */; };
 		834C30B820532FFB003DA584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B720532FFB003DA584 /* Assets.xcassets */; };
 		834C30BB20532FFB003DA584 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B920532FFB003DA584 /* LaunchScreen.storyboard */; };
+		834C30C32053307B003DA584 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30C22053307B003DA584 /* Event.swift */; };
+		834C30C520533085003DA584 /* Prize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30C420533085003DA584 /* Prize.swift */; };
+		834C30C720533096003DA584 /* Sponsor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30C620533096003DA584 /* Sponsor.swift */; };
+		834C30C92053309E003DA584 /* Mentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30C82053309E003DA584 /* Mentor.swift */; };
+		834C30CB205330AC003DA584 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30CA205330AC003DA584 /* Model.swift */; };
+		834C30CE20533E01003DA584 /* PrizesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30CD20533E01003DA584 /* PrizesViewController.swift */; };
+		834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */; };
+		834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30D220533F6C003DA584 /* ScheduleViewController.swift */; };
+		834C30DB20534100003DA584 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */; };
+		834C30DD20534994003DA584 /* TigerTalksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */; };
+		834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */; };
+		834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E020534B32003DA584 /* EventDetailViewController.swift */; };
+		834C30E320534B62003DA584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E220534B62003DA584 /* MapViewController.swift */; };
+		834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */; };
+		834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */; };
+		834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */; };
+		834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		834C30AA20532FFB003DA584 /* TigerHacks-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TigerHacks-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C30AD20532FFB003DA584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		834C30AF20532FFB003DA584 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		834C30B220532FFB003DA584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		834C30B520532FFB003DA584 /* TigerHacks_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TigerHacks_App.xcdatamodel; sourceTree = "<group>"; };
 		834C30B720532FFB003DA584 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		834C30BA20532FFB003DA584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		834C30BC20532FFB003DA584 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		834C30C22053307B003DA584 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		834C30C420533085003DA584 /* Prize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prize.swift; sourceTree = "<group>"; };
+		834C30C620533096003DA584 /* Sponsor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sponsor.swift; sourceTree = "<group>"; };
+		834C30C82053309E003DA584 /* Mentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentor.swift; sourceTree = "<group>"; };
+		834C30CA205330AC003DA584 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		834C30CD20533E01003DA584 /* PrizesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizesViewController.swift; sourceTree = "<group>"; };
+		834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeTableViewCell.swift; sourceTree = "<group>"; };
+		834C30D220533F6C003DA584 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewController.swift; sourceTree = "<group>"; };
+		834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksDetailViewController.swift; sourceTree = "<group>"; };
+		834C30E020534B32003DA584 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		834C30E220534B62003DA584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsCollectionViewController.swift; sourceTree = "<group>"; };
+		834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsDetailViewController.swift; sourceTree = "<group>"; };
+		834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
+		834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +89,86 @@
 			isa = PBXGroup;
 			children = (
 				834C30AD20532FFB003DA584 /* AppDelegate.swift */,
-				834C30AF20532FFB003DA584 /* ViewController.swift */,
 				834C30B120532FFB003DA584 /* Main.storyboard */,
+				834C30CC205330F0003DA584 /* Model */,
+				834C30D120533EE5003DA584 /* Views */,
 				834C30B720532FFB003DA584 /* Assets.xcassets */,
 				834C30B920532FFB003DA584 /* LaunchScreen.storyboard */,
 				834C30BC20532FFB003DA584 /* Info.plist */,
 				834C30B420532FFB003DA584 /* TigerHacks_App.xcdatamodeld */,
 			);
 			path = "TigerHacks-App";
+			sourceTree = "<group>";
+		};
+		834C30CC205330F0003DA584 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				834C30CA205330AC003DA584 /* Model.swift */,
+				834C30C22053307B003DA584 /* Event.swift */,
+				834C30C420533085003DA584 /* Prize.swift */,
+				834C30C620533096003DA584 /* Sponsor.swift */,
+				834C30C82053309E003DA584 /* Mentor.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		834C30D120533EE5003DA584 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				834C30D42053406A003DA584 /* Schedule */,
+				834C30D9205340B7003DA584 /* TigerTalks */,
+				834C30D7205340A9003DA584 /* Map */,
+				834C30D52053407F003DA584 /* Prizes */,
+				834C30D62053409B003DA584 /* Sponsors */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		834C30D42053406A003DA584 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				834C30D220533F6C003DA584 /* ScheduleViewController.swift */,
+				834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */,
+				834C30E020534B32003DA584 /* EventDetailViewController.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		834C30D52053407F003DA584 /* Prizes */ = {
+			isa = PBXGroup;
+			children = (
+				834C30CD20533E01003DA584 /* PrizesViewController.swift */,
+				834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */,
+			);
+			path = Prizes;
+			sourceTree = "<group>";
+		};
+		834C30D62053409B003DA584 /* Sponsors */ = {
+			isa = PBXGroup;
+			children = (
+				834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */,
+				834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */,
+				834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */,
+			);
+			path = Sponsors;
+			sourceTree = "<group>";
+		};
+		834C30D7205340A9003DA584 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				834C30E220534B62003DA584 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		834C30D9205340B7003DA584 /* TigerTalks */ = {
+			isa = PBXGroup;
+			children = (
+				834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */,
+				834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */,
+				834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */,
+			);
+			path = TigerTalks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,9 +243,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834C30B020532FFB003DA584 /* ViewController.swift in Sources */,
+				834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */,
+				834C30C720533096003DA584 /* Sponsor.swift in Sources */,
+				834C30C32053307B003DA584 /* Event.swift in Sources */,
+				834C30DB20534100003DA584 /* ScheduleTableViewCell.swift in Sources */,
+				834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */,
+				834C30C520533085003DA584 /* Prize.swift in Sources */,
+				834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */,
+				834C30CE20533E01003DA584 /* PrizesViewController.swift in Sources */,
+				834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */,
+				834C30DD20534994003DA584 /* TigerTalksTableViewController.swift in Sources */,
+				834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */,
+				834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */,
 				834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */,
+				834C30C92053309E003DA584 /* Mentor.swift in Sources */,
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,
+				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,
+				834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */,
+				834C30E320534B62003DA584 /* MapViewController.swift in Sources */,
+				834C30CB205330AC003DA584 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

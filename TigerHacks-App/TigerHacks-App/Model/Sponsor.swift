@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+struct Sponsor {
+    
+    var mentors: [Mentor]?
+    var name: String
+    var description: String
+    var website: String?
+    var location: String?
+    
+}

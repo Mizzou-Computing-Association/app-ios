@@ -8,20 +8,33 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "sponsorCell"
 
 class SponsorsCollectionViewController: UICollectionViewController {
 
+    let testArray = [UIImage(named:"linkedInPhoto"),UIImage(named:"sherduck"),UIImage(named:"waterPoloBall")]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.collectionView!.register(SponsorCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        let numberOfCells = CGFloat(3)
+        
+        
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            
+            flowLayout.minimumInteritemSpacing = 2
+            flowLayout.minimumLineSpacing = 2
+            
+            let horizontalSpacing = flowLayout.minimumInteritemSpacing
+            
+            let cellWidth = (view.frame.width - (numberOfCells-1)*horizontalSpacing)/numberOfCells
+            
+            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        }
 
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,24 +55,39 @@ class SponsorsCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        
+        return testArray.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SponsorCollectionViewCell
+        
+        cell.sponsorImage.image = testArray[indexPath.row]
+        
         return cell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "sponsorSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! SponsorsDetailViewController
+        let selectedItem = collectionView?.indexPathsForSelectedItems?.first
+        
+        if let row = selectedItem?.row {
+            destination.image = testArray[row]
+        }
+    }
+    
+    
+    
     // MARK: UICollectionViewDelegate
 
     /*

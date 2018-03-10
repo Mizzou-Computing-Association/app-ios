@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+struct Event {
+    var time: Date
+    var location: String
+    var title: String
+    var description: String
+}

@@ -10,6 +10,7 @@ import UIKit
 
 class ScheduleViewController: UIViewController {
 
+    @IBOutlet weak var scheduleTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,5 +32,8 @@ class ScheduleViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func changeDay(_ sender: UISegmentedControl) {
+        
+    }
+    
 }

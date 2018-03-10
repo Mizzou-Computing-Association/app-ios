@@ -10,4 +10,6 @@ import UIKit
 
 class SponsorCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var sponsorImage: UIImageView!
+    
 }

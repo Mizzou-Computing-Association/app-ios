@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+
+struct Mentor {
+    var name: String
+    var skills: [String]?
+    var contact: String?
+}

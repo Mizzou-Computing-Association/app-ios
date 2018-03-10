@@ -10,10 +10,17 @@ import UIKit
 
 class SponsorsDetailViewController: UIViewController {
 
+    @IBOutlet weak var imageView: UIImageView!
+    var image:UIImage?
+    @IBOutlet weak var navItem: UINavigationItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        imageView.image = image
+        navItem.title = image?.description
+        
     }
 
     override func didReceiveMemoryWarning() {

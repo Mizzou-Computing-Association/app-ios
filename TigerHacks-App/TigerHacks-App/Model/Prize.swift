@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+struct Prize {
+    var sponsor:Sponsor?
+    var title:String
+    var description:String
+    var prizeType:PrizeType
+    
+}
+
+enum PrizeType {
+    case main
+    case beginner
+}
