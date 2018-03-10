@@ -11,10 +11,16 @@ import UIKit
 class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var prizeTableView: UITableView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        self.prizeTableView.rowHeight = 80;
+        prizeTableView.delegate = self
+        prizeTableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +41,23 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //performSegue(withIdentifier: "prizeSegue", sender: self)
+        //Need to ask Shawn how to make it a manual segue
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! PrizeDetailViewController
+        let selectedRow = prizeTableView.indexPathForSelectedRow?.first
+        
+        //Assign values to any outlets in Prize Detail Below
+        
+        destination.navItem.title = "butts"
+//        if let row = selectedRow{
+//            destination.image = imageArray[row]
+//        }
     }
     
     

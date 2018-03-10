@@ -11,11 +11,13 @@ import Foundation
 class Model {
     
     init() {
-        self.sponsors = nil
-        self.schedule = nil
-        self.prizes = nil
+        
     }
     var sponsors:[Sponsor]?
-    var schedule:[Event]?
+    var dayOneSchedule:[Event]?
+    var dayTwoSchedule:[Event]?
+    var dayThreeSchedule:[Event]?
     var prizes:[Prize]?
+    var tigerTalks:[String]?
+    
 }

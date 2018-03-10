@@ -29,6 +29,7 @@
 		834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */; };
 		834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */; };
 		834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */; };
+		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewCell.swift; sourceTree = "<group>"; };
+		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			children = (
 				834C30CD20533E01003DA584 /* PrizesViewController.swift */,
 				834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */,
+				834C30EC20538791003DA584 /* PrizeDetailViewController.swift */,
 			);
 			path = Prizes;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				834C30CE20533E01003DA584 /* PrizesViewController.swift in Sources */,
 				834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */,
 				834C30DD20534994003DA584 /* TigerTalksTableViewController.swift in Sources */,
+				834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */,
 				834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */,
 				834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */,
 				834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */,
