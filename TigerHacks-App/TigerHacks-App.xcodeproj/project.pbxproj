@@ -30,6 +30,7 @@
 		834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */; };
 		834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */; };
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
+		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewCell.swift; sourceTree = "<group>"; };
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
+		83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */,
 				834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */,
 				834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */,
+				83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */,
 			);
 			path = Sponsors;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */,
 				834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */,
 				834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */,
+				83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */,
 				834C30C92053309E003DA584 /* Mentor.swift in Sources */,
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,
 				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,

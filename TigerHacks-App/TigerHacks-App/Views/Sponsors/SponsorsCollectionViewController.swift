@@ -17,7 +17,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.collectionView!.register(SponsorCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(SponsorCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         let numberOfCells = CGFloat(3)
         
@@ -68,13 +68,13 @@ class SponsorsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SponsorCollectionViewCell
         
-        cell.sponsorImage.image = testArray[indexPath.row]
+        cell.sponsorImage?.image = testArray[indexPath.row]
         
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "sponsorSegue", sender: self)
+        //performSegue(withIdentifier: "sponsorSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,6 +84,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
         if let row = selectedItem?.row {
             destination.image = testArray[row]
         }
+        
+        
+        
     }
     
     

@@ -8,18 +8,31 @@
 
 import UIKit
 
-class SponsorsDetailViewController: UIViewController {
+class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var sponsorImage: UIImageView!
+    @IBOutlet weak var sponsorTitle: UILabel!
+    @IBOutlet weak var sponsorLocation: UILabel!
+    @IBOutlet weak var sponsorWebsite: UILabel!
+    @IBOutlet weak var sponsorDescription: UILabel!
+    @IBOutlet weak var mentorTableView: UITableView!
+    
     var image:UIImage?
+    var titleText:String?
+    var locationText:String?
+    var websiteText:String?
+    var descriptionText:String?
+    var mentorList: [Mentor]?
+    
     @IBOutlet weak var navItem: UINavigationItem!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView.image = image
-        navItem.title = image?.description
+        sponsorImage.image = image
+        //navItem.title = image?.description
         
     }
 
@@ -28,7 +41,37 @@ class SponsorsDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    //Table View Functions
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if let count = mentorList?.count {
+            return count
+        }else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mentorCell", for: indexPath) as! MentorTableViewCell
+        
+        
+        if let mentor = mentorList?[indexPath.row] {
+            cell.textLabel?.text = mentor.name
+            cell.detailTextLabel?.text = mentor.skills?.first
+        }
+        
+        return cell
+    }
 
+    
+    
+    
     /*
     // MARK: - Navigation
 
