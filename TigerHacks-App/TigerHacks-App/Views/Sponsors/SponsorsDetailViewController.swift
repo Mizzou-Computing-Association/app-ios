@@ -17,6 +17,7 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var sponsorWebsite: UILabel!
     @IBOutlet weak var sponsorDescription: UILabel!
     @IBOutlet weak var mentorTableView: UITableView!
+    @IBOutlet weak var imageViewBorder: UIView!
     
     var image:UIImage?
     var titleText:String?
@@ -31,7 +32,19 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        imageViewBorder.clipsToBounds = true
+        imageViewBorder.layer.cornerRadius = 10
+        imageViewBorder.layer.borderWidth = 1
+        imageViewBorder.layer.borderColor = UIColor.lightGray.cgColor
+        
         sponsorImage.image = image
+        sponsorTitle.text = titleText
+        sponsorLocation.text = locationText
+        sponsorWebsite.text = websiteText
+        sponsorDescription.text = descriptionText
+
+        
         //navItem.title = image?.description
         
     }
@@ -50,8 +63,8 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let count = mentorList?.count {
-            return count
+        if let mentorList = mentorList {
+            return mentorList.count
         }else {
             return 0
         }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Sponsor {
     
@@ -15,5 +16,6 @@ struct Sponsor {
     var description: String
     var website: String?
     var location: String?
-    
+    var image: UIImage?
+
 }
