@@ -14,7 +14,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
     
     let testPrizes = [Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
-                            title: "Cerner Make the World Better Prize",
+                            title: "Make the World Better for us",
                             reward: "4 trips to a Cerner sponsored hospital facility",
                             description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
                             prizeType: PrizeType.main),

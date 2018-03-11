@@ -13,6 +13,10 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var rewardLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var rewardSubview: UIView!
+    @IBOutlet weak var descriptionSubview: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var lineBreakSubview: UIView!
     
     var titleText:String?
     var rewardText:String?
@@ -21,9 +25,22 @@ class PrizeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navItem.title = titleText
-        rewardLabel.text = "Reward: \(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
-        descriptionLabel.text = "Description: \(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
+        
+        self.view.bringSubview(toFront: rewardLabel)
+        rewardSubview.clipsToBounds = true
+        descriptionSubview.clipsToBounds = true
+        lineBreakSubview.clipsToBounds = true
+        
+        rewardSubview.layer.cornerRadius = 20
+        descriptionSubview.layer.cornerRadius = 20
+        lineBreakSubview.layer.cornerRadius = 20
+        
+        rewardSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        
+        titleLabel.text = titleText
+        rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
+        descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
     }
 
     override func didReceiveMemoryWarning() {
