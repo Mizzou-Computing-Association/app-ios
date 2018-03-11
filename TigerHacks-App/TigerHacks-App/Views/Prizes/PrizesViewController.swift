@@ -13,11 +13,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var prizeTableView: UITableView!
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
     
-    let testPrizes = [Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
-                            title: "Make the World Better for us",
-                            reward: "4 trips to a Cerner sponsored hospital facility",
-                            description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                            prizeType: PrizeType.main),
+    let testBeginnerPrizes = [
                       Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
                             title: "Beginner Prize",
                             reward: "Nothing",
@@ -25,9 +21,31 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
                             prizeType: PrizeType.beginner),
                       Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
                             title: "Beginner Prize",
-                            reward: "Nothing",
+                            reward: "Something",
                             description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
                             prizeType: PrizeType.beginner)]
+    
+    let testMainPrizes = [
+                              Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway"),
+                                    title: "Make the World Better for us",
+                                    reward: "4 trips to a Cerner sponsored hospital facility",
+                                    description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
+                                    prizeType: PrizeType.main),
+                              Prize(sponsor: Sponsor(mentors: nil,name: "RJI",description: "we write articles blah blah blah",website: "Cerner.com",location: "Table 7, Main Hallway"),
+                                    title: "Do Something for the J School",
+                                    reward: "A big ol' drone",
+                                    description: "You better do this one",
+                                    prizeType: PrizeType.main),
+                              Prize(sponsor: Sponsor(mentors: nil,name: "Google",description: "we google stuff but really its just bing",website: "google.com/careers",location: "Table 99, Main Hallway"),
+                                    title: "Snooping For Google",
+                                    reward: "A google home wink wink",
+                                    description: "This prize is awarded to the hack that best encompasses Google's mission statement to farm as much information about literally everyone",
+                                    prizeType: PrizeType.main),
+                              Prize(sponsor: Sponsor(mentors: nil,name: "Microsoft",description: "we search stuff but also computers. Really everything",website: "microsoft.com/careers",location: "Table 10, Main Hallway"),
+                                    title: "Figure out PageRank",
+                                    reward: "We'll hire you",
+                                    description: "This prize is awarded to the hack that best figures out how the hell Google is ranking all those pages",
+                                    prizeType: PrizeType.main)]
     
     
     override func viewDidLoad() {
@@ -50,51 +68,56 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var mainPrizeCount = 0
-        var beginnerPrizeCount = 0
         
         if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            for prize in testPrizes {
-                if prize.prizeType == PrizeType.main {
-                    mainPrizeCount += 1
-                }
-            }
-            return mainPrizeCount
+            return testMainPrizes.count
         }
         else {
-            for prize in testPrizes {
-                if prize.prizeType == PrizeType.beginner {
-                    beginnerPrizeCount += 1
-                }
-            }
-            return beginnerPrizeCount
+            
+            return testBeginnerPrizes.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        cell.prizeTitle.text = testPrizes[indexPath.row].title
-        cell.prizeReward.text = testPrizes[indexPath.row].reward
+        
+        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+            cell.prizeTitle.text = testMainPrizes[indexPath.row].title
+            cell.prizeReward.text = testMainPrizes[indexPath.row].reward
+        }
+        else {
+            
+            cell.prizeTitle.text = testBeginnerPrizes[indexPath.row].title
+            cell.prizeReward.text = testBeginnerPrizes[indexPath.row].reward
+        }
+        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: "prizeSegue", sender: self)
-        //Need to ask Shawn how to make it a manual segue
+        performSegue(withIdentifier: "prizeSegue", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
-    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! PrizeDetailViewController
-        let selectedRow = prizeTableView.indexPathForSelectedRow?.first
+        let selectedRow = prizeTableView.indexPathForSelectedRow
         
         //Assign values to any outlets in Prize Detail Below
-        destination.descriptionText = testPrizes[selectedRow!].description
-        destination.titleText = testPrizes[selectedRow!].title
-        destination.rewardText = testPrizes[selectedRow!].reward
+        
+        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+            destination.descriptionText = testMainPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = testMainPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = testMainPrizes[selectedRow?.row ?? 0].reward
+        }
+        else {
+            destination.descriptionText = testBeginnerPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = testBeginnerPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = testBeginnerPrizes[selectedRow?.row ?? 0].reward
+        }
+        
         
     }
     
@@ -103,32 +126,32 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         //prizeTableView.reloadData()
         //numberOfSections(in: prizeTableView)
         
-        var mainPrizeCount = 0
-        var beginnerPrizeCount = 0
-        
-        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            for prize in testPrizes {
-                if prize.prizeType == PrizeType.main {
-                    mainPrizeCount += 1
-                }
-            }
-//            for prize in 0...mainPrizeCount {
-//                tableView(prizeTableView, cellForRowAt: IndexPath(row:prize,section:prize))
+//        var mainPrizeCount = 0
+//        var beginnerPrizeCount = 0
+//
+//        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+//            for prize in testMainPrizes {
+//                if prize.prizeType == PrizeType.main {
+//                    mainPrizeCount += 1
+//                }
 //            }
-            tableView(prizeTableView, numberOfRowsInSection: mainPrizeCount)
-        }
-        else {
-            for prize in testPrizes {
-                if prize.prizeType == PrizeType.beginner {
-                    beginnerPrizeCount += 1
-                }
-            }
-//            for prize in 0...beginnerPrizeCount {
-//                tableView(prizeTableView, cellForRowAt: IndexPath(row:prize,section:prize))
+////            for prize in 0...mainPrizeCount {
+////                tableView(prizeTableView, cellForRowAt: IndexPath(row:prize,section:prize))
+////            }
+////            tableView(prizeTableView, numberOfRowsInSection: mainPrizeCount)
+//        }
+//        else {
+//            for prize in testPrizes {
+//                if prize.prizeType == PrizeType.beginner {
+//                    beginnerPrizeCount += 1
+//                }
 //            }
-            tableView(prizeTableView, numberOfRowsInSection: beginnerPrizeCount)
-        }
-        
+////            for prize in 0...beginnerPrizeCount {
+////                tableView(prizeTableView, cellForRowAt: IndexPath(row:prize,section:prize))
+////            }
+//            tableView(prizeTableView, numberOfRowsInSection: beginnerPrizeCount)
+//        }
+//
        
         
         

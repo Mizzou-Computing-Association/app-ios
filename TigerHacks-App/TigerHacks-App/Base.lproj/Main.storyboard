@@ -119,7 +119,6 @@
                                         <connections>
                                             <outlet property="prizeReward" destination="lSY-Oj-VTM" id="Nvz-YH-e7D"/>
                                             <outlet property="prizeTitle" destination="bXY-34-OJc" id="8zp-xM-D2L"/>
-                                            <segue destination="4VW-li-TyV" kind="show" id="Vxo-Pw-H5c"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -151,6 +150,7 @@
                     <connections>
                         <outlet property="prizeTableView" destination="PmS-AX-4ZZ" id="EOG-en-IaS"/>
                         <outlet property="prizeTypeSwitcher" destination="Yt7-xG-p5O" id="TpM-gi-rve"/>
+                        <segue destination="4VW-li-TyV" kind="show" identifier="prizeSegue" id="g6g-mQ-r8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoQ-pg-gY3" userLabel="First Responder" sceneMemberID="firstResponder"/>
