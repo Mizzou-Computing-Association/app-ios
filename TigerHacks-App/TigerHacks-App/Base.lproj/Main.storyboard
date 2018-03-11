@@ -87,21 +87,21 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="80" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="80" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vld-h9-WUn" id="fgY-uv-bY9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-34-OJc">
-                                                    <rect key="frame" x="8" y="11" width="352" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <rect key="frame" x="15" y="11" width="312" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
-                                                    <rect key="frame" x="8" y="47" width="352" height="21"/>
+                                                    <rect key="frame" x="15" y="43" width="312" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -109,11 +109,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bXY-34-OJc" firstAttribute="top" secondItem="fgY-uv-bY9" secondAttribute="top" constant="11" id="9fw-Hj-SiA"/>
+                                                <constraint firstItem="lSY-Oj-VTM" firstAttribute="leading" secondItem="bXY-34-OJc" secondAttribute="leading" id="PBD-lY-pHJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="lSY-Oj-VTM" secondAttribute="trailing" constant="15" id="TnJ-9b-Jex"/>
-                                                <constraint firstItem="bXY-34-OJc" firstAttribute="leading" secondItem="fgY-uv-bY9" secondAttribute="leading" constant="8" id="Vbq-E7-3si"/>
+                                                <constraint firstItem="bXY-34-OJc" firstAttribute="leading" secondItem="fgY-uv-bY9" secondAttribute="leading" constant="15" id="Vbq-E7-3si"/>
                                                 <constraint firstItem="lSY-Oj-VTM" firstAttribute="top" secondItem="bXY-34-OJc" secondAttribute="bottom" constant="8" id="W6A-v6-1qq"/>
                                                 <constraint firstAttribute="trailing" secondItem="bXY-34-OJc" secondAttribute="trailing" constant="15" id="n9S-V1-A1g"/>
-                                                <constraint firstItem="lSY-Oj-VTM" firstAttribute="leading" secondItem="fgY-uv-bY9" secondAttribute="leading" constant="8" id="vDc-wY-2rv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -150,6 +150,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="prizeTableView" destination="PmS-AX-4ZZ" id="EOG-en-IaS"/>
+                        <outlet property="prizeTypeSwitcher" destination="Yt7-xG-p5O" id="TpM-gi-rve"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PoQ-pg-gY3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,7 +195,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Q8L-CZ-kZP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="always" id="JPp-08-Ke7"/>
+                    <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="always" id="JPp-08-Ke7">
+                        <barButtonItem key="backBarButtonItem" title=" " id="iSg-Zv-QRW"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="ouK-Ya-UhU" id="37a-dS-T57"/>
                         <outlet property="navItem" destination="JPp-08-Ke7" id="g8O-hw-FDl"/>
