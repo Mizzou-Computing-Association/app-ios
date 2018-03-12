@@ -350,6 +350,7 @@
                         </segmentedControl>
                     </navigationItem>
                     <connections>
+                        <outlet property="daySwitcher" destination="4Wg-KD-dtt" id="zqv-Bh-W7f"/>
                         <outlet property="scheduleTableView" destination="1F8-16-a0T" id="V9w-uR-tzE"/>
                     </connections>
                 </viewController>

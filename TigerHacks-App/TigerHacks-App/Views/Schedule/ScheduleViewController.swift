@@ -8,9 +8,17 @@
 
 import UIKit
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    
 
     @IBOutlet weak var scheduleTableView: UITableView!
+    @IBOutlet weak var daySwitcher: UISegmentedControl!
+    
+    let testDayOneArray: [Event] = []
+    let testDayTwoArray: [Event] = []
+    let testDayThreeArray: [Event] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,17 +31,46 @@ class ScheduleViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
-    @IBAction func changeDay(_ sender: UISegmentedControl) {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch daySwitcher.selectedSegmentIndex {
+        case 0 :
+            return testDayOneArray.count ?? 0
+        case 1 :
+            return testDayTwoArray.count ?? 0
+        case 2 :
+            return testDayThreeArray.count ?? 0
+        default :
+            return testDayOneArray.count ?? 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
+        
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        scheduleTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+
+    @IBAction func changeDay(_ sender: UISegmentedControl) {
+        scheduleTableView.reloadData()
+    }
+    
+    
+ 
+     // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        <#code#>
+    }
+
+    
 }
+
