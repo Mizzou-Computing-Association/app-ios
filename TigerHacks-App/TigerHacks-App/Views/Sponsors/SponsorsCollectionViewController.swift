@@ -49,6 +49,30 @@ class SponsorsCollectionViewController: UICollectionViewController {
                                     description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
                                     website: "dogfood.org",
                                     location: "Table 10, Main Hallway",
+                                    image: UIImage(named:"fulcrumgt")),
+                            Sponsor(mentors: nil,
+                                    name: "Fulcrum GT",
+                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
+                                    website: "dogfood.org",
+                                    location: "Table 10, Main Hallway",
+                                    image: UIImage(named:"fulcrumgt")),
+                            Sponsor(mentors: nil,
+                                    name: "Fulcrum GT",
+                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
+                                    website: "dogfood.org",
+                                    location: "Table 10, Main Hallway",
+                                    image: UIImage(named:"fulcrumgt")),
+                            Sponsor(mentors: nil,
+                                    name: "Fulcrum GT",
+                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
+                                    website: "dogfood.org",
+                                    location: "Table 10, Main Hallway",
+                                    image: UIImage(named:"fulcrumgt")),
+                            Sponsor(mentors: nil,
+                                    name: "Fulcrum GT",
+                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
+                                    website: "dogfood.org",
+                                    location: "Table 10, Main Hallway",
                                     image: UIImage(named:"fulcrumgt"))]
     
     override func viewDidLoad() {
@@ -62,7 +86,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
         
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             
-            flowLayout.minimumInteritemSpacing = 5
+            flowLayout.minimumInteritemSpacing = 2
             flowLayout.minimumLineSpacing = 2
             
             let horizontalSpacing = flowLayout.minimumInteritemSpacing
@@ -107,8 +131,8 @@ class SponsorsCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SponsorCollectionViewCell
         
         cell.view.clipsToBounds = true
-        cell.view.layer.cornerRadius = 10
-        cell.view.layer.borderWidth = 1
+        cell.view.layer.cornerRadius = 20
+        cell.view.layer.borderWidth = 0.5
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
         
         

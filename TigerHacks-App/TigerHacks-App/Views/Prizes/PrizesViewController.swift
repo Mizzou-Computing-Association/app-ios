@@ -32,7 +32,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
                                     description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
                                     prizeType: PrizeType.main),
                               Prize(sponsor: Sponsor(mentors: nil,name: "RJI",description: "we write articles blah blah blah",website: "Cerner.com",location: "Table 7, Main Hallway",image:nil),
-                                    title: "Do Something for the J School",
+                                    title: "Do Something for the J-School",
                                     reward: "A big ol' drone",
                                     description: "You better do this one",
                                     prizeType: PrizeType.main),
@@ -55,6 +55,9 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.prizeTableView.rowHeight = 80;
         prizeTableView.delegate = self
         prizeTableView.dataSource = self
+        
+        prizeTableView.rowHeight = UITableViewAutomaticDimension
+        prizeTableView.estimatedRowHeight = 140
     }
 
     override func didReceiveMemoryWarning() {
