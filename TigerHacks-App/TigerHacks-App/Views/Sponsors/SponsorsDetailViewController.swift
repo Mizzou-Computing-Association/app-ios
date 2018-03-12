@@ -38,11 +38,11 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         imageViewBorder.layer.borderWidth = 1
         imageViewBorder.layer.borderColor = UIColor.lightGray.cgColor
         
-        sponsorImage.image = image
-        sponsorTitle.text = titleText
-        sponsorLocation.text = locationText
-        sponsorWebsite.text = websiteText
-        sponsorDescription.text = descriptionText
+        sponsorImage.image = image ?? UIImage(named:"noImage")
+        sponsorTitle.text = "\(titleText ?? "There is no name")"
+        sponsorLocation.text = "\(locationText ?? "There is no location")"
+        sponsorWebsite.text = "\(websiteText ?? "There is no website")"
+        sponsorDescription.text = "\(descriptionText ?? "There is no description")"
 
         
         //navItem.title = image?.description
