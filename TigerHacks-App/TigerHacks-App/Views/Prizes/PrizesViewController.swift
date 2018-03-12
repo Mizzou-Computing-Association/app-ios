@@ -127,11 +127,13 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         //Assign values to any outlets in Prize Detail Below
         
         if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+            destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
             destination.descriptionText = testMainPrizes[selectedRow?.row ?? 0].description
             destination.titleText = testMainPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = testMainPrizes[selectedRow?.row ?? 0].reward
         }
         else {
+            destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
             destination.descriptionText = testBeginnerPrizes[selectedRow?.row ?? 0].description
             destination.titleText = testBeginnerPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = testBeginnerPrizes[selectedRow?.row ?? 0].reward

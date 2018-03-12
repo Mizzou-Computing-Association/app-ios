@@ -11,13 +11,16 @@ import UIKit
 class PrizeDetailViewController: UIViewController {
 
     @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var sponsorLabel: UILabel!
     @IBOutlet weak var rewardLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var sponsorSubview: UIView!
     @IBOutlet weak var rewardSubview: UIView!
     @IBOutlet weak var descriptionSubview: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var lineBreakSubview: UIView!
     
+    var sponsor:Sponsor?
     var titleText:String?
     var rewardText:String?
     var descriptionText:String?
@@ -27,18 +30,22 @@ class PrizeDetailViewController: UIViewController {
 
         
         self.view.bringSubview(toFront: rewardLabel)
+        sponsorSubview.clipsToBounds = true
         rewardSubview.clipsToBounds = true
         descriptionSubview.clipsToBounds = true
         lineBreakSubview.clipsToBounds = true
         
+        sponsorSubview.layer.cornerRadius = 20
         rewardSubview.layer.cornerRadius = 20
         descriptionSubview.layer.cornerRadius = 20
         lineBreakSubview.layer.cornerRadius = 20
         
+        sponsorSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         rewardSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         
         titleLabel.text = titleText
+        sponsorLabel.text = "\(sponsor?.name ?? "This isn't a sponsored prize")"
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
         descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
     }
