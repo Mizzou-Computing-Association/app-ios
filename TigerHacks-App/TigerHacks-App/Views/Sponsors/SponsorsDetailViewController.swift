@@ -18,6 +18,7 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var sponsorDescription: UILabel!
     @IBOutlet weak var mentorTableView: UITableView!
     @IBOutlet weak var imageViewBorder: UIView!
+    @IBOutlet weak var descriptionSubview: UIView!
     
     var image:UIImage?
     var titleText:String?
@@ -32,6 +33,10 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        descriptionSubview.clipsToBounds = true
+        descriptionSubview.layer.cornerRadius = 20
+        descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         
         imageViewBorder.clipsToBounds = true
         imageViewBorder.layer.cornerRadius = 10
