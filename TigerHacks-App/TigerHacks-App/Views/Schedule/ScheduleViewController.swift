@@ -38,20 +38,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch daySwitcher.selectedSegmentIndex {
         case 0 :
-            return testDayOneArray.count ?? 0
+            return testDayOneArray.count
         case 1 :
-            return testDayTwoArray.count ?? 0
+            return testDayTwoArray.count
         case 2 :
-            return testDayThreeArray.count ?? 0
+            return testDayThreeArray.count
         default :
-            return testDayOneArray.count ?? 0
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
         
-        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -68,7 +68,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
      // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        <#code#>
+        
     }
 
     

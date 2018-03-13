@@ -552,7 +552,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="05c-V4-uoq"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="150" id="05c-V4-uoq"/>
                                     <constraint firstAttribute="bottom" secondItem="zu2-b2-JkB" secondAttribute="bottom" constant="2" id="iVv-zL-sml"/>
                                     <constraint firstAttribute="trailing" secondItem="zu2-b2-JkB" secondAttribute="trailing" constant="2" id="kf5-EF-gmG"/>
                                     <constraint firstItem="zu2-b2-JkB" firstAttribute="leading" secondItem="q7K-yf-0oq" secondAttribute="leading" constant="2" id="odp-lj-tKo"/>
