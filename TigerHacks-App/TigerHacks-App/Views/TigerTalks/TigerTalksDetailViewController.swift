@@ -35,10 +35,7 @@ class TigerTalksDetailViewController: UIViewController {
         if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
             videoWebView.load(URLRequest(url: url))
         }
-        
-        
-        
-        
+    
     }
 
     /*

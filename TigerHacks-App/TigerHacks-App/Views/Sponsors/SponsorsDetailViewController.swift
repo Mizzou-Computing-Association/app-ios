@@ -14,7 +14,7 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var sponsorImage: UIImageView!
     @IBOutlet weak var sponsorTitle: UILabel!
     @IBOutlet weak var sponsorLocation: UILabel!
-    @IBOutlet weak var sponsorWebsite: UILabel!
+    @IBOutlet weak var sponsorWebsite: UIButton!
     @IBOutlet weak var sponsorDescription: UILabel!
     @IBOutlet weak var mentorTableView: UITableView!
     @IBOutlet weak var imageViewBorder: UIView!
@@ -46,7 +46,15 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         sponsorImage.image = image ?? UIImage(named:"noImage")
         sponsorTitle.text = "\(titleText ?? "There is no name")"
         sponsorLocation.text = "\(locationText ?? "There is no location")"
-        sponsorWebsite.text = "\(websiteText ?? "There is no website")"
+        sponsorWebsite.setTitle(websiteText, for: .normal)
+        sponsorWebsite.setTitle("There is no website", for: .disabled)
+        if URL.init(string: websiteText ?? "uh oh") != nil {
+            sponsorWebsite.isEnabled = true
+        }else {
+            sponsorWebsite.isEnabled = false
+            
+        }
+        
         sponsorDescription.text = "\(descriptionText ?? "There is no description")"
 
         
@@ -61,7 +69,7 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     
     
     
-    //Table View Functions
+    //MARK: - TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -99,5 +107,21 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func openURL(_ sender: UIButton) {
+        guard let urlString = sender.titleLabel?.text else { return }
+        
+        if let url = URL.init(string: urlString){
+            
+            let UIApplicationOpenURLOptionUniversalLinksOnly: String = "Test?"
+            let urlOptions: [String:Any] = [UIApplicationOpenURLOptionUniversalLinksOnly:true]
+            UIApplication.shared.open(url, options: urlOptions, completionHandler: nil)
+        }
+        
+        
+        
+        
+    }
+    
+    
 }
