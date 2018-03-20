@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate{
     
 
     @IBOutlet weak var sponsorImage: UIImageView!
@@ -20,6 +21,8 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var imageViewBorder: UIView!
     @IBOutlet weak var descriptionSubview: UIView!
     
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     var image:UIImage?
     var titleText:String?
     var locationText:String?
@@ -27,11 +30,11 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     var descriptionText:String?
     var mentorList: [Mentor]?
     
-    @IBOutlet weak var navItem: UINavigationItem!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         
         descriptionSubview.clipsToBounds = true
@@ -109,19 +112,33 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     */
     
     @IBAction func openURL(_ sender: UIButton) {
-        guard let urlString = sender.titleLabel?.text else { return }
+        guard var urlString = sender.titleLabel?.text else { return }
+
+        urlString = "https://www.\(urlString)"
         
-        if let url = URL.init(string: urlString){
+        
+        if let url = URL(string: urlString) {
             
-            let UIApplicationOpenURLOptionUniversalLinksOnly: String = "Test?"
-            let urlOptions: [String:Any] = [UIApplicationOpenURLOptionUniversalLinksOnly:true]
-            UIApplication.shared.open(url, options: urlOptions, completionHandler: nil)
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+
         }
+
         
-        
-        
-        
+
     }
+//  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+//
+//        if navigationType == UIWebViewNavigationType.linkClicked {
+//            UIApplication.shared.open(<#T##url: URL##URL#>, options: <#T##[String : Any]#>, completionHandler: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+//            return false
+//        }
+//
+//        return true
+//    }
     
     
 }
