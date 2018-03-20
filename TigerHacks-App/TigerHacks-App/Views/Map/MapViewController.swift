@@ -132,7 +132,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "mapEventDetail", sender: self)
+    }
     /*
     // MARK: - Navigation
 
