@@ -8,13 +8,14 @@
 
 import UIKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate {
     
     
     
     @IBOutlet weak var floorSelector: UISegmentedControl!
     @IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var mapTableView: UITableView!
+    @IBOutlet weak var mapScrollView: UIScrollView!
     
     
     
@@ -32,6 +33,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         mapTableView.dataSource = self
         mapTableView.delegate = self
         mapImageView.image = testArray[floorSelector.selectedSegmentIndex]
+        self.mapScrollView.minimumZoomScale = 1.0
+        self.mapScrollView.maximumZoomScale = 8.0
         
         
         
@@ -135,6 +138,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "mapEventDetail", sender: self)
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.mapImageView
     }
     /*
     // MARK: - Navigation

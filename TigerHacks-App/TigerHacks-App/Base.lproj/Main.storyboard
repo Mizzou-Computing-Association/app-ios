@@ -97,6 +97,9 @@
                                     <constraint firstItem="wOr-Yr-XHg" firstAttribute="leading" secondItem="TIw-uG-srD" secondAttribute="leading" id="udh-uB-nUG"/>
                                     <constraint firstItem="wOr-Yr-XHg" firstAttribute="width" secondItem="TIw-uG-srD" secondAttribute="width" id="yI1-fz-wPt"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="6jk-Lc-9j7" id="H2Z-iY-UcF"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -129,6 +132,7 @@
                     <connections>
                         <outlet property="floorSelector" destination="zyM-kV-wWU" id="f7E-zc-idm"/>
                         <outlet property="mapImageView" destination="I47-5H-ELc" id="Kuk-Lx-LQi"/>
+                        <outlet property="mapScrollView" destination="TIw-uG-srD" id="qx6-hC-jDA"/>
                         <outlet property="mapTableView" destination="Fqm-bA-K7n" id="Bwy-hS-aNb"/>
                         <segue destination="Tsl-tO-JKi" kind="show" identifier="mapEventDetail" id="6CL-3g-IGv"/>
                     </connections>
