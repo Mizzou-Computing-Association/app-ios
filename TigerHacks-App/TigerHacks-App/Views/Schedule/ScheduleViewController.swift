@@ -56,6 +56,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         scheduleTableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "scheduleEventDetail", sender: self)
     }
     
 
