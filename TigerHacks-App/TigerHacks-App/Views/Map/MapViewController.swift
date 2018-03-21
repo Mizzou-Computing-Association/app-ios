@@ -19,7 +19,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     
-    let testArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
+    let testImageArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
+    
     
     let myCalendar = Calendar.current
     
@@ -32,7 +33,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.viewDidLoad()
         mapTableView.dataSource = self
         mapTableView.delegate = self
-        mapImageView.image = testArray[floorSelector.selectedSegmentIndex]
+        mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
         self.mapScrollView.minimumZoomScale = 1.0
         self.mapScrollView.maximumZoomScale = 8.0
         
@@ -52,13 +53,48 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         
-        floorOneEvents = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule", title: "Game Party",description: "Hanging out and playing games"),
-                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule", title: "Lunch",description: "Hanging out and playing games")]
+        let testEventArray = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
+                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
+                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
         
-        floorTwoEvents = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner"),
-                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner")]
-        floorThreeEvents = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come"),
-                          Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come")]
+        // Sorting for actual schedule. Oops did it in the wrong thing but i'm not deleting it
+//        for event in testEventArray {
+//            if event.time.timeIntervalSince1970 < 1539406799 {
+//
+//            }else if event.time.timeIntervalSince1970 > 1539406799 && event.time.timeIntervalSince1970 < 1539493199 {
+//
+//            }else {
+//
+//            }
+//        }
+        floorOneEvents = []
+        floorTwoEvents = []
+        floorThreeEvents = []
+        
+        for event in testEventArray {
+            if event.floor == 1 {
+                floorOneEvents?.append(event)
+                
+            }else if event.floor == 2 {
+                floorTwoEvents?.append(event)
+                
+            }else if event.floor == 3 {
+                floorThreeEvents?.append(event)
+               
+            }
+        }
+        
+        
+//        floorOneEvents = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule", title: "Game Party",description: "Hanging out and playing games"),
+//                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule", title: "Lunch",description: "Hanging out and playing games")]
+//
+//        floorTwoEvents = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner"),
+//                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner")]
+//        floorThreeEvents = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come"),
+//                          Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come")]
         
         
         
@@ -71,7 +107,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
         
-        mapImageView.image = testArray[sender.selectedSegmentIndex]
+        mapImageView.image = testImageArray[sender.selectedSegmentIndex]
         mapTableView.reloadData()
     }
     
