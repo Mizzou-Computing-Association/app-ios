@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate {
+class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     
     
@@ -96,7 +96,12 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
     
+        //Taps
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 2
+        mapScrollView.addGestureRecognizer(tap)
         
     }
 
@@ -143,6 +148,9 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
     }
     
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        mapScrollView.setZoomScale(1.0, animated: true)
+    }
     
     // MARK: - Tableview
     
