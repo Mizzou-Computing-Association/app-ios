@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate {
+class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     
     
@@ -98,6 +98,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 2
+        mapScrollView.addGestureRecognizer(tap)
         
         
     }
@@ -109,7 +113,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
         
-        mapScrollView.zoomScale = 1.0
+        mapScrollView.setZoomScale(1.0, animated: true)
         mapImageView.image = testImageArray[sender.selectedSegmentIndex]
         mapTableView.reloadData()
     }
@@ -142,6 +146,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 break
             }
         }
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        mapScrollView.setZoomScale(1.0, animated: true)
     }
     
     
