@@ -88,15 +88,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
         
-//        floorOneEvents = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule", title: "Game Party",description: "Hanging out and playing games"),
-//                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule", title: "Lunch",description: "Hanging out and playing games")]
-//
-//        floorTwoEvents = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner"),
-//                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner")]
-//        floorThreeEvents = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come"),
-//                          Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come")]
-        
-        
         
     }
 
@@ -107,6 +98,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
         
+        mapScrollView.zoomScale = 1.0
         mapImageView.image = testImageArray[sender.selectedSegmentIndex]
         mapTableView.reloadData()
     }
