@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate {
+class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     
     
@@ -19,7 +19,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     
-    let testArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
+    let testImageArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
+    
     
     let myCalendar = Calendar.current
     
@@ -32,7 +33,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.viewDidLoad()
         mapTableView.dataSource = self
         mapTableView.delegate = self
-        mapImageView.image = testArray[floorSelector.selectedSegmentIndex]
+        mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
         self.mapScrollView.minimumZoomScale = 1.0
         self.mapScrollView.maximumZoomScale = 8.0
         
@@ -52,15 +53,55 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         
-        floorOneEvents = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule", title: "Game Party",description: "Hanging out and playing games"),
-                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule", title: "Lunch",description: "Hanging out and playing games")]
+        let testEventArray = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
+                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
+                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
+                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
         
-        floorTwoEvents = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner"),
-                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway", title: "Dinner",description: "Eating dinner")]
-        floorThreeEvents = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come"),
-                          Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet", title: "Nothin",description: "Don't come")]
+        // Sorting for actual schedule. Oops did it in the wrong thing but i'm not deleting it
+//        for event in testEventArray {
+//            if event.time.timeIntervalSince1970 < 1539406799 {
+//
+//            }else if event.time.timeIntervalSince1970 > 1539406799 && event.time.timeIntervalSince1970 < 1539493199 {
+//
+//            }else {
+//
+//            }
+//        }
+        floorOneEvents = []
+        floorTwoEvents = []
+        floorThreeEvents = []
         
+        for event in testEventArray {
+            if event.floor == 1 {
+                floorOneEvents?.append(event)
+                
+            }else if event.floor == 2 {
+                floorTwoEvents?.append(event)
+                
+            }else if event.floor == 3 {
+                floorThreeEvents?.append(event)
+               
+            }
+        }
+        //Swipe to change level
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    
+        //Taps
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        tap.delegate = self
+        tap.numberOfTapsRequired = 2
+        mapScrollView.addGestureRecognizer(tap)
         
     }
 
@@ -71,11 +112,45 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
         
-        mapImageView.image = testArray[sender.selectedSegmentIndex]
+        mapScrollView.zoomScale = 1.0
+        mapImageView.image = testImageArray[sender.selectedSegmentIndex]
         mapTableView.reloadData()
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                
+                if floorSelector.selectedSegmentIndex == 0 {
+                    floorSelector.selectedSegmentIndex = 1
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }else if floorSelector.selectedSegmentIndex == 1 {
+                    floorSelector.selectedSegmentIndex = 2
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }
+            case UISwipeGestureRecognizerDirection.right:
+                
+                if floorSelector.selectedSegmentIndex == 2 {
+                    floorSelector.selectedSegmentIndex = 1
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }else if floorSelector.selectedSegmentIndex == 1 {
+                    floorSelector.selectedSegmentIndex = 0
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }
+            default:
+                break
+            }
+        }
+    }
     
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        mapScrollView.setZoomScale(1.0, animated: true)
+    }
     
     // MARK: - Tableview
     
