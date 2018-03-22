@@ -87,6 +87,14 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             }
         }
         
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
+    
         
         
     }
@@ -103,6 +111,36 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         mapTableView.reloadData()
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                
+                if floorSelector.selectedSegmentIndex == 0 {
+                    floorSelector.selectedSegmentIndex = 1
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }else if floorSelector.selectedSegmentIndex == 1 {
+                    floorSelector.selectedSegmentIndex = 2
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }
+            case UISwipeGestureRecognizerDirection.right:
+                
+                if floorSelector.selectedSegmentIndex == 2 {
+                    floorSelector.selectedSegmentIndex = 1
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }else if floorSelector.selectedSegmentIndex == 1 {
+                    floorSelector.selectedSegmentIndex = 0
+                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                    mapTableView.reloadData()
+                }
+            default:
+                break
+            }
+        }
+    }
     
     
     // MARK: - Tableview
