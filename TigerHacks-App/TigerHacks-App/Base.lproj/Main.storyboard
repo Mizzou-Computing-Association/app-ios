@@ -436,7 +436,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ekx-CF-a0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3145" y="-484"/>
+            <point key="canvasLocation" x="2017" y="208"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MGU-8p-pGZ">
