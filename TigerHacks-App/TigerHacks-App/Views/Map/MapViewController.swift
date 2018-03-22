@@ -86,6 +86,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
                
             }
         }
+        //Swipe to change level
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
