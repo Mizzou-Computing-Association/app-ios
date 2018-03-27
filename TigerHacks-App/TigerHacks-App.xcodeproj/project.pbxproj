@@ -33,7 +33,6 @@
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
 		83F2AFD42054A05B00A137E5 /* TigerTalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* TigerTalk.swift */; };
-		E2BD02AE20646E3C00F9F3F6 /* TigerHacks-App.app in Resources */ = {isa = PBXBuildFile; fileRef = 834C30AA20532FFB003DA584 /* TigerHacks-App.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -251,7 +250,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2BD02AE20646E3C00F9F3F6 /* TigerHacks-App.app in Resources */,
 				834C30BB20532FFB003DA584 /* LaunchScreen.storyboard in Resources */,
 				834C30B820532FFB003DA584 /* Assets.xcassets in Resources */,
 				834C30B320532FFB003DA584 /* Main.storyboard in Resources */,
