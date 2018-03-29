@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30AD20532FFB003DA584 /* AppDelegate.swift */; };
 		834C30B320532FFB003DA584 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B120532FFB003DA584 /* Main.storyboard */; };
-		834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834C30B420532FFB003DA584 /* TigerHacks_App.xcdatamodeld */; };
 		834C30B820532FFB003DA584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B720532FFB003DA584 /* Assets.xcassets */; };
 		834C30BB20532FFB003DA584 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834C30B920532FFB003DA584 /* LaunchScreen.storyboard */; };
 		834C30C32053307B003DA584 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30C22053307B003DA584 /* Event.swift */; };
@@ -33,7 +32,6 @@
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
 		83F2AFD42054A05B00A137E5 /* TigerTalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* TigerTalk.swift */; };
-		E2BD02AE20646E3C00F9F3F6 /* TigerHacks-App.app in Resources */ = {isa = PBXBuildFile; fileRef = 834C30AA20532FFB003DA584 /* TigerHacks-App.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -251,7 +249,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2BD02AE20646E3C00F9F3F6 /* TigerHacks-App.app in Resources */,
 				834C30BB20532FFB003DA584 /* LaunchScreen.storyboard in Resources */,
 				834C30B820532FFB003DA584 /* Assets.xcassets in Resources */,
 				834C30B320532FFB003DA584 /* Main.storyboard in Resources */,
@@ -279,7 +276,6 @@
 				834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */,
 				834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */,
 				834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */,
-				834C30B620532FFB003DA584 /* TigerHacks_App.xcdatamodeld in Sources */,
 				83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */,
 				834C30C92053309E003DA584 /* Mentor.swift in Sources */,
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,
