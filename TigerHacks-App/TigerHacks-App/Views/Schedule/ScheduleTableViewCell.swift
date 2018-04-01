@@ -21,5 +21,7 @@ class ScheduleTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 @IBOutlet weak var eventNameLabel: UILabel!
+@IBOutlet weak var eventNameLabel2: UILabel!
+@IBOutlet weak var eventNameLabel3: UILabel!
     
 }

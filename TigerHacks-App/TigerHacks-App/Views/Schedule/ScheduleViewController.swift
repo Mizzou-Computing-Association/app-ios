@@ -71,7 +71,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell1", for: indexPath) as! ScheduleTableViewCell
         cell.eventNameLabel.text = testDayOneArray[indexPath.row].title
         return cell
     }
