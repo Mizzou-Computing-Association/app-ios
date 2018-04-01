@@ -53,12 +53,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         
-        let testEventArray = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games"),
-                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
-                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
-                              Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
-                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
-                              Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
+        let testEventArray = Model.sharedInstance.dayOneSchedule!
         
         // Sorting for actual schedule. Oops did it in the wrong thing but i'm not deleting it
 //        for event in testEventArray {
