@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct TigerTalk {
-    var videoURL:String?
-    var description:String?
+struct Resource {
+    var url: String
+    var title: String
+    var description: String
 }

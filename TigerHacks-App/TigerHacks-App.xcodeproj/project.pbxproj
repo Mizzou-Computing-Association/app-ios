@@ -31,7 +31,7 @@
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
-		83F2AFD42054A05B00A137E5 /* TigerTalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* TigerTalk.swift */; };
+		83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* Resource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +62,7 @@
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorTableViewCell.swift; sourceTree = "<group>"; };
-		83F2AFD32054A05B00A137E5 /* TigerTalk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalk.swift; sourceTree = "<group>"; };
+		83F2AFD32054A05B00A137E5 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +121,7 @@
 				834C30CA205330AC003DA584 /* Model.swift */,
 				834C30C22053307B003DA584 /* Event.swift */,
 				834C30C420533085003DA584 /* Prize.swift */,
-				83F2AFD32054A05B00A137E5 /* TigerTalk.swift */,
+				83F2AFD32054A05B00A137E5 /* Resource.swift */,
 				834C30C620533096003DA584 /* Sponsor.swift */,
 				834C30C82053309E003DA584 /* Mentor.swift */,
 			);
@@ -279,7 +279,7 @@
 				83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */,
 				834C30C92053309E003DA584 /* Mentor.swift in Sources */,
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,
-				83F2AFD42054A05B00A137E5 /* TigerTalk.swift in Sources */,
+				83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */,
 				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,
 				834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */,
 				834C30E320534B62003DA584 /* MapViewController.swift in Sources */,
@@ -426,7 +426,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CY884D2HTC;
+				DEVELOPMENT_TEAM = 89YGS6UCLW;
 				INFOPLIST_FILE = "TigerHacks-App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
@@ -443,7 +443,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CY884D2HTC;
+				DEVELOPMENT_TEAM = 89YGS6UCLW;
 				INFOPLIST_FILE = "TigerHacks-App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
