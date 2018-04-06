@@ -13,44 +13,17 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var prizeTableView: UITableView!
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
     
-    let testBeginnerPrizes = [
-        Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway",image:nil),
-                            title: "Beginner Prize",
-                            reward: "Nothing",
-                            description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                            prizeType: PrizeType.beginner),
-                      Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway",image:nil),
-                            title: "Beginner Prize",
-                            reward: "Something",
-                            description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                            prizeType: PrizeType.beginner)]
+    var testBeginnerPrizes = [Prize]()
     
-    let testMainPrizes = [
-                              Prize(sponsor: Sponsor(mentors: nil,name: "Cerner",description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",website: "Cerner.com",location: "Table 6, Main Hallway",image:nil),
-                                    title: "Make the World Better for us",
-                                    reward: "4 trips to a Cerner sponsored hospital facility",
-                                    description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                                    prizeType: PrizeType.main),
-                              Prize(sponsor: Sponsor(mentors: nil,name: "RJI",description: "we write articles blah blah blah",website: "Cerner.com",location: "Table 7, Main Hallway",image:nil),
-                                    title: "Do Something for the J-School",
-                                    reward: "A big ol' drone",
-                                    description: "You better do this one",
-                                    prizeType: PrizeType.main),
-                              Prize(sponsor: Sponsor(mentors: nil,name: "Google",description: "we google stuff but really its just bing",website: "google.com/careers",location: "Table 99, Main Hallway",image:nil),
-                                    title: "Snooping For Google",
-                                    reward: "A google home wink wink",
-                                    description: "This prize is awarded to the hack that best encompasses Google's mission statement to farm as much information about literally everyone",
-                                    prizeType: PrizeType.main),
-                              Prize(sponsor: Sponsor(mentors: nil,name: "Microsoft",description: "we search stuff but also computers. Really everything",website: "microsoft.com/careers",location: "Table 10, Main Hallway",image:nil),
-                                    title: "Figure out PageRank",
-                                    reward: "We'll hire you",
-                                    description: "This prize is awarded to the hack that best figures out how the hell Google is ranking all those pages",
-                                    prizeType: PrizeType.main)]
+    var testMainPrizes = [Prize]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        Model.sharedInstance.fakeAPICall()
+        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+        testMainPrizes = Model.sharedInstance.mainPrizes!
         
         self.prizeTableView.rowHeight = 80;
         prizeTableView.delegate = self

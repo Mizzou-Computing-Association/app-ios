@@ -12,73 +12,14 @@ private let reuseIdentifier = "sponsorCell"
 
 class SponsorsCollectionViewController: UICollectionViewController {
 
-    let testArray = [UIImage(named:"linkedInPhoto"),UIImage(named:"sherduck"),UIImage(named:"waterPoloBall")]
     
-    let testSponsorArray = [Sponsor(mentors: nil,
-                                    name: "AirBnb",
-                                    description: "we find homes that you can rent. Undercut the hotels",
-                                    website: "airbnb.com",
-                                    location: "Table 5, Main Hallway",
-                                    image: UIImage(named:"airbnb")),
-                            Sponsor(mentors: nil,
-                                    name: "Cerner",
-                                    description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-                                    website: "Cerner.com",
-                                    location: "Table 6, Main Hallway",
-                                    image: UIImage(named:"cerner")),
-                            Sponsor(mentors: nil,
-                                    name: "Google",
-                                    description: "we google stuff all day",
-                                    website: "google.com",
-                                    location: "Table 7, Main Hallway",
-                                    image: UIImage(named:"google")),
-                            Sponsor(mentors: nil,
-                                    name: "Pied Piper",
-                                    description: "Compression software haha relevant topical joke software",
-                                    website: "There is no website",
-                                    location: "Table 8, Main Hallway",
-                                    image: UIImage(named:"piedpiper")),
-                            Sponsor(mentors: nil,
-                                    name: "Microsoft",
-                                    description: "we bing stuff all day",
-                                    website: "bing.com",
-                                    location: "Table 9, Main Hallway",
-                                    image: UIImage(named:"microsoft")),
-                            Sponsor(mentors: nil,
-                                    name: "FulcrumGT",
-                                    description: nil,
-                                    website: nil,
-                                    location: nil,
-                                    image: nil),
-                            Sponsor(mentors: nil,
-                                    name: "Fulcrum GT",
-                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                    website: "dogfood.org",
-                                    location: "Table 10, Main Hallway",
-                                    image: UIImage(named:"fulcrumgt")),
-                            Sponsor(mentors: nil,
-                                    name: "Fulcrum GT",
-                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                    website: "dogfood.org",
-                                    location: "Table 10, Main Hallway",
-                                    image: UIImage(named:"fulcrumgt")),
-                            Sponsor(mentors: nil,
-                                    name: "Fulcrum GT",
-                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                    website: "dogfood.org",
-                                    location: "Table 10, Main Hallway",
-                                    image: UIImage(named:"fulcrumgt")),
-                            Sponsor(mentors: nil,
-                                    name: "Fulcrum GT",
-                                    description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                    website: "dogfood.org",
-                                    location: "Table 10, Main Hallway",
-                                    image: UIImage(named:"fulcrumgt"))]
+    var sponsors = [Sponsor]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //self.collectionView!.register(SponsorCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        Model.sharedInstance.fakeAPICall()
+        sponsors = Model.sharedInstance.sponsors!
         
         let numberOfCells = CGFloat(2)
         
@@ -124,7 +65,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return testSponsorArray.count
+        return sponsors.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +77,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
         
         
-        if let image = testSponsorArray[indexPath.row].image {
+        if let image = sponsors[indexPath.row].image {
             cell.sponsorImage?.image = image
         }else {
             cell.sponsorImage?.image = UIImage(named:"noImage")
@@ -155,7 +96,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
         let selectedItem = collectionView?.indexPathsForSelectedItems?.first
         
         if let row = selectedItem?.row {
-            let sponsor = testSponsorArray[row]
+            let sponsor = sponsors[row]
             
             if let image = sponsor.image {
                 destination.image = image
