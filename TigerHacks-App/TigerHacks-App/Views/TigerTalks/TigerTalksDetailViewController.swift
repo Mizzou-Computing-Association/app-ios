@@ -31,6 +31,7 @@ class TigerTalksDetailViewController: UIViewController {
     func getVideo(videoCode: String) {
         
         //let urlString = "https://www.youtube.com/embed/\(videoCode)"
+        //https://www.youtube.com/embed/RmHqOSrkZnk
         
         if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
             videoWebView.load(URLRequest(url: url))

@@ -10,14 +10,13 @@ import UIKit
 
 class TigerTalksTableViewController: UITableViewController {
 
+    var resources = [Resource]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        Model.sharedInstance.fakeAPICall()
+        
+        resources = Model.sharedInstance.resources!
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,14 +33,14 @@ class TigerTalksTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return resources.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "talkCell", for: indexPath) as! TigerTalksTableViewCell
-
-        
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = resources[indexPath.row].title
 
         return cell
     }
