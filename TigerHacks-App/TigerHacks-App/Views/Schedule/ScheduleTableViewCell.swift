@@ -10,6 +10,10 @@ import UIKit
 
 class ScheduleTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var eventLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,8 +24,5 @@ class ScheduleTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-@IBOutlet weak var eventNameLabel: UILabel!
-@IBOutlet weak var eventNameLabel2: UILabel!
-@IBOutlet weak var eventNameLabel3: UILabel!
-    
+
 }

@@ -55,7 +55,31 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
-        cell.eventNameLabel.text = testDayOneArray[indexPath.row].title
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        
+        
+        switch daySwitcher.selectedSegmentIndex {
+            case 0:
+                cell.eventLabel.text = testDayOneArray[indexPath.row].title
+                cell.locationLabel.text = testDayOneArray[indexPath.row].location
+                cell.timeLabel.text = dateFormatter.string(from: testDayOneArray[indexPath.row].time)
+            case 1:
+                cell.eventLabel.text = testDayTwoArray[indexPath.row].title
+                cell.locationLabel.text = testDayTwoArray[indexPath.row].location
+                cell.timeLabel.text = dateFormatter.string(from: testDayTwoArray[indexPath.row].time)
+            case 2:
+                cell.eventLabel.text = testDayThreeArray[indexPath.row].title
+                cell.locationLabel.text = testDayThreeArray[indexPath.row].location
+                cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
+            default:
+                cell.eventLabel.text = "There is NO Event"
+                cell.locationLabel.text = "Who Knows Where"
+                cell.timeLabel.text = "No Time"
+        }
+        
         return cell
     }
     
