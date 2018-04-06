@@ -20,7 +20,7 @@ class Model {
     var dayTwoSchedule:[Event]?
     var dayThreeSchedule:[Event]?
     var prizes:[Prize]?
-    var tigerTalks:[String]?
+    var resources:[Resource]?
     
     func fakeAPICall(){
         
