@@ -16,8 +16,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var daySwitcher: UISegmentedControl!
     
     var testDayOneArray: [Event] = []
-    let testDayTwoArray: [Event] = []
-    let testDayThreeArray: [Event] = []
+    var testDayTwoArray: [Event] = []
+    var testDayThreeArray: [Event] = []
     
     
     override func viewDidLoad() {
@@ -26,6 +26,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         Model.sharedInstance.fakeAPICall()
 
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
+        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
         scheduleTableView.reloadData()
         // Do any additional setup after loading the view.
     }
