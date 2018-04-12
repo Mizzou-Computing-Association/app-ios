@@ -488,7 +488,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYc-2X-jwQ">
-                                <rect key="frame" x="16" y="83" width="74.5" height="42"/>
+                                <rect key="frame" x="16" y="83" width="343" height="42"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="35"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -542,6 +542,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="A38-Q0-22K" firstAttribute="trailing" secondItem="aYc-2X-jwQ" secondAttribute="trailing" constant="16" id="1vL-12-Wff"/>
                             <constraint firstItem="012-8C-4CY" firstAttribute="leading" secondItem="A38-Q0-22K" secondAttribute="leading" constant="9" id="3eK-D0-onY"/>
                             <constraint firstItem="012-8C-4CY" firstAttribute="top" secondItem="5ZS-TB-mUY" secondAttribute="bottom" constant="3" id="7LN-ct-TPn"/>
                             <constraint firstItem="aYc-2X-jwQ" firstAttribute="top" secondItem="A38-Q0-22K" secondAttribute="top" constant="19" id="DGu-9i-D5i"/>
@@ -1022,7 +1023,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6CL-3g-IGv"/>
+        <segue reference="aTH-MJ-Dtv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

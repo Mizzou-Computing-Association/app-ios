@@ -81,6 +81,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             cell.eventLabel.text = testDayThreeArray[indexPath.row].title
             cell.locationLabel.text = testDayThreeArray[indexPath.row].location
             cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
+            print(dateFormatter.string(from: testDayThreeArray[indexPath.row].time))
         default:
             cell.eventLabel.text = "There is NO Event"
             cell.locationLabel.text = "Who Knows Where"
