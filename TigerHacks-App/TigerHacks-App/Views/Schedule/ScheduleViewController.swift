@@ -9,9 +9,9 @@
 import UIKit
 
 class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
     
-
+    
+    
     @IBOutlet weak var scheduleTableView: UITableView!
     @IBOutlet weak var daySwitcher: UISegmentedControl!
     
@@ -23,25 +23,31 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        //TODO: move api calls to somewhere better probably
         Model.sharedInstance.fakeAPICall()
-
+        super.viewDidLoad()
+        //fake change
+        
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
         testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
         testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
         scheduleTableView.reloadData()
+        // Do any additional setup after loading the view.
         
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -63,22 +69,22 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
         
         switch daySwitcher.selectedSegmentIndex {
-            case 0:
-                cell.eventLabel.text = testDayOneArray[indexPath.row].title
-                cell.locationLabel.text = testDayOneArray[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: testDayOneArray[indexPath.row].time)
-            case 1:
-                cell.eventLabel.text = testDayTwoArray[indexPath.row].title
-                cell.locationLabel.text = testDayTwoArray[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: testDayTwoArray[indexPath.row].time)
-            case 2:
-                cell.eventLabel.text = testDayThreeArray[indexPath.row].title
-                cell.locationLabel.text = testDayThreeArray[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
-            default:
-                cell.eventLabel.text = "There is NO Event"
-                cell.locationLabel.text = "Who Knows Where"
-                cell.timeLabel.text = "No Time"
+        case 0:
+            cell.eventLabel.text = testDayOneArray[indexPath.row].title
+            cell.locationLabel.text = testDayOneArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: testDayOneArray[indexPath.row].time)
+        case 1:
+            cell.eventLabel.text = testDayTwoArray[indexPath.row].title
+            cell.locationLabel.text = testDayTwoArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: testDayTwoArray[indexPath.row].time)
+        case 2:
+            cell.eventLabel.text = testDayThreeArray[indexPath.row].title
+            cell.locationLabel.text = testDayThreeArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
+        default:
+            cell.eventLabel.text = "There is NO Event"
+            cell.locationLabel.text = "Who Knows Where"
+            cell.timeLabel.text = "No Time"
         }
         
         return cell
@@ -89,14 +95,41 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         scheduleTableView.deselectRow(at: indexPath, animated: true)
     }
     
-
+    
     @IBAction func changeDay(_ sender: UISegmentedControl) {
         scheduleTableView.reloadData()
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer){
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                
+                if daySwitcher.selectedSegmentIndex == 0 {
+                    daySwitcher.selectedSegmentIndex = 1
+                    scheduleTableView.reloadData()
+                }else if daySwitcher.selectedSegmentIndex == 1 {
+                    daySwitcher.selectedSegmentIndex = 2
+                    scheduleTableView.reloadData()
+                }
+            case UISwipeGestureRecognizerDirection.right:
+                
+                if daySwitcher.selectedSegmentIndex == 2{
+                    daySwitcher.selectedSegmentIndex = 1
+                    scheduleTableView.reloadData()
+                }else if daySwitcher.selectedSegmentIndex == 1 {
+                    daySwitcher.selectedSegmentIndex = 0
+                    scheduleTableView.reloadData()
+                }
+            default:
+                break
+            }
+        }
+    }
     
- 
-     // MARK: - Navigation
+    
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
@@ -123,30 +156,33 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             destination.descriptionText = testDayThreeArray[selectedRow.row].description
         }
         
-//        switch daySwitcher.selectedSegmentIndex {
-//        case 0:
-//            destination.titleText = testDayOneArray[(selectedRow?.row)!].title
-//            destination.locationText = testDayOneArray[(selectedRow?.row)!].location
-//            destination.timeText = dateFormatter.string(from: testDayOneArray[(selectedRow?.row)!].time)
-//            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
-//        case 1:
-//            destination.titleText = testDayTwoArray[selectedRow?.row].title
-//            destination.locationText = testDayTwoArray[(selectedRow?.row)!].location
-//            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
-//            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
-//        case 2:
-//            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
-//            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
-//            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
-//            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
-//        default:
-//            destination.titleText = "No Title"
-//            destination.locationText = "No Location"
-//            destination.timeText = "No Time"
-//            destination.descriptionText = "No Description"
-//        }
+        //        switch daySwitcher.selectedSegmentIndex {
+        //        case 0:
+        //            destination.titleText = testDayOneArray[(selectedRow?.row)!].title
+        //            destination.locationText = testDayOneArray[(selectedRow?.row)!].location
+        //            destination.timeText = dateFormatter.string(from: testDayOneArray[(selectedRow?.row)!].time)
+        //            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
+        //        case 1:
+        //            destination.titleText = testDayTwoArray[selectedRow?.row].title
+        //            destination.locationText = testDayTwoArray[(selectedRow?.row)!].location
+        //            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
+        //            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
+        //        case 2:
+        //            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
+        //            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
+        //            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
+        //            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
+        //        default:
+        //            destination.titleText = "No Title"
+        //            destination.locationText = "No Location"
+        //            destination.timeText = "No Time"
+        //            destination.descriptionText = "No Description"
+        //        }
     }
-
+    
+    //this is the swipe function to change between days
+    
+    @IBAction func swipeRight(_ sender: Any) {
+    }
     
 }
-
