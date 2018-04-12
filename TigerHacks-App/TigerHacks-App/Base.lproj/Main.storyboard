@@ -129,6 +129,7 @@
                                 <segment title="Floor 2"/>
                                 <segment title="Floor 3"/>
                             </segments>
+                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="changeLevelOfMap:" destination="6jk-Lc-9j7" eventType="valueChanged" id="jkC-ou-Pf6"/>
                             </connections>
@@ -218,6 +219,7 @@
                                 <segment title="Main"/>
                                 <segment title="Beginner"/>
                             </segments>
+                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="changeSection:" destination="gAm-gB-hPp" eventType="valueChanged" id="NJZ-Mp-bOC"/>
                             </connections>
@@ -327,7 +329,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Xvg-jx-Won" firstAttribute="top" secondItem="Q8L-CZ-kZP" secondAttribute="top" constant="25" id="30c-p8-Yx3"/>
                             <constraint firstItem="de9-2f-EVV" firstAttribute="trailing" secondItem="i2X-q1-LcF" secondAttribute="trailing" id="33t-gO-cdS"/>
@@ -461,6 +463,7 @@
                                 <segment title="Saturday"/>
                                 <segment title="Sunday"/>
                             </segments>
+                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="changeDay:" destination="AZY-Tr-e2g" eventType="valueChanged" id="tOw-1h-LS4"/>
                             </connections>
@@ -577,6 +580,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.96470588235294119" green="0.59607843137254901" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="JyF-GQ-chw" kind="relationship" relationship="viewControllers" id="SW0-xE-SfF"/>
@@ -594,11 +599,14 @@
         <scene sceneID="iTr-kj-w5X">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wMF-po-wGm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Prizes" image="gift-7" selectedImage="gift-7" id="gHS-9c-bpQ"/>
+                    <tabBarItem key="tabBarItem" title="Prizes" image="gift-7" selectedImage="gift-7" id="gHS-9c-bpQ">
+                        <color key="badgeColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZgO-aN-bIv">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -826,6 +834,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BhH-51-iGM">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -951,6 +960,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bSn-m7-Y3i">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -970,6 +980,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uwY-X5-xox">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -984,11 +995,14 @@
         <scene sceneID="p8U-AE-cgS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vqS-5s-nJp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sponsors" image="crown-7" selectedImage="crown-7" id="qTp-Gl-Og1"/>
+                    <tabBarItem key="tabBarItem" title="Sponsors" image="crown-7" selectedImage="crown-7" id="qTp-Gl-Og1">
+                        <color key="badgeColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yzl-hJ-m4l">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1008,6 +1022,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aTH-MJ-Dtv"/>
+        <segue reference="6CL-3g-IGv"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
