@@ -53,7 +53,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         
-        let testEventArray = Model.sharedInstance.dayOneSchedule!
+        let testEventArray = Model.sharedInstance.fullSchedule!
         
         // Sorting for actual schedule. Oops did it in the wrong thing but i'm not deleting it
 //        for event in testEventArray {

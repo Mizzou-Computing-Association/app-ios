@@ -26,6 +26,8 @@ class Model {
     var mainPrizes:[Prize]?
     var resources:[Resource]?
     
+    var fullSchedule:[Event]?
+    
     func fakeAPICall(){
         
         //Schedule Dummy Data
@@ -60,6 +62,7 @@ class Model {
         
         dayThreeSchedule = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
                             Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
+        
         
         //Sponsor Dummy Data
         sponsors = [Sponsor(mentors: nil,
@@ -159,6 +162,12 @@ class Model {
         
         //Resource Dummy Data
         resources = [Resource(url: "https://www.google.com", title: "Google", description: "It's a website for googling things that you should use probably a whole lot."),Resource(url: "https://www.bing.com", title: "Bing", description: "It's a website for binging things that you should use probably not a whole lot."),Resource(url: "https://www.yahoo.com", title: "Yahoo", description: "It's a website for yahooing (sp?) things that you should use probably not a whole lot."),Resource(url: "https://www.youtube.com/embed/RmHqOSrkZnk", title: "Embedding Videos into a WebView Tutorial", description: "Tutorial for embedding youtube videos into an iOS app. ")]
+        
+        //Map Dummy Data
+        fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games"),Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
+                        Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
+                        Event(time: myCalendar.date(from: dateComponents4)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
+                        Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
         
     }
     
