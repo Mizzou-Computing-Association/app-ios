@@ -16,6 +16,7 @@ class Model {
     init() {
         
     }
+    
     var sponsors:[Sponsor]?
     var dayOneSchedule:[Event]?
     var dayTwoSchedule:[Event]?
@@ -26,6 +27,7 @@ class Model {
     
     func fakeAPICall(){
         
+        //Schedule Dummy Data
         let myCalendar = Calendar.current
         
         var dateComponents = DateComponents()
@@ -41,7 +43,6 @@ class Model {
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         
-        //Schedule Dummy Data
         dayOneSchedule = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games")]
         
         dayTwoSchedule = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
