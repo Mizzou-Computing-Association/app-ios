@@ -19,6 +19,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     var testDayTwoArray: [Event] = []
     var testDayThreeArray: [Event] = []
     
+    let dateFormatter = DateFormatter()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
         testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
         scheduleTableView.reloadData()
-        // Do any additional setup after loading the view.
+        
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,11 +61,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! ScheduleTableViewCell
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        
         
         switch daySwitcher.selectedSegmentIndex {
             case 0:
@@ -100,7 +99,33 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
      // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! EventDetailViewController
+        let selectedRow = scheduleTableView.indexPathForSelectedRow
         
+        //Assign Values to any outlets in Event Detail
+        
+        switch daySwitcher.selectedSegmentIndex {
+        case 0:
+            destination.titleText = testDayOneArray[selectedRow?.row ?? 0].title
+            destination.locationText = testDayOneArray[selectedRow?.row ?? 0].location
+            destination.timeText = dateFormatter.string(from: testDayOneArray[selectedRow?.row ?? 0].time)
+            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
+        case 1:
+            destination.titleText = testDayTwoArray[selectedRow?.row ?? 0].title
+            destination.locationText = testDayTwoArray[selectedRow?.row ?? 0].location
+            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
+            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
+        case 2:
+            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
+            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
+            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
+            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
+        default:
+            destination.titleText = "No Title"
+            destination.locationText = "No Location"
+            destination.timeText = "No Time"
+            destination.descriptionText = "No Description"
+        }
     }
 
     

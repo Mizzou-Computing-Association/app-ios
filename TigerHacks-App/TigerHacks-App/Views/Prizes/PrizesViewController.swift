@@ -97,7 +97,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let destination = segue.destination as! PrizeDetailViewController
         let selectedRow = prizeTableView.indexPathForSelectedRow
         
-        //Assign values to any outlets in Prize Detail Below
+        //Assign values to any outlets in Prize Detail 
         
         if prizeTypeSwitcher.selectedSegmentIndex == 0 {
             destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
