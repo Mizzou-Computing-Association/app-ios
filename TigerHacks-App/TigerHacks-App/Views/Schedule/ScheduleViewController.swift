@@ -85,8 +85,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "eventSegue", sender: self)
         scheduleTableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "scheduleEventDetail", sender: self)
     }
     
 
@@ -100,32 +100,51 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
-        let selectedRow = scheduleTableView.indexPathForSelectedRow
+        guard let selectedRow = scheduleTableView.indexPathForSelectedRow else{return}
         
         //Assign Values to any outlets in Event Detail
         
-        switch daySwitcher.selectedSegmentIndex {
-        case 0:
-            destination.titleText = testDayOneArray[selectedRow?.row ?? 0].title
-            destination.locationText = testDayOneArray[selectedRow?.row ?? 0].location
-            destination.timeText = dateFormatter.string(from: testDayOneArray[selectedRow?.row ?? 0].time)
-            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
-        case 1:
-            destination.titleText = testDayTwoArray[selectedRow?.row ?? 0].title
-            destination.locationText = testDayTwoArray[selectedRow?.row ?? 0].location
-            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
-            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
-        case 2:
-            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
-            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
-            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
-            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
-        default:
-            destination.titleText = "No Title"
-            destination.locationText = "No Location"
-            destination.timeText = "No Time"
-            destination.descriptionText = "No Description"
+        if daySwitcher.selectedSegmentIndex == 0 {
+            destination.titleText = testDayOneArray[selectedRow.row].title
+            destination.locationText = testDayOneArray[selectedRow.row ].location
+            destination.timeText = dateFormatter.string(from: testDayOneArray[selectedRow.row].time)
+            destination.descriptionText = testDayOneArray[selectedRow.row].description
         }
+        else if daySwitcher.selectedSegmentIndex == 1{
+            destination.titleText = testDayTwoArray[selectedRow.row].title
+            destination.locationText = testDayTwoArray[selectedRow.row].location
+            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow.row].time)
+            destination.descriptionText = testDayTwoArray[selectedRow.row].description
+        }
+        else {
+            destination.titleText = testDayThreeArray[selectedRow.row].title
+            destination.locationText = testDayThreeArray[selectedRow.row].location
+            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow.row].time)
+            destination.descriptionText = testDayThreeArray[selectedRow.row].description
+        }
+        
+//        switch daySwitcher.selectedSegmentIndex {
+//        case 0:
+//            destination.titleText = testDayOneArray[(selectedRow?.row)!].title
+//            destination.locationText = testDayOneArray[(selectedRow?.row)!].location
+//            destination.timeText = dateFormatter.string(from: testDayOneArray[(selectedRow?.row)!].time)
+//            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
+//        case 1:
+//            destination.titleText = testDayTwoArray[selectedRow?.row].title
+//            destination.locationText = testDayTwoArray[(selectedRow?.row)!].location
+//            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
+//            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
+//        case 2:
+//            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
+//            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
+//            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
+//            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
+//        default:
+//            destination.titleText = "No Title"
+//            destination.locationText = "No Location"
+//            destination.timeText = "No Time"
+//            destination.descriptionText = "No Description"
+//        }
     }
 
     

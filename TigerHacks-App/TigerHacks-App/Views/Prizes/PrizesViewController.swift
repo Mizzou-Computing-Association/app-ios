@@ -14,7 +14,6 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
     
     var testBeginnerPrizes = [Prize]()
-    
     var testMainPrizes = [Prize]()
     
     
@@ -97,7 +96,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let destination = segue.destination as! PrizeDetailViewController
         let selectedRow = prizeTableView.indexPathForSelectedRow
         
-        //Assign values to any outlets in Prize Detail 
+        //Assign values to any outlets in Prize Detail
         
         if prizeTypeSwitcher.selectedSegmentIndex == 0 {
             destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor

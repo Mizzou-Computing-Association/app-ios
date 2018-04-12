@@ -469,7 +469,7 @@
                     <connections>
                         <outlet property="daySwitcher" destination="4Wg-KD-dtt" id="zqv-Bh-W7f"/>
                         <outlet property="scheduleTableView" destination="1F8-16-a0T" id="V9w-uR-tzE"/>
-                        <segue destination="Tsl-tO-JKi" kind="show" identifier="scheduleEventDetail" id="lKu-Yh-jCH"/>
+                        <segue destination="Tsl-tO-JKi" kind="show" identifier="eventSegue" id="aTH-MJ-Dtv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qmd-6h-r8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1008,6 +1008,6 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6CL-3g-IGv"/>
+        <segue reference="aTH-MJ-Dtv"/>
     </inferredMetricsTieBreakers>
 </document>
