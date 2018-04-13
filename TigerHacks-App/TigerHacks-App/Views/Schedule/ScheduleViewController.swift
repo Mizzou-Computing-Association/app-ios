@@ -41,6 +41,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -129,6 +130,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
     
     
     // MARK: - Navigation
@@ -157,29 +169,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow.row].time)
             destination.descriptionText = testDayThreeArray[selectedRow.row].description
         }
-        
-        //        switch daySwitcher.selectedSegmentIndex {
-        //        case 0:
-        //            destination.titleText = testDayOneArray[(selectedRow?.row)!].title
-        //            destination.locationText = testDayOneArray[(selectedRow?.row)!].location
-        //            destination.timeText = dateFormatter.string(from: testDayOneArray[(selectedRow?.row)!].time)
-        //            destination.descriptionText = testDayOneArray[selectedRow?.row ?? 0].description
-        //        case 1:
-        //            destination.titleText = testDayTwoArray[selectedRow?.row].title
-        //            destination.locationText = testDayTwoArray[(selectedRow?.row)!].location
-        //            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow?.row ?? 0].time)
-        //            destination.descriptionText = testDayTwoArray[selectedRow?.row ?? 0].description
-        //        case 2:
-        //            destination.titleText = testDayThreeArray[selectedRow?.row ?? 0].title
-        //            destination.locationText = testDayThreeArray[selectedRow?.row ?? 0].location
-        //            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow?.row ?? 0].time)
-        //            destination.descriptionText = testDayThreeArray[selectedRow?.row ?? 0].description
-        //        default:
-        //            destination.titleText = "No Title"
-        //            destination.locationText = "No Location"
-        //            destination.timeText = "No Time"
-        //            destination.descriptionText = "No Description"
-        //        }
     }
     
     //this is the swipe function to change between days
@@ -188,3 +177,4 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
 }
+

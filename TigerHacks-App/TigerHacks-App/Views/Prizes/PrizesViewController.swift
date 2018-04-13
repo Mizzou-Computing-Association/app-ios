@@ -30,6 +30,17 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         prizeTableView.rowHeight = UITableViewAutomaticDimension
         prizeTableView.estimatedRowHeight = 140
+        
+        
+        //Swipe to change level
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        self.view.addGestureRecognizer(swipeLeft)
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,6 +120,25 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
             destination.descriptionText = testBeginnerPrizes[selectedRow?.row ?? 0].description
             destination.titleText = testBeginnerPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = testBeginnerPrizes[selectedRow?.row ?? 0].reward
+        }
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.left:
+                if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 1
+                    prizeTableView.reloadData()
+                }
+            case UISwipeGestureRecognizerDirection.right:
+                if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 0
+                    prizeTableView.reloadData()
+                }
+            default:
+                break
+            }
         }
     }
     
