@@ -25,7 +25,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         Model.sharedInstance.fakeAPICall()
         super.viewDidLoad()
-        //fake change
+        
+        dateFormatter.timeStyle = .short
         
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
         testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
