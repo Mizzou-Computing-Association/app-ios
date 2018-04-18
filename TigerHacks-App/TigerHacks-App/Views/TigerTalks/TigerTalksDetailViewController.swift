@@ -14,12 +14,23 @@ class TigerTalksDetailViewController: UIViewController {
 
     
     @IBOutlet weak var videoWebView: WKWebView!
+    @IBOutlet weak var descriptionSubview: UIView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     let testVideoCode = "RmHqOSrkZnk"
+    var videoCode: String?
+    var descriptionText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getVideo(videoCode: testVideoCode)
+        getVideo(videoCode: videoCode ?? "")
+        descriptionSubview.clipsToBounds = true
+        descriptionSubview.layer.cornerRadius = 20
+        descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        
+        descriptionLabel.text = descriptionText ?? "No Description"
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

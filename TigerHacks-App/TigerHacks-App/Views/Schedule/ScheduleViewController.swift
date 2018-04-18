@@ -23,9 +23,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     override func viewDidLoad() {
-        Model.sharedInstance.fakeAPICall()
         super.viewDidLoad()
-        
+        Model.sharedInstance.fakeAPICall()
         dateFormatter.timeStyle = .short
         
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
@@ -170,11 +169,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             destination.descriptionText = testDayThreeArray[selectedRow.row].description
         }
     }
-    
-    //this is the swipe function to change between days
-    
-    @IBAction func swipeRight(_ sender: Any) {
-    }
-    
 }
+
+
 

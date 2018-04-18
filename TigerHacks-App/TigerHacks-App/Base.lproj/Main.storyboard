@@ -623,6 +623,21 @@
             </objects>
             <point key="canvasLocation" x="2016.8" y="207.34632683658174"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="E7c-aM-vqO">
+            <objects>
+                <viewController id="CHO-lX-hQd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dm9-4V-XGI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="FZh-eC-tOC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QgG-Hl-HMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2841" y="-393"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MGU-8p-pGZ">
             <objects>
@@ -896,7 +911,7 @@
             </objects>
             <point key="canvasLocation" x="460" y="-1190"/>
         </scene>
-        <!--Tiger Talks-->
+        <!--Resources-->
         <scene sceneID="uPb-GJ-3jY">
             <objects>
                 <tableViewController id="qbD-Hx-TWb" customClass="TigerTalksTableViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -926,9 +941,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="qXe-cL-An8" kind="show" id="y5T-Yt-zJL"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -936,9 +948,13 @@
                             <outlet property="delegate" destination="qbD-Hx-TWb" id="rmy-Sf-PZg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tiger Talks" id="5WX-5U-Riq">
+                    <navigationItem key="navigationItem" title="Resources" id="5WX-5U-Riq">
                         <barButtonItem key="backBarButtonItem" title=" " id="anR-Hl-KmI"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="qXe-cL-An8" kind="show" identifier="tigerTalkSegue" id="Y85-0i-c3l"/>
+                        <segue destination="CHO-lX-hQd" kind="show" identifier="resourceSegue" id="VPL-yU-eqv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVg-pb-uvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -964,30 +980,40 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFf-Ir-X3i">
-                                <rect key="frame" x="16" y="260" width="100" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="28" y="260" width="137" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="998-Js-AkU">
-                                <rect key="frame" x="16" y="292" width="343" height="326"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="laQ-bM-eWh">
+                                <rect key="frame" x="21" y="298" width="333" height="36.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="998-Js-AkU">
+                                        <rect key="frame" x="15" y="8" width="303" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="0.31402504279999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="326" id="wfa-49-BwM"/>
+                                    <constraint firstAttribute="bottom" secondItem="998-Js-AkU" secondAttribute="bottom" constant="8" id="54m-ck-SDc"/>
+                                    <constraint firstItem="998-Js-AkU" firstAttribute="top" secondItem="laQ-bM-eWh" secondAttribute="top" constant="8" id="BEz-db-lYk"/>
+                                    <constraint firstAttribute="trailing" secondItem="998-Js-AkU" secondAttribute="trailing" constant="15" id="Ieh-40-Ijx"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="MSb-xE-qUV"/>
+                                    <constraint firstItem="998-Js-AkU" firstAttribute="leading" secondItem="laQ-bM-eWh" secondAttribute="leading" constant="15" id="lmb-cX-G1Y"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d23-F4-gkA" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" constant="8" id="1ux-bK-y8H"/>
-                            <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="gFf-Ir-X3i" secondAttribute="trailing" constant="259" id="5wJ-dV-Ixi"/>
-                            <constraint firstItem="998-Js-AkU" firstAttribute="top" secondItem="gFf-Ir-X3i" secondAttribute="bottom" constant="8" id="EYQ-aI-7Mx"/>
-                            <constraint firstItem="998-Js-AkU" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" constant="16" id="I9F-mX-7jj"/>
+                            <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="gFf-Ir-X3i" secondAttribute="trailing" constant="210" id="5wJ-dV-Ixi"/>
+                            <constraint firstItem="laQ-bM-eWh" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" constant="21" id="K8L-WI-36q"/>
+                            <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="laQ-bM-eWh" secondAttribute="trailing" constant="21" id="PPT-oM-uZs"/>
                             <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="d23-F4-gkA" secondAttribute="trailing" constant="8" id="UuF-Od-pLS"/>
-                            <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="998-Js-AkU" secondAttribute="trailing" constant="16" id="aIA-w8-zcn"/>
-                            <constraint firstItem="gFf-Ir-X3i" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" constant="16" id="o9s-TS-mtz"/>
+                            <constraint firstItem="laQ-bM-eWh" firstAttribute="top" secondItem="gFf-Ir-X3i" secondAttribute="bottom" constant="8" id="hmW-lS-dKW"/>
+                            <constraint firstItem="gFf-Ir-X3i" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" constant="28" id="o9s-TS-mtz"/>
                             <constraint firstItem="gFf-Ir-X3i" firstAttribute="top" secondItem="d23-F4-gkA" secondAttribute="bottom" constant="8" id="qrO-Nv-jJl"/>
                             <constraint firstItem="d23-F4-gkA" firstAttribute="top" secondItem="L4c-tJ-OdM" secondAttribute="top" constant="8" id="yR6-ye-b5N"/>
                         </constraints>
@@ -995,12 +1021,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="S3F-lJ-Bnx"/>
                     <connections>
+                        <outlet property="descriptionLabel" destination="998-Js-AkU" id="vdT-Qr-Lcr"/>
+                        <outlet property="descriptionSubview" destination="laQ-bM-eWh" id="bCR-kv-hen"/>
                         <outlet property="videoWebView" destination="d23-F4-gkA" id="f9u-ab-qI7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Vq-zm-46X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1989.5999999999999" y="-483.50824587706148"/>
+            <point key="canvasLocation" x="2836" y="-1084"/>
         </scene>
         <!--TigerTalks-->
         <scene sceneID="YDO-Zm-ao1">
