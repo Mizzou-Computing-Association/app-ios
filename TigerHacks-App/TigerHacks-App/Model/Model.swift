@@ -28,6 +28,9 @@ class Model {
     
     var fullSchedule:[Event]?
     
+    let youtubeAPIKey = "AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
+    let getRequestString = "GET https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=UUeKx_seoPvAs4vyXCdCmUGA&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
+    let testGetRequestString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     func fakeAPICall(){
         
         //Schedule Dummy Data
@@ -176,5 +179,77 @@ class Model {
         
     }
     
+//MARK: - JSON Loading and Parsing for Youtube TigerTalks
+    func youtubeLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([YoutubeSnippet]?, String?) -> Void) {
+        
+        let config = URLSessionConfiguration.default // Session Configuration
+        let session = URLSession(configuration: config) // Load configuration into Session
+        
+        guard let url = URL(string: testGetRequestString) else {
+            dispatchQueueForHandler.async(execute: {
+                completionHandler(nil, "the url for requesting a channel is invalid")
+            })
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        let task = session.dataTask(with: urlRequest) {
+            (data, response, error) in
+            
+            guard error == nil, let data = data else {
+                var errorString = "data not available for requested channel "
+                if let error = error {
+                    errorString = error.localizedDescription
+                }
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+                return
+            }
+            
+            let (snippets, errorString) = self.youtubeParse(with: data)
+            
+            if let errorString = errorString {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+            } else {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(snippets, nil)
+                })
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func youtubeParse(with data: Data) -> ([YoutubeSnippet]?, String?) {
+        var snippets = [YoutubeSnippet]()
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let rootNode = json as? [String: Any] else {
+                return (nil, "unable to parse response from server")
+        }
+        
+        
+        if let items = rootNode["items"] as? [[String: Any]] {
+            for item in items {
+                if let snippetNode = item["snippet"] as? [String: Any],
+                    let snippetTitle = snippetNode["title"] as? String,
+                    let snippetDescription = snippetNode["description"] as? String,
+                    let resourceNode = snippetNode["resourceId"] as? [String: Any],
+                    let videoId = resourceNode["videoId"] as? String {
+                    
+                    let resourceId = YoutubeResourceID(videoId: videoId)
+                    let snippet = YoutubeSnippet(title: snippetTitle, description: snippetDescription, resourceId: resourceId )
+                    
+                    snippets.append(snippet)
+                }
+            }
+        }
+        return (snippets,nil)
+    }
     
 }

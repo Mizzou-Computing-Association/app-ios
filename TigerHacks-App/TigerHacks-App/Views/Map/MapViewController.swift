@@ -29,6 +29,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var floorTwoEvents:[Event]?
     var floorThreeEvents:[Event]?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapTableView.dataSource = self
@@ -36,8 +38,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
         self.mapScrollView.minimumZoomScale = 1.0
         self.mapScrollView.maximumZoomScale = 8.0
-        
-        
         
         
         var dateComponents = DateComponents()
@@ -181,7 +181,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         
-        
         switch floorSelector.selectedSegmentIndex {
             case 0:
                 cell.eventLabel.text = floorOneEvents?[indexPath.row].title ?? ""
@@ -206,8 +205,40 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "mapEventDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! EventDetailViewController
+        guard let selectedRow = mapTableView.indexPathForSelectedRow else {return}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        switch floorSelector.selectedSegmentIndex {
+        case 0:
+            destination.titleText = floorOneEvents?[selectedRow.row].title ?? ""
+            destination.locationText = floorOneEvents?[selectedRow.row].location ?? ""
+            destination.timeText = dateFormatter.string(from: floorOneEvents![selectedRow.row].time)
+            destination.descriptionText = floorOneEvents?[selectedRow.row].description ?? ""
+        case 1:
+            destination.titleText = floorTwoEvents?[selectedRow.row].title ?? ""
+            destination.locationText = floorTwoEvents?[selectedRow.row].location ?? ""
+            destination.timeText = dateFormatter.string(from: floorTwoEvents![selectedRow.row].time)
+            destination.descriptionText = floorTwoEvents?[selectedRow.row].description ?? ""
+        case 2:
+            destination.titleText = floorThreeEvents?[selectedRow.row].title ?? ""
+            destination.locationText = floorThreeEvents?[selectedRow.row].location ?? ""
+            destination.timeText = dateFormatter.string(from: floorThreeEvents![selectedRow.row].time)
+            destination.descriptionText = floorThreeEvents?[selectedRow.row].description ?? ""
+        default:
+            destination.titleText = "There is NO Event"
+            destination.locationText = "Who Knows Where"
+            destination.timeText = "No Time"
+            destination.descriptionText = "No Description"
+        }
+        
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
