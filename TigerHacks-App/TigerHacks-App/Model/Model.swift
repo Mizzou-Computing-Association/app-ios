@@ -63,7 +63,12 @@ class Model {
         dayThreeSchedule = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
                             Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
         
+        //Mentor Dunny Data
         
+        var cernerMentors = [Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>),
+            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
+        var airbnbMentors = [Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>),
+            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
         //Sponsor Dummy Data
         sponsors = [Sponsor(mentors: nil,
                                         name: "AirBnb",
