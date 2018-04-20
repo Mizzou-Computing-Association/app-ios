@@ -33,8 +33,9 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        if let titleText = titleText {
+            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
+        }
         
         
         descriptionSubview.clipsToBounds = true
@@ -91,8 +92,8 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         
         
         if let mentor = mentorList?[indexPath.row] {
-            cell.textLabel?.text = mentor.name
-            cell.detailTextLabel?.text = mentor.skills?.first
+            cell.mentorNameLabel?.text = mentor.name
+            cell.mentorSkillsLabel?.text = mentor.skills?.first
         }
         
         return cell
