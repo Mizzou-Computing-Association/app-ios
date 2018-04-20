@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		834C30AA20532FFB003DA584 /* TigerHacks-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TigerHacks-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		834C30AA20532FFB003DA584 /* New Tiger Hacks */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "New Tiger Hacks"; path = "../../../../../../../../Desktop/Coding/New Tiger Hacks"; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C30AD20532FFB003DA584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		834C30B220532FFB003DA584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		834C30B520532FFB003DA584 /* TigerHacks_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TigerHacks_App.xcdatamodel; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		834C30AB20532FFB003DA584 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				834C30AA20532FFB003DA584 /* TigerHacks-App.app */,
+				834C30AA20532FFB003DA584 /* New Tiger Hacks */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 			);
 			name = "TigerHacks-App";
 			productName = "TigerHacks-App";
-			productReference = 834C30AA20532FFB003DA584 /* TigerHacks-App.app */;
+			productReference = 834C30AA20532FFB003DA584 /* New Tiger Hacks */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

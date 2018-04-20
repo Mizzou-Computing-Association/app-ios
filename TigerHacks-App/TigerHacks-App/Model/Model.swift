@@ -66,15 +66,22 @@ class Model {
         dayThreeSchedule = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
                             Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
         
-        
+        //Mentor Dummy Data
+
+        let cernerMentors = [Mentor(name: "Awesome Cerner Guy" , skills: ["Computers" , "Eating Apples" ] , contact: "999-999-999")]
+//            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
+//        var airbnbMentors = [Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>),
+//            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
         //Sponsor Dummy Data
+        
+        
         sponsors = [Sponsor(mentors: nil,
                                         name: "AirBnb",
                                         description: "we find homes that you can rent. Undercut the hotels",
                                         website: "airbnb.com",
                                         location: "Table 5, Main Hallway",
                                         image: UIImage(named:"airbnb")),
-                                Sponsor(mentors: nil,
+                                Sponsor(mentors: cernerMentors,
                                         name: "Cerner",
                                         description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
                                         website: "Cerner.com",
