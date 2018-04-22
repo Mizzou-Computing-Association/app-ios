@@ -33,6 +33,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpNavBar()
         mapTableView.dataSource = self
         mapTableView.delegate = self
         mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
@@ -98,6 +99,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         tap.numberOfTapsRequired = 2
         mapScrollView.addGestureRecognizer(tap)
         
+    }
+    
+    func setUpNavBar() {
+        
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
     override func didReceiveMemoryWarning() {

@@ -16,6 +16,7 @@ class TigerTalksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Model.sharedInstance.fakeAPICall()
+        setUpNavBar()
         Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {
             (snippets, errorString) in
             if let errorString = errorString {
@@ -34,6 +35,11 @@ class TigerTalksTableViewController: UITableViewController {
         resources = Model.sharedInstance.resources!
         
 
+    }
+    
+    func setUpNavBar() {
+        
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
     override func didReceiveMemoryWarning() {

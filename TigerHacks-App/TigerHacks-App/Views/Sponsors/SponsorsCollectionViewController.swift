@@ -17,6 +17,8 @@ class SponsorsCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpNavBar()
+        
 
         Model.sharedInstance.fakeAPICall()
         sponsors = Model.sharedInstance.sponsors!
@@ -38,6 +40,10 @@ class SponsorsCollectionViewController: UICollectionViewController {
         }
 
         
+    }
+    func setUpNavBar() {
+        
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
     override func didReceiveMemoryWarning() {

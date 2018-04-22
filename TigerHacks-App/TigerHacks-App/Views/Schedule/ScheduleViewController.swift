@@ -23,8 +23,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     override func viewDidLoad() {
+        //MARK: Setup, paste this where it is needed
         super.viewDidLoad()
         Model.sharedInstance.fakeAPICall()
+        self.setUpNavBar()
+        
         dateFormatter.timeStyle = .short
         
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
@@ -41,6 +44,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
 
+    }
+    //paste this
+    func setUpNavBar() {
+   
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+
+        //Tab bar?
+        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
+        
+        //This pesky fucker won't go away wtf
+        tabBarController?.tabBar.shadowImage =  UIImage();
+        
     }
     
     override func didReceiveMemoryWarning() {
