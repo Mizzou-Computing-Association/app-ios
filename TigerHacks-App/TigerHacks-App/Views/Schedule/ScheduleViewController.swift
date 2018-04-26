@@ -18,6 +18,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     var testDayOneArray: [Event] = []
     var testDayTwoArray: [Event] = []
     var testDayThreeArray: [Event] = []
+    var refreshControl: UIRefreshControl!
     
     let dateFormatter = DateFormatter()
     
@@ -44,6 +45,23 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
 
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        //Action triggered when table view pulled and released
+        scheduleTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender:Any) {
+        fetchEventData()
+        //Fetch Event Data
+    }
+    
+    func fetchEventData() {
+        Model.sharedInstance.fakeAPICall()
+        scheduleTableView.reloadData()
+        self.refreshControl.endRefreshing()
+        //Update user interface after fetch and end refreshing
     }
     //paste this
     func setUpNavBar() {
