@@ -70,7 +70,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
         //Tab bar?
         tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
-        
+//        tabBarController?.tabBar.layer.op
         //This pesky fucker won't go away wtf
         tabBarController?.tabBar.shadowImage =  UIImage();
         
