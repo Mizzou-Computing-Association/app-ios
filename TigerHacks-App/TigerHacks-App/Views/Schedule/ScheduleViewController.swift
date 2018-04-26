@@ -18,13 +18,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     var testDayOneArray: [Event] = []
     var testDayTwoArray: [Event] = []
     var testDayThreeArray: [Event] = []
+    var refreshControl: UIRefreshControl!
     
     let dateFormatter = DateFormatter()
     
     
     override func viewDidLoad() {
+        //MARK: Setup, paste this where it is needed
         super.viewDidLoad()
         Model.sharedInstance.fakeAPICall()
+        self.setUpNavBar()
+        
         dateFormatter.timeStyle = .short
         
         testDayOneArray = Model.sharedInstance.dayOneSchedule!
@@ -41,6 +45,35 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
 
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        //Action triggered when table view pulled and released
+        scheduleTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender:Any) {
+        fetchEventData()
+        //Fetch Event Data
+    }
+    
+    func fetchEventData() {
+        Model.sharedInstance.fakeAPICall()
+        scheduleTableView.reloadData()
+        self.refreshControl.endRefreshing()
+        //Update user interface after fetch and end refreshing
+    }
+    //paste this
+    func setUpNavBar() {
+   
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+
+        //Tab bar?
+        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
+//        tabBarController?.tabBar.layer.op
+        //This pesky fucker won't go away wtf
+        tabBarController?.tabBar.shadowImage =  UIImage();
+        
     }
     
     override func didReceiveMemoryWarning() {

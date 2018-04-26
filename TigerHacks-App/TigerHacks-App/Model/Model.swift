@@ -254,4 +254,42 @@ class Model {
         return (snippets,nil)
     }
     
+    func setBarGradient(navigationBar:UINavigationBar) {
+        //set gradient
+        navigationBar.setBackgroundImage(Model.sharedInstance.setGredientImageNavBar(), for: UIBarMetrics.default)
+        //Get rid of that pesky top lines
+            navigationBar.shadowImage = UIImage()
+    }
+    
+    //MARK: Gradient color
+    func setGredientImageNavBar()->UIImage {
+        //Color is here 251    248    227
+        let colorsMove = [
+            UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0),
+            UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
+        var gradientImageMove = UIImage()
+        if DeviceType.IS_IPHONE_X {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88))
+        }
+        else {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64))
+        }
+        return gradientImageMove
+    }
+    
+    func setGradientImageTabBar() -> UIImage{
+        let colorsMove = [
+        UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0),
+        UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0)]
+        var gradientImageMove = UIImage()
+        if DeviceType.IS_IPHONE_X {
+        gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88))
+        }
+        else {
+        gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64))
+        }
+        return gradientImageMove
+    }
+    
+    
 }

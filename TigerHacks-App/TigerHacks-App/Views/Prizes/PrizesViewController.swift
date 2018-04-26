@@ -19,7 +19,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpNavBar()
         Model.sharedInstance.fakeAPICall()
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
         testMainPrizes = Model.sharedInstance.mainPrizes!
@@ -41,6 +41,11 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    func setUpNavBar() {
+        
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
     override func didReceiveMemoryWarning() {
