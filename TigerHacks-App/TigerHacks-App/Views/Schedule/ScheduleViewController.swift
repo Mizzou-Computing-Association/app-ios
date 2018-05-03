@@ -70,6 +70,23 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    func setDay() {
+        let date1 = "10/12/18"
+        let date2 = "10/13/18"
+        let date3 = "10/14/18"
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let currentDate = dateFormatter.string(from: Date())
+        
+        if currentDate.compare(date1) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 0
+        } else if currentDate.compare(date2) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 1
+        } else if currentDate.compare(date3) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 2
+        }
+    }
+    
     func setUpNavBar() {
    
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
