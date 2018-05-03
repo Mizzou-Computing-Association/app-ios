@@ -69,14 +69,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setDay()
+    }
     
     func setDay() {
-        let date1 = "10/12/18"
-        let date2 = "10/13/18"
-        let date3 = "10/14/18"
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let currentDate = dateFormatter.string(from: Date())
+        let longDateFormatter = DateFormatter()
+        let date1 = "10/12/2018"
+        let date2 = "10/13/2018"
+        let date3 = "10/14/2018"
+        longDateFormatter.timeZone = TimeZone.current
+        longDateFormatter.dateFormat = "MM/dd/yyyy"
+        let currentDate = longDateFormatter.string(from: Date())
         
         if currentDate.compare(date1) == .orderedSame {
             daySwitcher.selectedSegmentIndex = 0
@@ -84,7 +89,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             daySwitcher.selectedSegmentIndex = 1
         } else if currentDate.compare(date3) == .orderedSame {
             daySwitcher.selectedSegmentIndex = 2
+        }else {
+            daySwitcher.selectedSegmentIndex = 0
         }
+        scheduleTableView.reloadData()
     }
     
     func setUpNavBar() {
