@@ -52,7 +52,6 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         prizeTableView.addSubview(refreshControl)
         
-        navigationController?.navigationBar.prefersLargeTitles = true 
 
     }
 
