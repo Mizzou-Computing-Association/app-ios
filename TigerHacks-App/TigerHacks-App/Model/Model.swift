@@ -69,9 +69,7 @@ class Model {
         //Mentor Dummy Data
 
         let cernerMentors = [Mentor(name: "JJ Smith" , skills: ["Computers" , "Swift","Objective C" , "Eating Apples","Nothing else" , "That's it" ] , contact: "@cernerGuy")]
-//            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
-//        var airbnbMentors = [Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>),
-//            Mentor(name: <#T##String#>, skills: <#T##[String]?#>, contact: <#T##String?#>)]
+
         //Sponsor Dummy Data
         
         
