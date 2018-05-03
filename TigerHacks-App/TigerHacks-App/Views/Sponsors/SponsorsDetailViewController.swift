@@ -92,6 +92,19 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         
     }
     
+    func parseMentorSkills(skills: [String]) -> String {
+        var skillsCommaSeparated = ""
+        for skill in skills {
+            if skillsCommaSeparated.isEmpty {
+                skillsCommaSeparated = skillsCommaSeparated + skill
+            }else {
+                skillsCommaSeparated = skillsCommaSeparated + ", " + skill
+            }
+        }
+        
+        return skillsCommaSeparated
+    }
+    
     //MARK: - TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -109,11 +122,15 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentorCell", for: indexPath) as! MentorTableViewCell
         
-        
         if let mentor = mentorList?[indexPath.row] {
             cell.mentorNameLabel?.text = mentor.name
-            cell.mentorSkillsLabel?.text = mentor.skills?.first
+            if let skills = mentor.skills {
+                cell.mentorSkillsLabel?.text = parseMentorSkills(skills: skills)
+            }else {
+                cell.mentorSkillsLabel?.text = "No skills!"
+            }
         }
+        
         
         return cell
     }
