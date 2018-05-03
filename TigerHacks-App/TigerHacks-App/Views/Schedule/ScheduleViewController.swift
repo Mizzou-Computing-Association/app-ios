@@ -46,24 +46,30 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.addGestureRecognizer(swipeLeft)
 
         refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        
         //Action triggered when table view pulled and released
         scheduleTableView.addSubview(refreshControl)
     }
     
     @objc func refresh(_ sender:Any) {
         fetchEventData()
-        //Fetch Event Data
     }
     
     func fetchEventData() {
         Model.sharedInstance.fakeAPICall()
-        scheduleTableView.reloadData()
-        self.refreshControl.endRefreshing()
-        //Update user interface after fetch and end refreshing
+        let when = DispatchTime.now() + 0.8
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.testDayOneArray = Model.sharedInstance.dayOneSchedule!
+            self.testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+            self.testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+            self.refreshControl.endRefreshing()
+            self.scheduleTableView.reloadData()
+            
+        }
+        
     }
-    //paste this
+    
     func setUpNavBar() {
    
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
