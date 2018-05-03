@@ -58,7 +58,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func fetchEventData() {
         Model.sharedInstance.fakeAPICall()
-        let when = DispatchTime.now() + 0.8
+        let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.testDayOneArray = Model.sharedInstance.dayOneSchedule!
             self.testDayTwoArray = Model.sharedInstance.dayTwoSchedule!

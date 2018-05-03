@@ -30,12 +30,11 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     var descriptionText:String?
     var mentorList: [Mentor]?
     
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let titleText = titleText {
-            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
-        }
+        loadMentors()
         
         
         descriptionSubview.clipsToBounds = true
@@ -61,9 +60,10 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         
         sponsorDescription.text = "\(descriptionText ?? "There is no description")"
 
-        
-        //navItem.title = image?.description
-        
+        //Refresh
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        mentorTableView.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +71,26 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         // Dispose of any resources that can be recreated.
     }
     
+    func loadMentors() {
+        if let titleText = titleText {
+            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
+        }
+    }
     
+    @objc func refresh(_ sender:Any) {
+        fetchMentorData()
+    }
+
+    func fetchMentorData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadMentors()
+            self.refreshControl.endRefreshing()
+            self.mentorTableView.reloadData()
+        }
+        
+    }
     
     //MARK: - TableView
     

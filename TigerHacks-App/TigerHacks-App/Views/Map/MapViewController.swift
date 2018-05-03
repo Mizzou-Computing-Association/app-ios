@@ -150,7 +150,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func fetchEventData() {
         Model.sharedInstance.fakeAPICall()
-        let when = DispatchTime.now() + 0.8
+        let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.testEventArray = Model.sharedInstance.fullSchedule!
             self.filterFullScheduleByFloor(fullSchedule: self.testEventArray)

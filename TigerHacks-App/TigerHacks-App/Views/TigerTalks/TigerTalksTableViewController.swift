@@ -13,6 +13,8 @@ class TigerTalksTableViewController: UITableViewController {
     var resources = [Resource]()
     var tigerTalks = [Resource]()
     var snippets = [YoutubeSnippet]()
+    //var refreshControl: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Model.sharedInstance.fakeAPICall()
@@ -34,7 +36,51 @@ class TigerTalksTableViewController: UITableViewController {
         }
         resources = Model.sharedInstance.resources!
         
+        //Refresh
+        
+        refreshControl = UIRefreshControl()
+        
+        refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        if let refreshControl = refreshControl {
+            tableView.addSubview(refreshControl)
+        }
+        
 
+    }
+    
+    func loadYoutubeVideos() {
+        
+        Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {
+            (snippets, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let snippets = snippets {
+                self.snippets = snippets
+                var tempTigerTalks = [Resource]()
+                for snippet in snippets {
+                    let tigerTalk = Resource(url: snippet.resourceId.videoId, title: snippet.title, description: snippet.description)
+                    tempTigerTalks.append(tigerTalk)
+                }
+                self.tigerTalks = tempTigerTalks
+                self.tableView.reloadData()
+            }
+        }
+    }
+    @objc func refresh(_ sender:Any) {
+        fetchResourceData()
+    }
+    
+    func fetchResourceData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadYoutubeVideos()
+            self.resources = Model.sharedInstance.resources!
+            self.refreshControl?.endRefreshing()
+            self.tableView.reloadData()
+            
+        }
+        
     }
     
     func setUpNavBar() {

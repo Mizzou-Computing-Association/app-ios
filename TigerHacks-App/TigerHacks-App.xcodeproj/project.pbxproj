@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		834C30AA20532FFB003DA584 /* New Tiger Hacks */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "New Tiger Hacks"; path = "../../../../../../../../Desktop/Coding/New Tiger Hacks"; sourceTree = BUILT_PRODUCTS_DIR; };
+		834C30AA20532FFB003DA584 /* New Tiger Hacks */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "New Tiger Hacks"; path = "TigerHacks-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C30AD20532FFB003DA584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		834C30B220532FFB003DA584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		834C30B520532FFB003DA584 /* TigerHacks_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TigerHacks_App.xcdatamodel; sourceTree = "<group>"; };
@@ -141,9 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				834C30D42053406A003DA584 /* Schedule */,
-				834C30D9205340B7003DA584 /* TigerTalks */,
 				834C30D7205340A9003DA584 /* Map */,
 				834C30D52053407F003DA584 /* Prizes */,
+				834C30D9205340B7003DA584 /* TigerTalks */,
 				834C30D62053409B003DA584 /* Sponsors */,
 			);
 			path = Views;

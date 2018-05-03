@@ -19,14 +19,10 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
     
-//    let savedFavoriteBeginnerPrizes = UserDefaults.standard
-//    let savedFavoriteMainPrizes = UserDefaults.standard
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        favoriteBeginnerPrizes = (savedFavoriteBeginnerPrizes.array(forKey: "SavedFavoriteBeginnerPrizes") as? [Prize]) ?? [Prize]()
-//        favoriteMainPrizes = (savedFavoriteMainPrizes.array(forKey: "SavedFavoriteMainPrizes") as? [Prize]) ?? [Prize]()
         
         Model.sharedInstance.fakeAPICall()
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
@@ -49,17 +45,15 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
+        
+        //Refresh
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        prizeTableView.addSubview(refreshControl)
+
     }
-    override func viewDidDisappear(_ animated: Bool) {
-//        savedFavoriteBeginnerPrizes.set(favoriteBeginnerPrizes, forKey: "SavedFavoriteBeginnerPrizes")
-//        savedFavoriteMainPrizes.set(favoriteMainPrizes, forKey: "SavedFavoriteMainPrizes")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        favoriteBeginnerPrizes = (savedFavoriteBeginnerPrizes.array(forKey: "SavedFavoriteBeginnerPrizes") as? [Prize]) ?? [Prize]()
-//        favoriteMainPrizes = (savedFavoriteMainPrizes.array(forKey: "SavedFavoriteMainPrizes") as? [Prize]) ?? [Prize]()
-        prizeTableView.reloadData()
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,6 +71,23 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     // MARK: - Table View
+    
+    @objc func refresh(_ sender:Any) {
+        fetchPrizeData()
+    }
+    
+    func fetchPrizeData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+            self.testMainPrizes = Model.sharedInstance.mainPrizes!
+            self.refreshControl.endRefreshing()
+            self.prizeTableView.reloadData()
+            
+        }
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
