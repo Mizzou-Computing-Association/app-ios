@@ -850,10 +850,18 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DD-8g-ZZ7">
+                                                    <rect key="frame" x="293" y="6.5" width="55" height="30"/>
+                                                    <state key="normal" title="Contact"/>
+                                                    <connections>
+                                                        <action selector="contactButtonTapped:" destination="DBm-UW-KRy" eventType="touchUpInside" id="aHG-11-HZq"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ZTa-3a-TJI" firstAttribute="top" secondItem="j1U-RP-5ai" secondAttribute="top" id="9Te-uO-H6F"/>
                                                 <constraint firstItem="0Mp-Sm-aHI" firstAttribute="top" secondItem="N3F-Oy-1Ev" secondAttribute="top" constant="11" id="B2C-tJ-dCP"/>
+                                                <constraint firstAttribute="trailing" secondItem="9DD-8g-ZZ7" secondAttribute="trailing" constant="27" id="I6L-Se-dKC"/>
                                                 <constraint firstAttribute="trailing" secondItem="0Mp-Sm-aHI" secondAttribute="trailing" constant="175" id="StA-DF-TcR"/>
                                                 <constraint firstItem="j1U-RP-5ai" firstAttribute="leading" secondItem="0Mp-Sm-aHI" secondAttribute="leading" id="SvM-VD-lqI"/>
                                                 <constraint firstAttribute="bottom" secondItem="ZTa-3a-TJI" secondAttribute="bottom" constant="14.5" id="Zif-o2-kDw"/>
@@ -861,9 +869,11 @@
                                                 <constraint firstItem="ZTa-3a-TJI" firstAttribute="leading" secondItem="j1U-RP-5ai" secondAttribute="trailing" constant="8" id="lxD-op-dlN"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZTa-3a-TJI" secondAttribute="trailing" constant="15" id="n1j-sE-Omm"/>
                                                 <constraint firstItem="j1U-RP-5ai" firstAttribute="top" secondItem="0Mp-Sm-aHI" secondAttribute="bottom" constant="8" id="qcD-Nu-SXP"/>
+                                                <constraint firstItem="9DD-8g-ZZ7" firstAttribute="centerY" secondItem="0Mp-Sm-aHI" secondAttribute="centerY" id="xni-Gy-2MB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="contactButton" destination="9DD-8g-ZZ7" id="JJY-8b-6KG"/>
                                             <outlet property="mentorNameLabel" destination="0Mp-Sm-aHI" id="8TE-Q1-WyV"/>
                                             <outlet property="mentorSkillsLabel" destination="ZTa-3a-TJI" id="VSA-h2-ABZ"/>
                                         </connections>
