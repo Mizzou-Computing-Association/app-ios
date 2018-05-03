@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		834C30AA20532FFB003DA584 /* New Tiger Hacks */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "New Tiger Hacks"; path = "TigerHacks-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		834C30AA20532FFB003DA584 /* TigerHacks-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TigerHacks-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		834C30AD20532FFB003DA584 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		834C30B220532FFB003DA584 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		834C30B520532FFB003DA584 /* TigerHacks_App.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TigerHacks_App.xcdatamodel; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		834C30AB20532FFB003DA584 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				834C30AA20532FFB003DA584 /* New Tiger Hacks */,
+				834C30AA20532FFB003DA584 /* TigerHacks-App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 			);
 			name = "TigerHacks-App";
 			productName = "TigerHacks-App";
-			productReference = 834C30AA20532FFB003DA584 /* New Tiger Hacks */;
+			productReference = 834C30AA20532FFB003DA584 /* TigerHacks-App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +236,7 @@
 				};
 			};
 			buildConfigurationList = 834C30A520532FFB003DA584 /* Build configuration list for PBXProject "TigerHacks-App" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -376,6 +376,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -427,7 +428,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -438,9 +440,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 89YGS6UCLW;
+				DEVELOPMENT_TEAM = CY884D2HTC;
 				INFOPLIST_FILE = "TigerHacks-App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -455,9 +461,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 89YGS6UCLW;
+				DEVELOPMENT_TEAM = CY884D2HTC;
 				INFOPLIST_FILE = "TigerHacks-App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

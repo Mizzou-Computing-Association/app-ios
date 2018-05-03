@@ -967,11 +967,27 @@
                         <outlet property="sponsorLocation" destination="W3q-KO-tkw" id="Fbk-hs-mBZ"/>
                         <outlet property="sponsorTitle" destination="C6D-1j-VDR" id="PI6-FU-3Pk"/>
                         <outlet property="sponsorWebsite" destination="5fh-hw-Ndq" id="gYY-gF-I7J"/>
+                        <segue destination="eP4-Mk-JYd" kind="show" id="vsw-4Z-rWa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9E9-ol-Qgq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2016.8" y="1762.6686656671666"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Iuo-8u-fJn">
+            <objects>
+                <viewController id="eP4-Mk-JYd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k3l-6y-IcA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Pxa-6T-hq9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mey-Ty-3zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2790" y="1762"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="UD9-iI-8ku">
