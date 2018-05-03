@@ -12,14 +12,18 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     @IBOutlet weak var prizeTableView: UITableView!
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
+    @IBOutlet weak var favoritesButton: UIBarButtonItem!
     
     var testBeginnerPrizes = [Prize]()
     var testMainPrizes = [Prize]()
+    var favoriteBeginnerPrizes = [Prize]()
+    var favoriteMainPrizes = [Prize]()
     
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpNavBar()
+        
         Model.sharedInstance.fakeAPICall()
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
         testMainPrizes = Model.sharedInstance.mainPrizes!
@@ -41,20 +45,49 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
-    }
-    
-    func setUpNavBar() {
         
-        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+        //Refresh
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        prizeTableView.addSubview(refreshControl)
+
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func toggleFavorites(_ sender: UIBarButtonItem) {
+        if favoritesButton.title == "Favorite" {
+            favoritesButton.title = "UnFavorite"
+            prizeTableView.reloadData()
+        }else {
+            favoritesButton.title = "Favorite"
+            prizeTableView.reloadData()
+        }
+    }
     
     // MARK: - Table View
+    
+    @objc func refresh(_ sender:Any) {
+        fetchPrizeData()
+    }
+    
+    func fetchPrizeData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+            self.testMainPrizes = Model.sharedInstance.mainPrizes!
+            self.refreshControl.endRefreshing()
+            self.prizeTableView.reloadData()
+            
+        }
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -62,27 +95,49 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            return testMainPrizes.count
-        }
-        else {
-            
-            return testBeginnerPrizes.count
+        if favoritesButton.title == "Favorite" {
+            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                return testMainPrizes.count
+            }
+            else {
+                
+                return testBeginnerPrizes.count
+            }
+        }else {
+            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                return favoriteMainPrizes.count
+            }
+            else {
+                
+                return favoriteBeginnerPrizes.count
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        
-        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            cell.prizeTitle.text = testMainPrizes[indexPath.row].title
-            cell.prizeReward.text = testMainPrizes[indexPath.row].reward
-        }
-        else {
+        if favoritesButton.title == "Favorite" {
+            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                cell.prizeTitle.text = testMainPrizes[indexPath.row].title
+                cell.prizeReward.text = testMainPrizes[indexPath.row].reward
+            }
+            else {
+                
+                cell.prizeTitle.text = testBeginnerPrizes[indexPath.row].title
+                cell.prizeReward.text = testBeginnerPrizes[indexPath.row].reward
+            }
+        }else {
             
-            cell.prizeTitle.text = testBeginnerPrizes[indexPath.row].title
-            cell.prizeReward.text = testBeginnerPrizes[indexPath.row].reward
+            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                cell.prizeTitle.text = favoriteMainPrizes[indexPath.row].title
+                cell.prizeReward.text = favoriteMainPrizes[indexPath.row].reward
+            }
+            else {
+                
+                cell.prizeTitle.text = favoriteBeginnerPrizes[indexPath.row].title
+                cell.prizeReward.text = favoriteBeginnerPrizes[indexPath.row].reward
+            }
         }
         
         
@@ -119,12 +174,14 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
             destination.descriptionText = testMainPrizes[selectedRow?.row ?? 0].description
             destination.titleText = testMainPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = testMainPrizes[selectedRow?.row ?? 0].reward
+            destination.typeText = "Main"
         }
         else {
             destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
             destination.descriptionText = testBeginnerPrizes[selectedRow?.row ?? 0].description
             destination.titleText = testBeginnerPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = testBeginnerPrizes[selectedRow?.row ?? 0].reward
+            destination.typeText = "Beginner"
         }
     }
     

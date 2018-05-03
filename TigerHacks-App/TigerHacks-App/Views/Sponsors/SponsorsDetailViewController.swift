@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate{
+class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate, MentorCellDelegate{
     
 
     @IBOutlet weak var sponsorImage: UIImageView!
@@ -30,12 +30,11 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     var descriptionText:String?
     var mentorList: [Mentor]?
     
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let titleText = titleText {
-            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
-        }
+        loadMentors()
         
         
         descriptionSubview.clipsToBounds = true
@@ -61,9 +60,10 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         
         sponsorDescription.text = "\(descriptionText ?? "There is no description")"
 
-        
-        //navItem.title = image?.description
-        
+        //Refresh
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        mentorTableView.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +71,62 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         // Dispose of any resources that can be recreated.
     }
     
+    func loadMentors() {
+        if let titleText = titleText {
+            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
+        }
+    }
     
+    @objc func refresh(_ sender:Any) {
+        fetchMentorData()
+    }
+
+    func fetchMentorData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadMentors()
+            self.refreshControl.endRefreshing()
+            self.mentorTableView.reloadData()
+        }
+        
+    }
+    
+    func parseMentorSkills(skills: [String]) -> String {
+        var skillsCommaSeparated = ""
+        for skill in skills {
+            if skillsCommaSeparated.isEmpty {
+                skillsCommaSeparated = skillsCommaSeparated + skill
+            }else {
+                skillsCommaSeparated = skillsCommaSeparated + ", " + skill
+            }
+        }
+        
+        return skillsCommaSeparated
+    }
+    
+    func mentorTableViewCellDidTapContact(_ sender: MentorTableViewCell) {
+        guard let tappedIndexPath = mentorTableView.indexPath(for: sender),
+            let backupUrl = URL(string: "https://slack.com/downloads/ios") else { return }
+        
+        let slackHooks = "slack://user?team=T89F9GPRR&id=U8E0F66QN"
+        let slackURL = URL(string: slackHooks)
+        
+        if UIApplication.shared.canOpenURL(slackURL!) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(slackURL!)
+            } else {
+                UIApplication.shared.openURL(slackURL!)
+            }
+        }else {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(backupUrl)
+            } else {
+                UIApplication.shared.openURL(backupUrl)
+            }
+        }
+        //Open Slack with contact url: slack://user?team=T89F9GPRR&id=U8E0F66QN
+    }
     
     //MARK: - TableView
     
@@ -90,11 +145,16 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentorCell", for: indexPath) as! MentorTableViewCell
         
-        
+        cell.delegate = self
         if let mentor = mentorList?[indexPath.row] {
             cell.mentorNameLabel?.text = mentor.name
-            cell.mentorSkillsLabel?.text = mentor.skills?.first
+            if let skills = mentor.skills {
+                cell.mentorSkillsLabel?.text = parseMentorSkills(skills: skills)
+            }else {
+                cell.mentorSkillsLabel?.text = "No skills!"
+            }
         }
+        
         
         return cell
     }
@@ -102,15 +162,6 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
     
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func openURL(_ sender: UIButton) {
         guard var urlString = sender.titleLabel?.text else { return }
@@ -131,15 +182,6 @@ class SponsorsDetailViewController: UIViewController,UITableViewDelegate,UITable
         
 
     }
-//  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-//
-//        if navigationType == UIWebViewNavigationType.linkClicked {
-//            UIApplication.shared.open(<#T##url: URL##URL#>, options: <#T##[String : Any]#>, completionHandler: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
-//            return false
-//        }
-//
-//        return true
-//    }
-    
+
     
 }

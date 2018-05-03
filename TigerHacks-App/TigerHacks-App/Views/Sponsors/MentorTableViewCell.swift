@@ -16,11 +16,16 @@ class MentorTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var mentorNameLabel: UILabel!
     @IBOutlet weak var mentorSkillsLabel: UILabel!
+    @IBOutlet weak var contactButton: UIButton!
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    weak var delegate: MentorCellDelegate?
+    
+    @IBAction func contactButtonTapped(_ sender: UIButton) {
+        delegate?.mentorTableViewCellDidTapContact(self)
     }
 
+}
+
+protocol MentorCellDelegate: class {
+    func mentorTableViewCellDidTapContact(_ sender: MentorTableViewCell)
 }
