@@ -23,7 +23,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpNavBar()
         Model.sharedInstance.fakeAPICall()
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
         testMainPrizes = Model.sharedInstance.mainPrizes!
@@ -71,8 +71,11 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     
-    // MARK: - Table View
+    func setUpNavBar() {
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+    }
     
+    // MARK: - Refresh Control
     @objc func refresh(_ sender:Any) {
         fetchPrizeData()
     }
@@ -89,7 +92,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
     }
-    
+    // MARK: - Table View
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
