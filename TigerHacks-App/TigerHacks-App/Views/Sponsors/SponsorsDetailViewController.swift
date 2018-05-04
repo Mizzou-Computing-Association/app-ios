@@ -32,10 +32,13 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     var refreshControl: UIRefreshControl!
     
+    let baseSlackHooks = "slack://user?team=T89F9GPRR&id="
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMentors()
         
+        // Label Initialization
         
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
@@ -55,12 +58,11 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
             sponsorWebsite.isEnabled = true
         }else {
             sponsorWebsite.isEnabled = false
-            
         }
-        
         sponsorDescription.text = "\(descriptionText ?? "There is no description")"
 
-        //Refresh
+        // Refresh Control
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         mentorTableView.addSubview(refreshControl)
@@ -68,8 +70,9 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+//MARK: - Load Mentor Data
     
     func loadMentors() {
         if let titleText = titleText {
@@ -78,10 +81,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc func refresh(_ sender:Any) {
-        fetchMentorData()
-    }
-
-    func fetchMentorData() {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -89,7 +88,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
             self.refreshControl.endRefreshing()
             self.mentorTableView.reloadData()
         }
-        
     }
     
     func parseMentorSkills(skills: [String]) -> String {
@@ -101,15 +99,18 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
                 skillsCommaSeparated = skillsCommaSeparated + ", " + skill
             }
         }
-        
         return skillsCommaSeparated
     }
     
+// MARK: - Open Contact URL
+    
     func mentorTableViewCellDidTapContact(_ sender: MentorTableViewCell) {
         guard let tappedIndexPath = mentorTableView.indexPath(for: sender),
-            let backupUrl = URL(string: "https://slack.com/downloads/ios") else { return }
+        let backupUrl = URL(string: "https://slack.com/downloads/ios"),
+        let mentorList = self.mentorList,
+        let mentorContact = mentorList[tappedIndexPath.row].contact else { return }
         
-        let slackHooks = "slack://user?team=T89F9GPRR&id=U8E0F66QN"
+        let slackHooks = baseSlackHooks + mentorContact
         let slackURL = URL(string: slackHooks)
         
         if UIApplication.shared.canOpenURL(slackURL!) {
@@ -125,16 +126,32 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
                 UIApplication.shared.openURL(backupUrl)
             }
         }
-        //Open Slack with contact url: slack://user?team=T89F9GPRR&id=U8E0F66QN
-    }
-    
-    //MARK: - TableView
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        //Open Slack with contact url: slack://user?team={TEAM_ID}&id={USER_ID}
+        //TEAM_ID = workspace id
+        //USER_ID = users id
+        //Will open a direct message if possible, otherwise will take you to a download link for slack
+    }
+    
+// MARK: - Open Sponsor URL
+    
+    @IBAction func openSponsorURL(_ sender: UIButton) {
+        guard let baseUrlString = sender.titleLabel?.text else { return }
+        
+        let fullUrlString = "https://www.\(baseUrlString)"
+        
+        if let url = URL(string: fullUrlString) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        }
+    }
+    
+// MARK: - TableView
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let mentorList = mentorList {
             return mentorList.count
         }else {
@@ -144,8 +161,8 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentorCell", for: indexPath) as! MentorTableViewCell
-        
         cell.delegate = self
+        
         if let mentor = mentorList?[indexPath.row] {
             cell.mentorNameLabel?.text = mentor.name
             if let skills = mentor.skills {
@@ -154,34 +171,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
                 cell.mentorSkillsLabel?.text = "No skills!"
             }
         }
-        
-        
         return cell
     }
-
-    
-    
-    
-    
-    @IBAction func openURL(_ sender: UIButton) {
-        guard var urlString = sender.titleLabel?.text else { return }
-
-        urlString = "https://www.\(urlString)"
-        
-        
-        if let url = URL(string: urlString) {
-            
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
-
-        }
-
-        
-
-    }
-
     
 }

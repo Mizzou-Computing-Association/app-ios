@@ -80,7 +80,7 @@ class Model {
         
         //Mentor Dummy Data
 
-        let cernerMentors = [Mentor(name: "JJ Smith" , skills: ["Computers" , "Swift","Objective C" , "Eating Apples","Nothing else" , "That's it" ] , contact: "@cernerGuy")]
+        let cernerMentors = [Mentor(name: "JJ Smith" , skills: ["Computers" , "Swift","Objective C" , "Eating Apples","Nothing else" , "That's it" ] , contact: "U8E0F66QN")]
 
         //Sponsor Dummy Data
         

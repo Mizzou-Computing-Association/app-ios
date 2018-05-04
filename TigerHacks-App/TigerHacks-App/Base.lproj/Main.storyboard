@@ -781,7 +781,6 @@
                                 <connections>
                                     <outlet property="sponsorImage" destination="ztK-GO-FOz" id="7ao-eB-8w7"/>
                                     <outlet property="view" destination="W9g-Uq-LgX" id="CQC-iW-TRo"/>
-                                    <segue destination="72T-hA-Ib5" kind="show" identifier="sponsorSegue" id="yhw-WE-zEw"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -791,6 +790,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Sponsors" id="FkM-eH-Lxr"/>
+                    <connections>
+                        <segue destination="72T-hA-Ib5" kind="show" identifier="sponsorSegue" id="am9-Xt-uVX"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VbG-B8-c8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -931,7 +933,7 @@
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="openURL:" destination="72T-hA-Ib5" eventType="touchUpInside" id="fzW-h2-xof"/>
+                                    <action selector="openSponsorURL:" destination="72T-hA-Ib5" eventType="touchUpInside" id="fzW-h2-xof"/>
                                 </connections>
                             </button>
                         </subviews>

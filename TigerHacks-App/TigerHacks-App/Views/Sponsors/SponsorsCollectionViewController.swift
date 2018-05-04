@@ -12,17 +12,19 @@ private let reuseIdentifier = "sponsorCell"
 
 class SponsorsCollectionViewController: UICollectionViewController {
 
-    
     var sponsors = [Sponsor]()
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpNavBar()
         
-
+        // Initial Setup
+        
+        setUpNavBar()
         Model.sharedInstance.fakeAPICall()
-        sponsors = Model.sharedInstance.sponsors!
+        loadSponsors()
+        
+        // Collection View Setup
         
         let numberOfCells = CGFloat(2)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -31,64 +33,46 @@ class SponsorsCollectionViewController: UICollectionViewController {
             flowLayout.minimumLineSpacing = 2
             
             let horizontalSpacing = flowLayout.minimumInteritemSpacing
-            
             let cellWidth = (view.frame.width - (numberOfCells-1)*horizontalSpacing)/numberOfCells
-            
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         }
+        
+        // Refresh Control
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         collectionView?.addSubview(refreshControl)
-
-        
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+// MARK: - Load Sponsors
     
     @objc func refresh(_ sender:Any) {
-        fetchSponsorData()
-    }
-    
-    func fetchSponsorData() {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.sponsors = Model.sharedInstance.sponsors!
+            self.loadSponsors()
             self.refreshControl.endRefreshing()
             self.collectionView?.reloadData()
         }
-        
     }
     
+    func loadSponsors() {
+        sponsors = Model.sharedInstance.sponsors!
+    }
+    
+//MARK: - Nav Bar Gradient
+    
     func setUpNavBar() {
-        
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-        return 1
-    }
-
+// MARK: - Collection View
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return sponsors.count
     }
 
@@ -100,19 +84,19 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.view.layer.borderWidth = 0.5
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
         
-        
         if let image = sponsors[indexPath.row].image {
             cell.sponsorImage?.image = image
         }else {
             cell.sponsorImage?.image = UIImage(named:"noImage")
         }
-        
-        
+
         return cell
     }
+    
+//MARK: - Segues
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: "sponsorSegue", sender: self)
+        performSegue(withIdentifier: "sponsorSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -132,46 +116,10 @@ class SponsorsCollectionViewController: UICollectionViewController {
             destination.locationText = sponsor.location
             destination.websiteText = sponsor.website
             destination.descriptionText = sponsor.description
-            destination.mentorList = nil
-            
+            if let mentorList = sponsor.mentors {
+                destination.mentorList = mentorList
+            }
             
         }
-        
-        
-        
     }
-    
-    
-    
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
