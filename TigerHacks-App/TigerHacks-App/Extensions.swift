@@ -11,7 +11,7 @@ import UIKit
 
 extension UIImage {
     
-    class func convertGradientToImage(colors: [UIColor], frame: CGRect) -> UIImage {
+    class func convertGradientToImage(colors: [UIColor], frame: CGRect, locations: [Double]) -> UIImage {
         
         // start with a CAGradientLayer
         let gradientLayer = CAGradientLayer()
@@ -19,7 +19,7 @@ extension UIImage {
         
         // add colors as CGCologRef to a new array and calculate the distances
         var colorsRef = [CGColor]()
-        let locations = [0,1]
+        //let locations = [0,1]
         
         for i in 0 ... colors.count-1 {
             colorsRef.append(colors[i].cgColor as CGColor)
