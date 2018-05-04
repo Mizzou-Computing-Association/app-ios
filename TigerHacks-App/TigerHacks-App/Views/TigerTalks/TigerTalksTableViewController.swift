@@ -13,42 +13,31 @@ class TigerTalksTableViewController: UITableViewController {
     var resources = [Resource]()
     var tigerTalks = [Resource]()
     var snippets = [YoutubeSnippet]()
-    //var refreshControl: UIRefreshControl!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initial Setup
+        
         Model.sharedInstance.fakeAPICall()
         setUpNavBar()
-        Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {
-            (snippets, errorString) in
-            if let errorString = errorString {
-                print("Error: \(errorString)")
-            } else if let snippets = snippets {
-                self.snippets = snippets
-                
-                for snippet in snippets {
-                    let tigerTalk = Resource(url: snippet.resourceId.videoId, title: snippet.title, description: snippet.description)
-                    self.tigerTalks.append(tigerTalk)
-                    
-                }
-                self.tableView.reloadData()
-            }
-        }
-        resources = Model.sharedInstance.resources!
+        loadResources()
         
-        //Refresh
+        // Refresh Control
         
         refreshControl = UIRefreshControl()
-        
         refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        if let refreshControl = refreshControl {
-            tableView.addSubview(refreshControl)
-        }
+        if let refreshControl = refreshControl { tableView.addSubview(refreshControl) }
         
-
     }
     
-    func loadYoutubeVideos() {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+//MARK: - Load Resources
+    
+    func loadResources() {
         
         Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {
             (snippets, errorString) in
@@ -65,38 +54,29 @@ class TigerTalksTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
-    }
-    @objc func refresh(_ sender:Any) {
-        fetchResourceData()
+        self.resources = Model.sharedInstance.resources!
+        self.tableView.reloadData()
     }
     
-    func fetchResourceData() {
+    @objc func refresh(_ sender:Any) {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.loadYoutubeVideos()
-            self.resources = Model.sharedInstance.resources!
+            self.loadResources()
             self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
-            
         }
-        
     }
     
+//MARK: - Nav Bar Gradient
+    
     func setUpNavBar() {
-        
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+// MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 2
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -113,7 +93,6 @@ class TigerTalksTableViewController: UITableViewController {
         }else {
             return resources.count
         }
-        
     }
 
     
@@ -127,14 +106,10 @@ class TigerTalksTableViewController: UITableViewController {
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = resources[indexPath.row].title
         }
-        
-
         return cell
     }
 
-
-    
-    // MARK: - Navigation
+// MARK: - Segues
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -153,9 +128,7 @@ class TigerTalksTableViewController: UITableViewController {
             destination.descriptionText = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].description
             destination.videoCode = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].url
         }else {
-            
+            // INCOMPLETE - should segue to other resource view
         }
     }
-    
-
 }

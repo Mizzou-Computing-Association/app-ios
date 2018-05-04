@@ -27,7 +27,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         //Initial Setup
-        
+
         Model.sharedInstance.fakeAPICall()
         self.setUpNavBar()
         loadSchedules()
@@ -55,28 +55,22 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-// MARK: - Refresh Control
+// MARK: - Load Schedules
     
-    @objc func refresh(_ sender:Any) {
-        fetchEventData()
+    func loadSchedules() {
+        testDayOneArray = Model.sharedInstance.dayOneSchedule!
+        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
     }
     
-    func fetchEventData() {
+    @objc func refresh(_ sender:Any) {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.loadSchedules()
             self.refreshControl.endRefreshing()
             self.scheduleTableView.reloadData()
-            
         }
-        
-    }
-    
-    func loadSchedules() {
-        testDayOneArray = Model.sharedInstance.dayOneSchedule!
-        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
-        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
     }
     
 // MARK: - Default Starting Day
