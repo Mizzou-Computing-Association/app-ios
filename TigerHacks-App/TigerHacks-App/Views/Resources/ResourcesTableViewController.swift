@@ -123,7 +123,7 @@ class ResourcesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "tigerTalkSegue" {
-            let destination = segue.destination as! ResourcesDetailViewController
+            let destination = segue.destination as! TigerTalksDetailViewController
             destination.navigationItem.title = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].title
             destination.descriptionText = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].description
             destination.videoCode = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].url

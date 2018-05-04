@@ -1049,7 +1049,7 @@
         <!--Title-->
         <scene sceneID="3EB-i2-0Ye">
             <objects>
-                <viewController id="qXe-cL-An8" customClass="ResourcesDetailViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qXe-cL-An8" customClass="TigerTalksDetailViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kdd-CT-AbF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
