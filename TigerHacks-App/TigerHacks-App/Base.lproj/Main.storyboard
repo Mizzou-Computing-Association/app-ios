@@ -37,7 +37,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
                                                     <rect key="frame" x="15" y="4" width="273" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
@@ -49,8 +49,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
                                                     <rect key="frame" x="15" y="41" width="66.5" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="1tO-2w-MjT"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
@@ -177,7 +180,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
                                                     <rect key="frame" x="15" y="30" width="312" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -466,7 +469,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-B6-SAy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-B6-SAy">
                                                     <rect key="frame" x="15" y="4" width="273" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
@@ -478,8 +481,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIU-7r-IsA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIU-7r-IsA">
                                                     <rect key="frame" x="15" y="41" width="66.5" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="RUI-JB-coP"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
@@ -837,15 +843,12 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skills:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1U-RP-5ai">
                                                     <rect key="frame" x="15" y="40" width="45" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="jEe-GJ-7by"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="skills,skills skills" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-3a-TJI">
-                                                    <rect key="frame" x="68" y="40.5" width="292" height="20.5"/>
+                                                    <rect key="frame" x="62" y="40" width="298" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -866,10 +869,10 @@
                                                 <constraint firstItem="j1U-RP-5ai" firstAttribute="leading" secondItem="0Mp-Sm-aHI" secondAttribute="leading" id="SvM-VD-lqI"/>
                                                 <constraint firstAttribute="bottom" secondItem="ZTa-3a-TJI" secondAttribute="bottom" constant="14.5" id="Zif-o2-kDw"/>
                                                 <constraint firstItem="0Mp-Sm-aHI" firstAttribute="leading" secondItem="N3F-Oy-1Ev" secondAttribute="leading" constant="15" id="lju-K1-Vc3"/>
-                                                <constraint firstItem="ZTa-3a-TJI" firstAttribute="leading" secondItem="j1U-RP-5ai" secondAttribute="trailing" constant="8" id="lxD-op-dlN"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZTa-3a-TJI" secondAttribute="trailing" constant="15" id="n1j-sE-Omm"/>
                                                 <constraint firstItem="j1U-RP-5ai" firstAttribute="top" secondItem="0Mp-Sm-aHI" secondAttribute="bottom" constant="8" id="qcD-Nu-SXP"/>
                                                 <constraint firstItem="9DD-8g-ZZ7" firstAttribute="centerY" secondItem="0Mp-Sm-aHI" secondAttribute="centerY" id="xni-Gy-2MB"/>
+                                                <constraint firstItem="ZTa-3a-TJI" firstAttribute="leading" secondItem="N3F-Oy-1Ev" secondAttribute="leading" constant="62" id="zgh-vx-xSX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -971,7 +974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9E9-ol-Qgq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2016.8" y="1762.6686656671666"/>
+            <point key="canvasLocation" x="2016.5" y="1762.5"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="UD9-iI-8ku">
@@ -991,7 +994,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L0e-HC-kPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="460" y="-1190"/>
+            <point key="canvasLocation" x="475" y="-1209"/>
         </scene>
         <!--Resources-->
         <scene sceneID="uPb-GJ-3jY">
@@ -1183,7 +1186,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6CL-3g-IGv"/>
+        <segue reference="aTH-MJ-Dtv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

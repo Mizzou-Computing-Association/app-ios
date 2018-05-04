@@ -189,22 +189,24 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapTableViewCell
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         
         switch floorSelector.selectedSegmentIndex {
             case 0:
+                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorOneEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorOneEvents[indexPath.row].time)
                 cell.eventLabel.text = floorOneEvents[indexPath.row].title
                 cell.locationLabel.text = floorOneEvents[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: floorOneEvents[indexPath.row].time)
+                cell.timeLabel.text = timeText
             case 1:
+                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorTwoEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
                 cell.eventLabel.text = floorTwoEvents[indexPath.row].title
                 cell.locationLabel.text = floorTwoEvents[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
+                cell.timeLabel.text = timeText
             case 2:
+                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
                 cell.eventLabel.text = floorThreeEvents[indexPath.row].title
                 cell.locationLabel.text = floorThreeEvents[indexPath.row].location
-                cell.timeLabel.text = dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
+                cell.timeLabel.text = timeText
             default:
                 cell.eventLabel.text = "There is NO Event"
                 cell.locationLabel.text = "Who Knows Where"

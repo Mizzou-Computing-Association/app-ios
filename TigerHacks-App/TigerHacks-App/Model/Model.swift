@@ -28,6 +28,8 @@ class Model {
     
     var fullSchedule:[Event]?
     
+    let weekdayDict: [Int:String] = [1:"Sunday",2:"Monday",3:"Tuesday",4:"Wednesday",5:"Thursday",6:"Friday",7:"Saturday"]
+    
     let youtubeAPIKey = "AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let getRequestString = "GET https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=UUeKx_seoPvAs4vyXCdCmUGA&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let testGetRequestString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
@@ -37,22 +39,32 @@ class Model {
         let myCalendar = Calendar.current
         
         var dateComponents = DateComponents()
+        dateComponents.year = 2018
+        dateComponents.month = 10
         dateComponents.day = 12
         dateComponents.hour = 20
         dateComponents.minute = 30
         var dateComponents1 = DateComponents()
+        dateComponents1.year = 2018
+        dateComponents1.month = 10
         dateComponents1.day = 13
         dateComponents1.hour = 12
         dateComponents1.minute = 00
         var dateComponents2 = DateComponents()
+        dateComponents2.year = 2018
+        dateComponents2.month = 10
         dateComponents2.day = 14
         dateComponents2.hour = 8
         dateComponents2.minute = 30
         var dateComponents3 = DateComponents()
+        dateComponents3.year = 2018
+        dateComponents3.month = 10
         dateComponents3.day = 14
         dateComponents3.hour = 1
         dateComponents3.minute = 30
         var dateComponents4 = DateComponents()
+        dateComponents4.year = 2018
+        dateComponents4.month = 10
         dateComponents4.day = 13
         dateComponents4.hour = 18
         dateComponents4.minute = 30
