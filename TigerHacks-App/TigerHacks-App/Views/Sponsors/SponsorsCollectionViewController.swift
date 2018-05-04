@@ -14,6 +14,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
     
     var sponsors = [Sponsor]()
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,6 @@ class SponsorsCollectionViewController: UICollectionViewController {
         sponsors = Model.sharedInstance.sponsors!
         
         let numberOfCells = CGFloat(2)
-        
-        
-        
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             
             flowLayout.minimumInteritemSpacing = 2
@@ -38,9 +36,29 @@ class SponsorsCollectionViewController: UICollectionViewController {
             
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         }
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        collectionView?.addSubview(refreshControl)
 
         
     }
+    
+    @objc func refresh(_ sender:Any) {
+        fetchSponsorData()
+    }
+    
+    func fetchSponsorData() {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.sponsors = Model.sharedInstance.sponsors!
+            self.refreshControl.endRefreshing()
+            self.collectionView?.reloadData()
+        }
+        
+    }
+    
     func setUpNavBar() {
         
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)

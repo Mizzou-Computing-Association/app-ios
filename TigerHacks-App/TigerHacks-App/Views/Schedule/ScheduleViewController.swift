@@ -46,24 +46,55 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.addGestureRecognizer(swipeLeft)
 
         refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        
         //Action triggered when table view pulled and released
         scheduleTableView.addSubview(refreshControl)
     }
     
     @objc func refresh(_ sender:Any) {
         fetchEventData()
-        //Fetch Event Data
     }
     
     func fetchEventData() {
         Model.sharedInstance.fakeAPICall()
-        scheduleTableView.reloadData()
-        self.refreshControl.endRefreshing()
-        //Update user interface after fetch and end refreshing
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.testDayOneArray = Model.sharedInstance.dayOneSchedule!
+            self.testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+            self.testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+            self.refreshControl.endRefreshing()
+            self.scheduleTableView.reloadData()
+            
+        }
+        
     }
-    //paste this
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setDay()
+    }
+    
+    func setDay() {
+        let longDateFormatter = DateFormatter()
+        let date1 = "10/12/2018"
+        let date2 = "10/13/2018"
+        let date3 = "10/14/2018"
+        longDateFormatter.timeZone = TimeZone.current
+        longDateFormatter.dateFormat = "MM/dd/yyyy"
+        let currentDate = longDateFormatter.string(from: Date())
+        
+        if currentDate.compare(date1) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 0
+        } else if currentDate.compare(date2) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 1
+        } else if currentDate.compare(date3) == .orderedSame {
+            daySwitcher.selectedSegmentIndex = 2
+        }else {
+            daySwitcher.selectedSegmentIndex = 0
+        }
+        scheduleTableView.reloadData()
+    }
+    
     func setUpNavBar() {
    
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
