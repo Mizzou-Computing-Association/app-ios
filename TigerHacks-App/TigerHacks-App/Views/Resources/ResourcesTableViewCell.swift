@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TigerTalksTableViewCell: UITableViewCell {
+class ResourcesTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

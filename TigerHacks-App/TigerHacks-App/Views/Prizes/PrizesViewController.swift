@@ -55,11 +55,21 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-//MARK: - Loading in Prizes
+//MARK: - Loading Prizes
     
     func loadPrizes() {
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
         testMainPrizes = Model.sharedInstance.mainPrizes!
+    }
+    
+    @objc func refresh(_ sender:Any) {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadPrizes()
+            self.refreshControl.endRefreshing()
+            self.prizeTableView.reloadData()
+        }
     }
     
 // MARK: - Change Sections
@@ -103,23 +113,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
             prizeTableView.reloadData()
         }
     }
-    
-// MARK: - Refresh Control
-    
-    @objc func refresh(_ sender:Any) {
-        fetchPrizeData()
-    }
-    
-    func fetchPrizeData() {
-        Model.sharedInstance.fakeAPICall()
-        let when = DispatchTime.now() + 0.7
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.loadPrizes()
-            self.refreshControl.endRefreshing()
-            self.prizeTableView.reloadData()
-        }
-    }
-    
+       
 // MARK: - Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

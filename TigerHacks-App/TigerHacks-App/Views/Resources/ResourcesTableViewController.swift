@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TigerTalksTableViewController: UITableViewController {
+class ResourcesTableViewController: UITableViewController {
 
     var resources = [Resource]()
     var tigerTalks = [Resource]()
@@ -97,7 +97,7 @@ class TigerTalksTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "talkCell", for: indexPath) as! TigerTalksTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "talkCell", for: indexPath) as! ResourcesTableViewCell
         
         if indexPath.section == 0 {
             cell.textLabel?.numberOfLines = 0
@@ -123,7 +123,7 @@ class TigerTalksTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "tigerTalkSegue" {
-            let destination = segue.destination as! TigerTalksDetailViewController
+            let destination = segue.destination as! ResourcesDetailViewController
             destination.navigationItem.title = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].title
             destination.descriptionText = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].description
             destination.videoCode = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].url

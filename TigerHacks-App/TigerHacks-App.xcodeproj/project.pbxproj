@@ -20,14 +20,14 @@
 		834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */; };
 		834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30D220533F6C003DA584 /* ScheduleViewController.swift */; };
 		834C30DB20534100003DA584 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */; };
-		834C30DD20534994003DA584 /* TigerTalksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */; };
-		834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */; };
+		834C30DD20534994003DA584 /* ResourcesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DC20534994003DA584 /* ResourcesTableViewController.swift */; };
+		834C30DF20534A05003DA584 /* ResourcesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DE20534A05003DA584 /* ResourcesDetailViewController.swift */; };
 		834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E020534B32003DA584 /* EventDetailViewController.swift */; };
 		834C30E320534B62003DA584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E220534B62003DA584 /* MapViewController.swift */; };
 		834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */; };
 		834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */; };
 		834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */; };
-		834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */; };
+		834C30EB2053634E003DA584 /* ResourcesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */; };
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370E4AA2087C7A6009983FC /* Youtube.swift */; };
@@ -54,14 +54,14 @@
 		834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeTableViewCell.swift; sourceTree = "<group>"; };
 		834C30D220533F6C003DA584 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
-		834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewController.swift; sourceTree = "<group>"; };
-		834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksDetailViewController.swift; sourceTree = "<group>"; };
+		834C30DC20534994003DA584 /* ResourcesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesTableViewController.swift; sourceTree = "<group>"; };
+		834C30DE20534A05003DA584 /* ResourcesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E020534B32003DA584 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E220534B62003DA584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsCollectionViewController.swift; sourceTree = "<group>"; };
 		834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
-		834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksTableViewCell.swift; sourceTree = "<group>"; };
+		834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesTableViewCell.swift; sourceTree = "<group>"; };
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		8370E4AA2087C7A6009983FC /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 				834C30D42053406A003DA584 /* Schedule */,
 				834C30D7205340A9003DA584 /* Map */,
 				834C30D52053407F003DA584 /* Prizes */,
-				834C30D9205340B7003DA584 /* TigerTalks */,
+				834C30D9205340B7003DA584 /* Resources */,
 				834C30D62053409B003DA584 /* Sponsors */,
 			);
 			path = Views;
@@ -189,14 +189,14 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		834C30D9205340B7003DA584 /* TigerTalks */ = {
+		834C30D9205340B7003DA584 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				834C30DC20534994003DA584 /* TigerTalksTableViewController.swift */,
-				834C30EA2053634E003DA584 /* TigerTalksTableViewCell.swift */,
-				834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */,
+				834C30DC20534994003DA584 /* ResourcesTableViewController.swift */,
+				834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */,
+				834C30DE20534A05003DA584 /* ResourcesDetailViewController.swift */,
 			);
-			path = TigerTalks;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,10 +281,10 @@
 				834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */,
 				834C30CE20533E01003DA584 /* PrizesViewController.swift in Sources */,
 				834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */,
-				834C30DD20534994003DA584 /* TigerTalksTableViewController.swift in Sources */,
+				834C30DD20534994003DA584 /* ResourcesTableViewController.swift in Sources */,
 				834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */,
-				834C30EB2053634E003DA584 /* TigerTalksTableViewCell.swift in Sources */,
-				834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */,
+				834C30EB2053634E003DA584 /* ResourcesTableViewCell.swift in Sources */,
+				834C30DF20534A05003DA584 /* ResourcesDetailViewController.swift in Sources */,
 				83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */,
 				834C30C92053309E003DA584 /* Mentor.swift in Sources */,
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,

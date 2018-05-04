@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 
-class TigerTalksDetailViewController: UIViewController {
+class ResourcesDetailViewController: UIViewController {
 
     
     @IBOutlet weak var videoWebView: WKWebView!

@@ -1000,7 +1000,7 @@
         <!--Resources-->
         <scene sceneID="uPb-GJ-3jY">
             <objects>
-                <tableViewController id="qbD-Hx-TWb" customClass="TigerTalksTableViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="qbD-Hx-TWb" customClass="ResourcesTableViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="E64-Rf-qRO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1011,7 +1011,7 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="talkCell" textLabel="I6O-7S-VsF" rowHeight="86" style="IBUITableViewCellStyleDefault" id="CE6-eA-Mv8" customClass="TigerTalksTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="talkCell" textLabel="I6O-7S-VsF" rowHeight="86" style="IBUITableViewCellStyleDefault" id="CE6-eA-Mv8" customClass="ResourcesTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CE6-eA-Mv8" id="nap-Ex-JPH">
@@ -1049,7 +1049,7 @@
         <!--Title-->
         <scene sceneID="3EB-i2-0Ye">
             <objects>
-                <viewController id="qXe-cL-An8" customClass="TigerTalksDetailViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qXe-cL-An8" customClass="ResourcesDetailViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kdd-CT-AbF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

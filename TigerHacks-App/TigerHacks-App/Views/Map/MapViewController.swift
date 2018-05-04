@@ -101,6 +101,16 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         mapTableView.reloadData()
     }
     
+    @objc func refresh(_ sender:Any) {
+        Model.sharedInstance.fakeAPICall()
+        let when = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadSchedule()
+            self.refreshControl.endRefreshing()
+            self.mapTableView.reloadData()
+        }
+    }
+    
 // MARK: - Nav Bar Gradient
     
     func setUpNavBar() {
@@ -149,23 +159,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
     }
-    
-// MARK: - Refresh Control
-    
-    @objc func refresh(_ sender:Any) {
-        fetchEventData()
-    }
-    
-    func fetchEventData() {
-        Model.sharedInstance.fakeAPICall()
-        let when = DispatchTime.now() + 0.7
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.loadSchedule()
-            self.refreshControl.endRefreshing()
-            self.mapTableView.reloadData()
-        }
-    }
-    
+      
 // MARK: - Tableview
     
     func numberOfSections(in tableView: UITableView) -> Int {
