@@ -18,30 +18,30 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     let testImageArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
     
-    let myCalendar = Calendar.current
-    
     var testEventArray = [Event]()
     var floorOneEvents = [Event]()
     var floorTwoEvents = [Event]()
     var floorThreeEvents = [Event]()
     
     var refreshControl: UIRefreshControl!
-    
+    let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initial Setup
+        
         setUpNavBar()
         mapTableView.dataSource = self
         mapTableView.delegate = self
-        mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-        self.mapScrollView.minimumZoomScale = 1.0
-        self.mapScrollView.maximumZoomScale = 8.0
+        dateFormatter.timeStyle = .short
+        
+        // Loading Schedules
         
         Model.sharedInstance.fakeAPICall()
-        testEventArray = Model.sharedInstance.fullSchedule!
-        filterFullScheduleByFloor(fullSchedule: testEventArray)
+        loadSchedule()
 
-        //Swipe to change level
+        // Swipe to Change Level
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -51,19 +51,34 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
     
-        //Taps
+        // Map View
+        
+        mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+        self.mapScrollView.minimumZoomScale = 1.0
+        self.mapScrollView.maximumZoomScale = 8.0
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         tap.delegate = self
         tap.numberOfTapsRequired = 2
         mapScrollView.addGestureRecognizer(tap)
         
-        //Refresh
+        // Refresh Control
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        
         mapTableView.addSubview(refreshControl)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+// MARK: - Loading Schedules
+    
+    func loadSchedule() {
+        testEventArray = Model.sharedInstance.fullSchedule!
+        filterFullScheduleByFloor(fullSchedule: testEventArray)
     }
     
     func filterFullScheduleByFloor(fullSchedule: [Event]) {
@@ -74,75 +89,68 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         for event in fullSchedule {
             if event.floor == 1 {
                 tempFloorOneEvents.append(event)
-                
             }else if event.floor == 2 {
                 tempFloorTwoEvents.append(event)
-                
             }else if event.floor == 3 {
                 tempFloorThreeEvents.append(event)
-                
             }
         }
-        
         floorOneEvents = tempFloorOneEvents
         floorTwoEvents = tempFloorTwoEvents
         floorThreeEvents = tempFloorThreeEvents
         mapTableView.reloadData()
     }
     
+// MARK: - Nav Bar Gradient
+    
     func setUpNavBar() {
-        
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+//MARK: - Change Map Level
     
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
-        
         mapScrollView.zoomScale = 1.0
         mapImageView.image = testImageArray[sender.selectedSegmentIndex]
         mapTableView.reloadData()
     }
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
+        
             switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.left:
+            case .left:
                 
-                if floorSelector.selectedSegmentIndex == 0 {
-                    floorSelector.selectedSegmentIndex = 1
-                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                    mapTableView.reloadData()
-                }else if floorSelector.selectedSegmentIndex == 1 {
-                    floorSelector.selectedSegmentIndex = 2
+                if floorSelector.selectedSegmentIndex != 2 {
+                    floorSelector.selectedSegmentIndex += 1
                     mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
                     mapTableView.reloadData()
                 }
-            case UISwipeGestureRecognizerDirection.right:
+
+            case .right:
                 
-                if floorSelector.selectedSegmentIndex == 2 {
-                    floorSelector.selectedSegmentIndex = 1
-                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                    mapTableView.reloadData()
-                }else if floorSelector.selectedSegmentIndex == 1 {
-                    floorSelector.selectedSegmentIndex = 0
+                if floorSelector.selectedSegmentIndex != 0 {
+                    floorSelector.selectedSegmentIndex -= 1
                     mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
                     mapTableView.reloadData()
                 }
+
             default:
                 break
             }
-        }
     }
+    
+//MARK: - Map Zoom
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         mapScrollView.setZoomScale(1.0, animated: true)
     }
     
-    // MARK: - Tableview
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.mapImageView
+    }
+    
+// MARK: - Refresh Control
     
     @objc func refresh(_ sender:Any) {
         fetchEventData()
@@ -152,14 +160,14 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.testEventArray = Model.sharedInstance.fullSchedule!
-            self.filterFullScheduleByFloor(fullSchedule: self.testEventArray)
+            self.loadSchedule()
             self.refreshControl.endRefreshing()
             self.mapTableView.reloadData()
         }
     }
-        
-        
+    
+// MARK: - Tableview
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
@@ -173,49 +181,42 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         switch floorSelector.selectedSegmentIndex {
         case 0:
-            
             return floorOneEvents.count
         case 1:
-            
             return floorTwoEvents.count
         case 2:
-            
             return floorThreeEvents.count
         default :
             return 0
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapTableViewCell
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        
         switch floorSelector.selectedSegmentIndex {
             case 0:
-                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorOneEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorOneEvents[indexPath.row].time)
                 cell.eventLabel.text = floorOneEvents[indexPath.row].title
                 cell.locationLabel.text = floorOneEvents[indexPath.row].location
-                cell.timeLabel.text = timeText
+                cell.timeLabel.text = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorOneEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorOneEvents[indexPath.row].time)
             case 1:
-                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorTwoEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
                 cell.eventLabel.text = floorTwoEvents[indexPath.row].title
                 cell.locationLabel.text = floorTwoEvents[indexPath.row].location
-                cell.timeLabel.text = timeText
+                cell.timeLabel.text = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorTwoEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
             case 2:
-                let timeText = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
                 cell.eventLabel.text = floorThreeEvents[indexPath.row].title
                 cell.locationLabel.text = floorThreeEvents[indexPath.row].location
-                cell.timeLabel.text = timeText
+                cell.timeLabel.text = Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]! + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
             default:
                 cell.eventLabel.text = "There is NO Event"
                 cell.locationLabel.text = "Who Knows Where"
                 cell.timeLabel.text = "No Time"
         }
         
-        
         return cell
     }
+    
+// MARK: - Segues
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "mapEventDetail", sender: self)
@@ -226,9 +227,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         let destination = segue.destination as! EventDetailViewController
         guard let selectedRow = mapTableView.indexPathForSelectedRow else {return}
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
+        
         switch floorSelector.selectedSegmentIndex {
         case 0:
             destination.titleText = floorOneEvents[selectedRow.row].title
@@ -253,18 +252,5 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
     }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.mapImageView
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
