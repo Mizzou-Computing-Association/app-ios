@@ -118,26 +118,26 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
         
-            switch swipeGesture.direction {
-            case .left:
-                
-                if floorSelector.selectedSegmentIndex != 2 {
-                    floorSelector.selectedSegmentIndex += 1
-                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                    mapTableView.reloadData()
-                }
-
-            case .right:
-                
-                if floorSelector.selectedSegmentIndex != 0 {
-                    floorSelector.selectedSegmentIndex -= 1
-                    mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                    mapTableView.reloadData()
-                }
-
-            default:
-                break
+        switch swipeGesture.direction {
+        case .left:
+            
+            if floorSelector.selectedSegmentIndex != 2 {
+                floorSelector.selectedSegmentIndex += 1
+                mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                mapTableView.reloadData()
             }
+
+        case .right:
+            
+            if floorSelector.selectedSegmentIndex != 0 {
+                floorSelector.selectedSegmentIndex -= 1
+                mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+                mapTableView.reloadData()
+            }
+
+        default:
+            break
+        }
     }
     
 //MARK: - Map Zoom

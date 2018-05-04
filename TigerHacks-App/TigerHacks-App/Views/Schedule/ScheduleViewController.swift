@@ -125,26 +125,26 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
         
-            switch swipeGesture.direction {
-            case .left:
-                if daySwitcher.selectedSegmentIndex == 0 {
-                    daySwitcher.selectedSegmentIndex = 1
-                    scheduleTableView.reloadData()
-                }else if daySwitcher.selectedSegmentIndex == 1 {
-                    daySwitcher.selectedSegmentIndex = 2
-                    scheduleTableView.reloadData()
-                }
-            case .right:
-                if daySwitcher.selectedSegmentIndex == 2{
-                    daySwitcher.selectedSegmentIndex = 1
-                    scheduleTableView.reloadData()
-                }else if daySwitcher.selectedSegmentIndex == 1 {
-                    daySwitcher.selectedSegmentIndex = 0
-                    scheduleTableView.reloadData()
-                }
-            default:
-                break
+        switch swipeGesture.direction {
+        case .left:
+            if daySwitcher.selectedSegmentIndex == 0 {
+                daySwitcher.selectedSegmentIndex = 1
+                scheduleTableView.reloadData()
+            }else if daySwitcher.selectedSegmentIndex == 1 {
+                daySwitcher.selectedSegmentIndex = 2
+                scheduleTableView.reloadData()
             }
+        case .right:
+            if daySwitcher.selectedSegmentIndex == 2{
+                daySwitcher.selectedSegmentIndex = 1
+                scheduleTableView.reloadData()
+            }else if daySwitcher.selectedSegmentIndex == 1 {
+                daySwitcher.selectedSegmentIndex = 0
+                scheduleTableView.reloadData()
+            }
+        default:
+            break
+        }
         
     }
     
