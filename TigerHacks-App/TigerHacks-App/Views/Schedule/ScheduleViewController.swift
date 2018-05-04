@@ -24,18 +24,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     override func viewDidLoad() {
-        //MARK: Setup, paste this where it is needed
         super.viewDidLoad()
+        
+        //Initial Setup
+        
         Model.sharedInstance.fakeAPICall()
         self.setUpNavBar()
-        
+        loadSchedules()
         dateFormatter.timeStyle = .short
         
-        testDayOneArray = Model.sharedInstance.dayOneSchedule!
-        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
-        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
-        scheduleTableView.reloadData()
-        // Do any additional setup after loading the view.
+        // Swipe To Change Day
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -44,13 +42,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
-
+        
+        //Refresh Control
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        
-        //Action triggered when table view pulled and released
         scheduleTableView.addSubview(refreshControl)
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+// MARK: - Refresh Control
     
     @objc func refresh(_ sender:Any) {
         fetchEventData()
@@ -60,15 +65,22 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.testDayOneArray = Model.sharedInstance.dayOneSchedule!
-            self.testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
-            self.testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+            self.loadSchedules()
             self.refreshControl.endRefreshing()
             self.scheduleTableView.reloadData()
             
         }
         
     }
+    
+    func loadSchedules() {
+        testDayOneArray = Model.sharedInstance.dayOneSchedule!
+        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+    }
+    
+// MARK: - Default Starting Day
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setDay()
@@ -95,23 +107,48 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         scheduleTableView.reloadData()
     }
     
+// MARK: - Nav Bar Gradient
+    
     func setUpNavBar() {
-   
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
-
-        //Tab bar?
+        //Tab bar
         tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
-//        tabBarController?.tabBar.layer.op
-        //This pesky fucker won't go away wtf
         tabBarController?.tabBar.shadowImage =  UIImage();
+    }
+    
+// MARK: - Change Day
+    
+    @IBAction func changeDay(_ sender: UISegmentedControl) {
+        scheduleTableView.reloadData()
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
+        
+            switch swipeGesture.direction {
+            case .left:
+                if daySwitcher.selectedSegmentIndex == 0 {
+                    daySwitcher.selectedSegmentIndex = 1
+                    scheduleTableView.reloadData()
+                }else if daySwitcher.selectedSegmentIndex == 1 {
+                    daySwitcher.selectedSegmentIndex = 2
+                    scheduleTableView.reloadData()
+                }
+            case .right:
+                if daySwitcher.selectedSegmentIndex == 2{
+                    daySwitcher.selectedSegmentIndex = 1
+                    scheduleTableView.reloadData()
+                }else if daySwitcher.selectedSegmentIndex == 1 {
+                    daySwitcher.selectedSegmentIndex = 0
+                    scheduleTableView.reloadData()
+                }
+            default:
+                break
+            }
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+// MARK: - TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -161,58 +198,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         scheduleTableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    @IBAction func changeDay(_ sender: UISegmentedControl) {
-        scheduleTableView.reloadData()
-    }
-    
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer){
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizerDirection.left:
-                
-                if daySwitcher.selectedSegmentIndex == 0 {
-                    daySwitcher.selectedSegmentIndex = 1
-                    scheduleTableView.reloadData()
-                }else if daySwitcher.selectedSegmentIndex == 1 {
-                    daySwitcher.selectedSegmentIndex = 2
-                    scheduleTableView.reloadData()
-                }
-            case UISwipeGestureRecognizerDirection.right:
-                
-                if daySwitcher.selectedSegmentIndex == 2{
-                    daySwitcher.selectedSegmentIndex = 1
-                    scheduleTableView.reloadData()
-                }else if daySwitcher.selectedSegmentIndex == 1 {
-                    daySwitcher.selectedSegmentIndex = 0
-                    scheduleTableView.reloadData()
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    func image(fromLayer layer: CALayer) -> UIImage {
-        UIGraphicsBeginImageContext(layer.frame.size)
-        
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return outputImage!
-    }
-    
-    
-    // MARK: - Navigation
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
-        guard let selectedRow = scheduleTableView.indexPathForSelectedRow else{return}
+        guard let selectedRow = scheduleTableView.indexPathForSelectedRow else {return}
         
-        //Assign Values to any outlets in Event Detail
+        //Assign Values to any fields in Event Detail
         
         if daySwitcher.selectedSegmentIndex == 0 {
             destination.titleText = testDayOneArray[selectedRow.row].title
