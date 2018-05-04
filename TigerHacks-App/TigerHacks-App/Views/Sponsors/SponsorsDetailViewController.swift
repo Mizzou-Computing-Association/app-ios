@@ -94,7 +94,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         var skillsCommaSeparated = ""
         for skill in skills {
             if skillsCommaSeparated.isEmpty {
-                skillsCommaSeparated = skillsCommaSeparated + skill
+                skillsCommaSeparated = " " + skillsCommaSeparated + skill
             }else {
                 skillsCommaSeparated = skillsCommaSeparated + ", " + skill
             }
