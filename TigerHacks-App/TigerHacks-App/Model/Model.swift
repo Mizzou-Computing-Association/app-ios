@@ -13,7 +13,7 @@ class Model {
     
     static var sharedInstance = Model()
     
-    init() {
+    private init() {
         
     }
     // Hex code for colors: FDFAE5
