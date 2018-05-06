@@ -51,7 +51,7 @@ class ResourcesTableViewController: UITableViewController {
                     tempTigerTalks.append(tigerTalk)
                 }
                 self.tigerTalks = tempTigerTalks
-                self.tableView.reloadData()
+                self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableViewRowAnimation.automatic)
             }
         }
         self.resources = Model.sharedInstance.resources!
