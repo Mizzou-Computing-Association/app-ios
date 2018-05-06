@@ -471,7 +471,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-B6-SAy">
-                                                    <rect key="frame" x="15" y="4" width="273" height="29"/>
+                                                    <rect key="frame" x="15" y="4" width="257" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -498,7 +498,7 @@
                                                 <constraint firstItem="dIU-7r-IsA" firstAttribute="leading" secondItem="oBE-B6-SAy" secondAttribute="leading" id="Rkm-2D-tTv"/>
                                                 <constraint firstAttribute="trailing" secondItem="17G-cO-w7j" secondAttribute="trailing" constant="15" id="WKn-FS-qBf"/>
                                                 <constraint firstItem="oBE-B6-SAy" firstAttribute="leading" secondItem="2yB-4J-FCA" secondAttribute="leading" constant="15" id="cv9-81-yuX"/>
-                                                <constraint firstAttribute="trailing" secondItem="oBE-B6-SAy" secondAttribute="trailing" constant="54" id="lHY-yT-2Cj"/>
+                                                <constraint firstAttribute="trailing" secondItem="oBE-B6-SAy" secondAttribute="trailing" constant="70" id="lHY-yT-2Cj"/>
                                                 <constraint firstItem="dIU-7r-IsA" firstAttribute="top" secondItem="oBE-B6-SAy" secondAttribute="bottom" constant="8" symbolic="YES" id="sUh-go-9nu"/>
                                                 <constraint firstItem="17G-cO-w7j" firstAttribute="centerY" secondItem="2yB-4J-FCA" secondAttribute="centerY" id="x91-YJ-f8f"/>
                                             </constraints>
