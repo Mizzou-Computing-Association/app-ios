@@ -55,7 +55,7 @@ class ResourcesTableViewController: UITableViewController {
             }
         }
         self.resources = Model.sharedInstance.resources!
-        self.tableView.reloadData()
+        self.tableView.reloadSections(IndexSet(integersIn: 1...1), with: UITableViewRowAnimation.automatic)
     }
     
     @objc func refresh(_ sender:Any) {
