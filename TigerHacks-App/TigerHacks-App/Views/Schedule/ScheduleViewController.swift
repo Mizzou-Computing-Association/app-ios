@@ -15,13 +15,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var scheduleTableView: UITableView!
     @IBOutlet weak var daySwitcher: UISegmentedControl!
     
+    var fullSchedule: [Event] = []
     var testDayOneArray: [Event] = []
     var testDayTwoArray: [Event] = []
     var testDayThreeArray: [Event] = []
     var refreshControl: UIRefreshControl!
     
     let dateFormatter = DateFormatter()
+    let longDateFormatter = DateFormatter()
     
+    let date1 = "10/12/2018"
+    let date2 = "10/13/2018"
+    let date3 = "10/14/2018"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +35,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
         Model.sharedInstance.fakeAPICall()
         self.setUpNavBar()
-        loadSchedules()
         dateFormatter.timeStyle = .short
+        longDateFormatter.timeZone = TimeZone.current
+        longDateFormatter.dateFormat = "MM/dd/yyyy"
+        loadSchedules()
         
         // Swipe To Change Day
         
@@ -58,9 +65,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 // MARK: - Load Schedules
     
     func loadSchedules() {
-        testDayOneArray = Model.sharedInstance.dayOneSchedule!
-        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
-        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+        fullSchedule = Model.sharedInstance.fullSchedule!
+        divideEventsByDay()
+//        testDayOneArray = Model.sharedInstance.dayOneSchedule!
+//        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
+//        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
     }
     
     @objc func refresh(_ sender:Any) {
@@ -73,6 +82,27 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func divideEventsByDay() {
+        var tempDayOneArray = [Event]()
+        var tempDayTwoArray = [Event]()
+        var tempDayThreeArray = [Event]()
+        
+        for event in fullSchedule {
+            let stringDate = longDateFormatter.string(from: event.time)
+            if stringDate.compare(date1) == .orderedSame {
+                tempDayOneArray.append(event)
+            }else if stringDate.compare(date2) == .orderedSame {
+                tempDayTwoArray.append(event)
+            }else if stringDate.compare(date3) == .orderedSame {
+                tempDayThreeArray.append(event)
+            }
+        }
+        
+        testDayOneArray = tempDayOneArray
+        testDayTwoArray = tempDayTwoArray
+        testDayThreeArray = tempDayThreeArray
+    }
+    
 // MARK: - Default Starting Day
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,12 +111,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func setDay() {
-        let longDateFormatter = DateFormatter()
-        let date1 = "10/12/2018"
-        let date2 = "10/13/2018"
-        let date3 = "10/14/2018"
-        longDateFormatter.timeZone = TimeZone.current
-        longDateFormatter.dateFormat = "MM/dd/yyyy"
+
         let currentDate = longDateFormatter.string(from: Date())
         
         if currentDate.compare(date1) == .orderedSame {
