@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class Model {
     
@@ -33,6 +34,9 @@ class Model {
     let youtubeAPIKey = "AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let getRequestString = "GET https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=UUeKx_seoPvAs4vyXCdCmUGA&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let testGetRequestString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
+    
+    let center = UNUserNotificationCenter.current()
+    
     func fakeAPICall(){
         
         //Schedule Dummy Data
@@ -69,26 +73,19 @@ class Model {
         dateComponents4.hour = 18
         dateComponents4.minute = 30
         
-        
-//        dayOneSchedule = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games")]
-//
-//        dayTwoSchedule = [Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
-//                          Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
-//                          Event(time: myCalendar.date(from: dateComponents4)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner")]
-//
-//        dayThreeSchedule = [Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
-//                            Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
-//
-//        dayOneSchedule = sortEvents(events: dayOneSchedule)
-//        dayTwoSchedule = sortEvents(events: dayTwoSchedule)
-//        dayThreeSchedule = sortEvents(events: dayThreeSchedule)
+        // Test Dates for Notifications
+        var testDateComponents = DateComponents()
+        testDateComponents.year = 2018
+        testDateComponents.month = 5
+        testDateComponents.day = 15
+        testDateComponents.hour = 13
+        testDateComponents.minute = 54
         
         //Mentor Dummy Data
 
         let cernerMentors = [Mentor(name: "JJ Smith" , skills: ["Computers" , "Swift","Objective C" , "Eating Apples","Nothing else" , "That's it" ] , contact: "U8E0F66QN")]
 
         //Sponsor Dummy Data
-        
         
         sponsors = [Sponsor(mentors: nil,
                                         name: "AirBnb",
@@ -192,8 +189,34 @@ class Model {
         fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,location: "Time Capsule",floor: 1, title: "Game Party",description: "Hanging out and playing games"),Event(time: myCalendar.date(from: dateComponents1)!,location: "Time Capsule",floor: 1, title: "Lunch",description: "Hanging out and playing games"),
                         Event(time: myCalendar.date(from: dateComponents1)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),
                         Event(time: myCalendar.date(from: dateComponents4)!,location: "Main Hallway",floor: 2, title: "Dinner",description: "Eating dinner"),Event(time: myCalendar.date(from: dateComponents2)!,location: "The Closet",floor: 3, title: "Nothin",description: "Don't come"),
-                        Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come")]
+                        Event(time: myCalendar.date(from: dateComponents3)!,location: "The Closet",floor: 3, title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor I promise",description: "Don't come"),
+                        Event(time: myCalendar.date(from: testDateComponents)!,location: "Mizzou",floor: 1, title: "Test Notification",description: "Don't come")]
+        
         fullSchedule = sortEvents(events: fullSchedule)
+    
+        // Scheduling Notifications
+        
+        center.getNotificationSettings { (notificationSettings) in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+                print("not determined")
+            // Request Authorization
+                self.center.requestAuthorization(completionHandler: { (success,error) in
+                    guard success else { return }
+                    self.scheduleNotifications()
+                })
+            case .authorized:
+                print("scheduling notifications")
+                self.scheduleNotifications()
+            case .denied:
+                print("denied")
+                print("Application Not Allowed to Display Notifications")
+            }
+        }
+        
+        
+        
+       
     }
     
 //MARK: - JSON Loading and Parsing for Youtube TigerTalks
@@ -252,6 +275,7 @@ class Model {
         
         
         if let items = rootNode["items"] as? [[String: Any]] {
+            
             for item in items {
                 if let snippetNode = item["snippet"] as? [String: Any],
                     let snippetTitle = snippetNode["title"] as? String,
@@ -269,15 +293,29 @@ class Model {
         return (snippets,nil)
     }
     
+    func scheduleNotifications() {
+        for event in fullSchedule! {
+            //print(event.trigger.dateComponents.description)
+            
+            center.add(event.request) { (error : Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    print("THERE WAS AN ERROR")
+                }
+            }
+        }
+    }
+    
+//MARK: - Gradient color
+    
     func setBarGradient(navigationBar:UINavigationBar) {
         //set gradient
-        navigationBar.setBackgroundImage(Model.sharedInstance.setGredientImageNavBar(), for: UIBarMetrics.default)
+        navigationBar.setBackgroundImage(Model.sharedInstance.setGradientImageNavBar(), for: UIBarMetrics.default)
         //Get rid of that pesky top lines
             navigationBar.shadowImage = UIImage()
     }
     
-//MARK: - Gradient color
-    func setGredientImageNavBar()->UIImage {
+    func setGradientImageNavBar()->UIImage {
         
         //Color is here 251    248    227
         let colorsMove = [
