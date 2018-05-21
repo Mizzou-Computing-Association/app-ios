@@ -14,11 +14,11 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var sponsorLabel: UILabel!
     @IBOutlet weak var rewardLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+//    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var lineBreakSubview: UILabel!
     @IBOutlet weak var sponsorSubview: UIView!
     @IBOutlet weak var rewardSubview: UIView!
     @IBOutlet weak var descriptionSubview: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var lineBreakSubview: UIView!
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var typeSubview: UIView!
@@ -52,13 +52,13 @@ class PrizeDetailViewController: UIViewController {
         sponsorSubview.clipsToBounds = true
         rewardSubview.clipsToBounds = true
         descriptionSubview.clipsToBounds = true
-        lineBreakSubview.clipsToBounds = true
+//        lineBreakSubview.clipsToBounds = true
         typeSubview.clipsToBounds = true
         
         sponsorSubview.layer.cornerRadius = 20
         rewardSubview.layer.cornerRadius = 20
         descriptionSubview.layer.cornerRadius = 20
-        lineBreakSubview.layer.cornerRadius = 20
+//        lineBreakSubview.layer.cornerRadius = 20
         typeSubview.layer.cornerRadius = 20
         
         sponsorSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
@@ -66,11 +66,14 @@ class PrizeDetailViewController: UIViewController {
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         typeSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         
-        titleLabel.text = titleText
+//        titleLabel.text = titleText
+        navigationItem.title = titleText
         sponsorLabel.text = "\(sponsor?.name ?? "This isn't a sponsored prize")"
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
         descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
         typeLabel.text = "\(typeText ?? "There is no type")"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {

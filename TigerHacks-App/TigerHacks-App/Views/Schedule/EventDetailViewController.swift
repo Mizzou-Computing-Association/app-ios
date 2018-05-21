@@ -10,8 +10,7 @@ import UIKit
 
 class EventDetailViewController: UIViewController {
 
-    
-    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -26,7 +25,8 @@ class EventDetailViewController: UIViewController {
         super.viewDidLoad()
         
         //Label Initializing
-        titleLabel.text = titleText
+//        titleLabel.text = titleText
+        navigationItem.title = titleText
         locationLabel.text = locationText
         timeLabel.text = timeText
         descriptionLabel.text = descriptionText
@@ -35,6 +35,7 @@ class EventDetailViewController: UIViewController {
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        navigationController?.navigationBar.prefersLargeTitles = true
         
     }
 
