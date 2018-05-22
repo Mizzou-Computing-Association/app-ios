@@ -72,8 +72,6 @@ class PrizeDetailViewController: UIViewController {
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
         descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
         typeLabel.text = "\(typeText ?? "There is no type")"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +87,9 @@ class PrizeDetailViewController: UIViewController {
             favoriteButton.title = "Favorite"
         }
         
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

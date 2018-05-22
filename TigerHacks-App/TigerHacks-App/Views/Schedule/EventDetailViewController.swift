@@ -35,12 +35,14 @@ class EventDetailViewController: UIViewController {
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
