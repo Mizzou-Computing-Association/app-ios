@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DyL-sI-Xro">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DyL-sI-Xro">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -86,11 +86,18 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I47-5H-ELc">
                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="238"/>
                                             </imageView>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-WB-mK2">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="238"/>
+                                            </mapView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Hk2-WB-mK2" secondAttribute="trailing" id="8Fy-pm-hrA"/>
+                                            <constraint firstAttribute="bottom" secondItem="Hk2-WB-mK2" secondAttribute="bottom" id="9jH-kr-NTA"/>
                                             <constraint firstItem="I47-5H-ELc" firstAttribute="top" secondItem="wOr-Yr-XHg" secondAttribute="top" id="DyT-se-L7f"/>
+                                            <constraint firstItem="Hk2-WB-mK2" firstAttribute="leading" secondItem="wOr-Yr-XHg" secondAttribute="leading" id="E63-Bs-fgO"/>
                                             <constraint firstAttribute="trailing" secondItem="I47-5H-ELc" secondAttribute="trailing" id="HFr-fm-9PT"/>
+                                            <constraint firstItem="Hk2-WB-mK2" firstAttribute="top" secondItem="wOr-Yr-XHg" secondAttribute="top" id="J7y-XB-13U"/>
                                             <constraint firstAttribute="bottom" secondItem="I47-5H-ELc" secondAttribute="bottom" id="iH5-8S-R7h"/>
                                             <constraint firstItem="I47-5H-ELc" firstAttribute="leading" secondItem="wOr-Yr-XHg" secondAttribute="leading" id="ive-rb-sWp"/>
                                         </constraints>
@@ -124,7 +131,7 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="nw1-eo-8V3">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zyM-kV-wWU">
-                            <rect key="frame" x="101" y="7" width="173" height="30"/>
+                            <rect key="frame" x="90.5" y="7" width="173" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Floor 1"/>
@@ -136,12 +143,18 @@
                                 <action selector="changeLevelOfMap:" destination="6jk-Lc-9j7" eventType="valueChanged" id="jkC-ou-Pf6"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Toggle Map" id="ClO-JS-aAT">
+                            <connections>
+                                <action selector="handleMapToggle:" destination="6jk-Lc-9j7" id="djO-4V-3PN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="floorSelector" destination="zyM-kV-wWU" id="f7E-zc-idm"/>
                         <outlet property="mapImageView" destination="I47-5H-ELc" id="Kuk-Lx-LQi"/>
                         <outlet property="mapScrollView" destination="TIw-uG-srD" id="qx6-hC-jDA"/>
                         <outlet property="mapTableView" destination="Fqm-bA-K7n" id="Bwy-hS-aNb"/>
+                        <outlet property="mapView" destination="Hk2-WB-mK2" id="iFp-kg-7t5"/>
                         <segue destination="Tsl-tO-JKi" kind="show" identifier="mapEventDetail" id="6CL-3g-IGv"/>
                     </connections>
                 </viewController>

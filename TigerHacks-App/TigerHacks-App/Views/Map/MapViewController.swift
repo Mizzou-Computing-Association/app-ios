@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
@@ -15,6 +16,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var mapScrollView: UIScrollView!
+    @IBOutlet weak var mapView: MKMapView!
     
     let testImageArray = [UIImage(named:"firstFloor"),UIImage(named:"secondFloor"),UIImage(named:"thirdFloor")]
     
@@ -26,12 +28,17 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var refreshControl: UIRefreshControl!
     let dateFormatter = DateFormatter()
     
+    var mapToggler = MapToggle.Map
+    let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
+    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Initial Setup
         
         setUpNavBar()
+         mapImageView.superview?.bringSubview(toFront: mapImageView)
         mapTableView.dataSource = self
         mapTableView.delegate = self
         dateFormatter.timeStyle = .short
@@ -51,7 +58,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
     
-        // Map View
+        // Map Image View
         
         mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
         self.mapScrollView.minimumZoomScale = 1.0
@@ -62,6 +69,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         tap.numberOfTapsRequired = 2
         mapScrollView.addGestureRecognizer(tap)
         
+        // MapView
+        
+        mapView.mapType = .hybrid
+        mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
+    
         // Refresh Control
         
         refreshControl = UIRefreshControl()
@@ -72,6 +84,12 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
     }
     
 // MARK: - Loading Schedules
@@ -159,7 +177,21 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
     }
-      
+    
+//MARK: - Toggle Map
+    
+    @IBAction func handleMapToggle(_ sender: Any) {
+        switch mapToggler {
+        case .Image:
+            mapImageView.superview?.bringSubview(toFront: mapImageView)
+            mapToggler = .Map
+        case .Map:
+            mapView.superview?.bringSubview(toFront: mapView)
+            mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
+            mapToggler = .Image
+        }
+    }
+
 // MARK: - Tableview
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -246,5 +278,9 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
         
     }
+}
 
+enum MapToggle {
+    case Image
+    case Map
 }
