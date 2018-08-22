@@ -215,6 +215,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "eventSegue", sender: self)
         scheduleTableView.deselectRow(at: indexPath, animated: true)
+        let backButton = UIBarButtonItem()
+        backButton.title = "Schedule"
+        navigationItem.backBarButtonItem = backButton
     }
     
     // MARK: - Segue
