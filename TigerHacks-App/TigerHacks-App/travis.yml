@@ -1,0 +1,4 @@
+language: swift
+xcode_project: TigerHacks-App.xcodeproj
+xcode_scheme: TigerHacks-App
+xcode_destination: platform=iOS Simulator,OS=11.0,name=iPhone X
