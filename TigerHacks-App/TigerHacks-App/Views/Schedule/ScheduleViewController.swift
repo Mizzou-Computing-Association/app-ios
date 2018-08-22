@@ -221,9 +221,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
-        let backButton = UIBarButtonItem()
-        backButton.title = "Schedule"
-        navigationItem.backBarButtonItem = backButton
         guard let selectedRow = scheduleTableView.indexPathForSelectedRow else {return}
         
         //Assign Values to any fields in Event Detail

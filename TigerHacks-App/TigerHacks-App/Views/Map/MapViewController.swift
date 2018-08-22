@@ -251,9 +251,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
-        let backButton = UIBarButtonItem()
-        backButton.title = "Maps"
-        navigationItem.backBarButtonItem = backButton
         guard let selectedRow = mapTableView.indexPathForSelectedRow else {return}
         
         

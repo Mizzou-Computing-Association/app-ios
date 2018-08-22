@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Maps-->
         <scene sceneID="lh5-hQ-9oe">
             <objects>
                 <viewController id="6jk-Lc-9j7" customClass="MapViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,8 +128,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O6l-yE-WKN"/>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="nw1-eo-8V3">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" title="Maps" largeTitleDisplayMode="never" id="nw1-eo-8V3">
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zyM-kV-wWU">
                             <rect key="frame" x="90.5" y="7" width="173" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -439,7 +438,7 @@
             </objects>
             <point key="canvasLocation" x="2016.8" y="948.57571214392806"/>
         </scene>
-        <!--Schedule View Controller-->
+        <!--Schedule-->
         <scene sceneID="drw-hz-MK2">
             <objects>
                 <viewController id="AZY-Tr-e2g" customClass="ScheduleViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -518,8 +517,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rQF-AO-XtM"/>
                     </view>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Gpj-Vc-aLn">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" title="Schedule" largeTitleDisplayMode="never" id="Gpj-Vc-aLn">
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4Wg-KD-dtt">
                             <rect key="frame" x="84.5" y="7" width="206" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1182,7 +1180,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6CL-3g-IGv"/>
+        <segue reference="aTH-MJ-Dtv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
