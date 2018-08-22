@@ -1,4 +1,5 @@
-language: swift
-xcode_project: TigerHacks-App.xcodeproj
-xcode_scheme: TigerHacks-App
-xcode_destination: platform=iOS Simulator,OS=11.0,name=iPhone X
+language: objective-c
+osx_image: xcode9
+
+script:
+  - xcodebuild test -project TigerHacks-App.xcodeproj -scheme TigerHacks-App -destination "platform=iOS Simulator,name=iPhone X" -sdk iphonesimulator11.0 CODE_SIGNING_REQUIRED=NO
