@@ -1,4 +1,4 @@
-# TigerHacks iOS App
+# TigerHacks iOS App [![Build Status](https://travis-ci.com/jonahz5222/app-ios.svg?branch=master)](https://travis-ci.com/jonahz5222/app-ios)
 App for attendees of TigerHacks 2018 
 
 [Travis Builds](https://travis-ci.com/TigerHacks/app-ios)
