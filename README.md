@@ -1,6 +1,8 @@
 # TigerHacks iOS App
 App for attendees of TigerHacks 2018 
 
+[Travis Builds](https://travis-ci.com/TigerHacks/app-ios)
+
 ## CMP_SC 4330 SWE Info
 
 ### Group Members
