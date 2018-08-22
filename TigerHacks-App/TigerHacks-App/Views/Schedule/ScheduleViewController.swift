@@ -215,15 +215,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "eventSegue", sender: self)
         scheduleTableView.deselectRow(at: indexPath, animated: true)
-        let backButton = UIBarButtonItem()
-        backButton.title = "Schedule"
-        navigationItem.backBarButtonItem = backButton
     }
     
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
+        let backButton = UIBarButtonItem()
+        backButton.title = "Schedule"
+        navigationItem.backBarButtonItem = backButton
         guard let selectedRow = scheduleTableView.indexPathForSelectedRow else {return}
         
         //Assign Values to any fields in Event Detail
