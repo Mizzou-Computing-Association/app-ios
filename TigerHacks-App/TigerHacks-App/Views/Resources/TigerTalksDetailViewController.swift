@@ -43,7 +43,26 @@ class TigerTalksDetailViewController: UIViewController {
     
     func getVideo(videoCode: String) {
         if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
+            
+            // Create the indicator
+            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            activityIndicator.hidesWhenStopped = true
+            view.addSubview(activityIndicator)
+            
+            // Position in center and start animating
+            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                activityIndicator.centerXAnchor.constraint(equalTo: videoWebView.centerXAnchor),
+                activityIndicator.centerYAnchor.constraint(equalTo: videoWebView.centerYAnchor)])
+            activityIndicator.startAnimating()
+            
+            // Load video
             videoWebView.load(URLRequest(url: url))
+            
+            // Stop the animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                activityIndicator.stopAnimating()
+            }
         }
     }
 
