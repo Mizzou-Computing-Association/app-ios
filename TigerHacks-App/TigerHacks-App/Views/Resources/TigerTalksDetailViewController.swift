@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 
-class TigerTalksDetailViewController: UIViewController {
+class TigerTalksDetailViewController: UIViewController, WKNavigationDelegate {
 
     
     @IBOutlet weak var videoWebView: WKWebView!
@@ -19,6 +19,7 @@ class TigerTalksDetailViewController: UIViewController {
     
     var videoCode: String?
     var descriptionText: String?
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class TigerTalksDetailViewController: UIViewController {
         // Video Setup
         
         getVideo(videoCode: videoCode ?? "")
+        self.videoWebView.navigationDelegate = self
         
         // Description Setup
         
@@ -39,31 +41,45 @@ class TigerTalksDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-//MARK: - Load Video
+    //MARK: - Load Video
     
     func getVideo(videoCode: String) {
         if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
             
             // Create the indicator
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            activityIndicator.hidesWhenStopped = true
+            
             view.addSubview(activityIndicator)
             
-            // Position in center and start animating
+            // Position activity indicator in center
+            
             activityIndicator.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 activityIndicator.centerXAnchor.constraint(equalTo: videoWebView.centerXAnchor),
                 activityIndicator.centerYAnchor.constraint(equalTo: videoWebView.centerYAnchor)])
-            activityIndicator.startAnimating()
             
             // Load video
-            videoWebView.load(URLRequest(url: url))
             
-            // Stop the animation
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                activityIndicator.stopAnimating()
-            }
+            videoWebView.load(URLRequest(url: url))
         }
     }
-
+    
+    func showActivityIndicator(show: Bool) {
+        if show {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        showActivityIndicator(show: false)
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        showActivityIndicator(show: true)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        showActivityIndicator(show: false)
+    }
 }
