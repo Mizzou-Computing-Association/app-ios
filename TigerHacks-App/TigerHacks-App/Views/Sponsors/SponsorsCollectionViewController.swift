@@ -63,7 +63,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
     
     func loadSponsors() {
         sponsors = Model.sharedInstance.sponsors!
-        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: nil))
+        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named:"tigerLogo")))
         getAllMentors()
     }
     
@@ -102,7 +102,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
         if let image = sponsors[indexPath.row].image {
             cell.sponsorImage?.image = image
         }else {
-            cell.sponsorImage?.image = UIImage(named:"tigerLogo")
+            cell.sponsorImage?.image = UIImage(named:"noImage")
         }
 
         return cell
