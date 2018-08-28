@@ -141,11 +141,11 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         let fullUrlString = "https://www.\(baseUrlString)"
         
         if let url = URL(string: fullUrlString) {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
+            let webviewConfig = SFSafariViewController.Configuration()
+            webviewConfig.entersReaderIfAvailable = true
             
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
+            let webview = SFSafariViewController(url: url, configuration: webviewConfig)
+            present(webview, animated: true)
         }
     }
     

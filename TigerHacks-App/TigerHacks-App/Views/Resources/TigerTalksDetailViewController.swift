@@ -25,9 +25,8 @@ class TigerTalksDetailViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
         
         // Video Setup
-        
-        getVideo(videoCode: videoCode ?? "")
         self.videoWebView.navigationDelegate = self
+        getVideo(videoCode: videoCode ?? "")
         
         // Description Setup
         
@@ -44,42 +43,34 @@ class TigerTalksDetailViewController: UIViewController, WKNavigationDelegate {
     //MARK: - Load Video
     
     func getVideo(videoCode: String) {
-        if let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") {
+        guard let url = URL(string: "https://www.youtube.com/embed/\(videoCode)") else {return}
             
-            // Create the indicator
-            
-            view.addSubview(activityIndicator)
-            
-            // Position activity indicator in center
-            
-            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                activityIndicator.centerXAnchor.constraint(equalTo: videoWebView.centerXAnchor),
-                activityIndicator.centerYAnchor.constraint(equalTo: videoWebView.centerYAnchor)])
-            
-            // Load video
-            
-            videoWebView.load(URLRequest(url: url))
-        }
-    }
-    
-    func showActivityIndicator(show: Bool) {
-        if show {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
-        }
+        // Create the indicator
+        
+        view.addSubview(activityIndicator)
+        
+        // Position activity indicator in center
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: videoWebView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: videoWebView.centerYAnchor)])
+        
+        // Load video
+        
+        videoWebView.load(URLRequest(url: url))
+        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        showActivityIndicator(show: false)
+        activityIndicator.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        showActivityIndicator(show: true)
+        activityIndicator.startAnimating()
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        showActivityIndicator(show: false)
+        activityIndicator.stopAnimating()
     }
 }

@@ -28,14 +28,13 @@ class ResourcesTableViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         if let refreshControl = refreshControl { tableView.addSubview(refreshControl) }
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-//MARK: - Load Resources
+// MARK: - Load Resources
     
     func loadResources() {
         
@@ -68,7 +67,7 @@ class ResourcesTableViewController: UITableViewController {
         }
     }
     
-//MARK: - Nav Bar Gradient
+// MARK: - Nav Bar Gradient
     
     func setUpNavBar() {
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
@@ -79,6 +78,7 @@ class ResourcesTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "TigerTalks"
@@ -94,7 +94,6 @@ class ResourcesTableViewController: UITableViewController {
             return resources.count
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "talkCell", for: indexPath) as! ResourcesTableViewCell
