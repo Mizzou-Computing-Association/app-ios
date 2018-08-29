@@ -199,14 +199,12 @@ class Model {
         center.getNotificationSettings { (notificationSettings) in
             switch notificationSettings.authorizationStatus {
             case .notDetermined:
-                print("not determined")
-            // Request Authorization
+                // Request Authorization
                 self.center.requestAuthorization(completionHandler: { (success,error) in
                     guard success else { return }
                     self.scheduleNotifications()
                 })
             case .authorized:
-                print("scheduling notifications")
                 self.scheduleNotifications()
             case .denied:
                 print("denied")
@@ -219,7 +217,7 @@ class Model {
        
     }
     
-//MARK: - JSON Loading and Parsing for Youtube TigerTalks
+// MARK: - JSON Loading and Parsing for Youtube TigerTalks
     func youtubeLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([YoutubeSnippet]?, String?) -> Void) {
         
         let config = URLSessionConfiguration.default // Session Configuration
