@@ -162,6 +162,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mentorCell", for: indexPath) as! MentorTableViewCell
         cell.delegate = self
+        cell.selectionStyle = .none
         
         if let mentor = mentorList?[indexPath.row] {
             cell.mentorNameLabel?.text = mentor.name
