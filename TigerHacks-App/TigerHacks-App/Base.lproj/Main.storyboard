@@ -373,7 +373,6 @@
                                             <constraint firstItem="NS5-hP-PVi" firstAttribute="leading" secondItem="19o-1T-Vgs" secondAttribute="leading" constant="23" id="9HS-li-7hn"/>
                                             <constraint firstItem="U0d-2k-oWC" firstAttribute="top" secondItem="19o-1T-Vgs" secondAttribute="top" constant="8" id="Btz-fB-PX3"/>
                                             <constraint firstAttribute="trailing" secondItem="i2X-q1-LcF" secondAttribute="trailing" constant="23" id="Dwg-hQ-ewI"/>
-                                            <constraint firstAttribute="bottom" secondItem="Ge6-vc-TGW" secondAttribute="bottom" constant="308" id="Fjz-ux-b47"/>
                                             <constraint firstItem="Ge6-vc-TGW" firstAttribute="top" secondItem="31t-er-b2Q" secondAttribute="bottom" constant="3" id="JFE-5S-CqR"/>
                                             <constraint firstItem="NS5-hP-PVi" firstAttribute="top" secondItem="z69-b9-GVt" secondAttribute="bottom" constant="8" id="Ltt-hR-hfh"/>
                                             <constraint firstItem="i2X-q1-LcF" firstAttribute="top" secondItem="wbm-EK-g8j" secondAttribute="bottom" constant="3" id="TAK-G6-vbj"/>
@@ -413,7 +412,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Q8L-CZ-kZP"/>
                     </view>
-                    <navigationItem key="navigationItem" title=" " largeTitleDisplayMode="always" id="JPp-08-Ke7">
+                    <navigationItem key="navigationItem" title=" " largeTitleDisplayMode="never" id="JPp-08-Ke7">
                         <barButtonItem key="backBarButtonItem" title=" " id="iSg-Zv-QRW"/>
                         <barButtonItem key="rightBarButtonItem" title="Favorite" id="UrW-RM-2Ny">
                             <connections>
