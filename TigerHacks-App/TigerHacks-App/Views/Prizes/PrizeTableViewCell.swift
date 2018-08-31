@@ -12,7 +12,7 @@ class PrizeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var prizeTitle: UILabel!
     @IBOutlet weak var prizeReward: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
