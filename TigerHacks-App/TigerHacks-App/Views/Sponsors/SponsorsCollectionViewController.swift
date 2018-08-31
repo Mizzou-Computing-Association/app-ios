@@ -13,6 +13,7 @@ private let reuseIdentifier = "sponsorCell"
 class SponsorsCollectionViewController: UICollectionViewController {
 
     var sponsors = [Sponsor]()
+    var allMentors = [Mentor]()
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -62,9 +63,23 @@ class SponsorsCollectionViewController: UICollectionViewController {
     
     func loadSponsors() {
         sponsors = Model.sharedInstance.sponsors!
+        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named:"tigerLogo")))
+        getAllMentors()
     }
     
-//MARK: - Nav Bar Gradient
+    func getAllMentors() {
+        allMentors.removeAll()
+        for sponsor in sponsors {
+            if let mentors = sponsor.mentors {
+                for mentor in mentors {
+                    allMentors.append(mentor)
+                }
+            }
+            
+        }
+    }
+    
+// MARK: - Nav Bar Gradient
     
     func setUpNavBar() {
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
@@ -93,33 +108,48 @@ class SponsorsCollectionViewController: UICollectionViewController {
         return cell
     }
     
-//MARK: - Segues
+// MARK: - Segues
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "sponsorSegue", sender: self)
+
+        if sponsors[indexPath.row].name == "All Mentors" {
+            performSegue(withIdentifier: "mentorSegue", sender: self)
+        }else {
+            performSegue(withIdentifier: "sponsorSegue", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! SponsorsDetailViewController
-        let selectedItem = collectionView?.indexPathsForSelectedItems?.first
         
-        if let row = selectedItem?.row {
-            let sponsor = sponsors[row]
+        if segue.identifier == "sponsorSegue" {
+            let destination = segue.destination as! SponsorsDetailViewController
+            let selectedItem = collectionView?.indexPathsForSelectedItems?.first
             
-            if let image = sponsor.image {
-                destination.image = image
-            }else {
-                destination.image = UIImage(named:"noImage")
+            if let row = selectedItem?.row {
+                let sponsor = sponsors[row]
+                
+                if let image = sponsor.image {
+                    destination.image = image
+                }else {
+                    destination.image = UIImage(named:"noImage")
+                }
+                
+                destination.titleText = sponsor.name
+                destination.locationText = sponsor.location
+                destination.websiteText = sponsor.website
+                destination.descriptionText = sponsor.description
+                if let mentorList = sponsor.mentors {
+                    destination.mentorList = mentorList
+                }
+                
             }
+        }else {
             
-            destination.titleText = sponsor.name
-            destination.locationText = sponsor.location
-            destination.websiteText = sponsor.website
-            destination.descriptionText = sponsor.description
-            if let mentorList = sponsor.mentors {
-                destination.mentorList = mentorList
-            }
+            let destination = segue.destination as! AllMentorTableViewController
             
+            self.navigationItem.backBarButtonItem?.title = ""
+            
+            destination.mentorList = allMentors
         }
     }
 }
