@@ -27,7 +27,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var refreshControl: UIRefreshControl!
     let dateFormatter = DateFormatter()
 
-    var mapToggler = MapToggle.map
+    var mapToggler = MapToggle.Map
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
 
@@ -180,13 +180,13 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     @IBAction func handleMapToggle(_ sender: Any) {
         switch mapToggler {
-        case .image:
+        case .Image:
             mapImageView.superview?.bringSubview(toFront: mapImageView)
-            mapToggler = .map
-        case .map:
+            mapToggler = .Map
+        case .Map:
             mapView.superview?.bringSubview(toFront: mapView)
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
-            mapToggler = .image
+            mapToggler = .Image
         }
     }
 
@@ -283,6 +283,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 }
 
 enum MapToggle {
-    case image
-    case map
+    case Image
+    case Map
 }
