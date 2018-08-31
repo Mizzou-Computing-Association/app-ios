@@ -5,5 +5,5 @@ install:
   - ./install_swiftlint.sh
 
 script:
-  - xcodebuild test -project TigerHacks-App.xcodeproj -scheme TigerHacks-App -destination "platform=iOS Simulator,name=iPhone X" -sdk iphonesimulator11.0 CODE_SIGNING_REQUIRED=NO
+  #- xcodebuild test -project TigerHacks-App.xcodeproj -scheme TigerHacks-App -destination "platform=iOS Simulator,name=iPhone X" -sdk iphonesimulator11.0 CODE_SIGNING_REQUIRED=NO
   - swiftlint
