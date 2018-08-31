@@ -99,6 +99,9 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func setUpNavBar() {
         Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+        //Tab bar
+        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
+        tabBarController?.tabBar.shadowImage =  UIImage();
     }
     
 //MARK: - Favorites

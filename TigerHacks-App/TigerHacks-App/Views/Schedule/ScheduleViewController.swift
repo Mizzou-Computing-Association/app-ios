@@ -38,6 +38,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
+        setDay()
         loadSchedules()
         
         // Swipe To Change Day
@@ -104,11 +105,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
 // MARK: - Default Starting Day
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        setDay()
-    }
     
     func setDay() {
 
@@ -202,7 +198,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             cell.eventLabel.text = testDayThreeArray[indexPath.row].title
             cell.locationLabel.text = testDayThreeArray[indexPath.row].location
             cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
-            print(dateFormatter.string(from: testDayThreeArray[indexPath.row].time))
         default:
             cell.eventLabel.text = "There is NO Event"
             cell.locationLabel.text = "Who Knows Where"
