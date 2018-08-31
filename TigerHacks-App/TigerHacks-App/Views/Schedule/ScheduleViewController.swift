@@ -38,6 +38,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
+        setDay()
         loadSchedules()
         
         // Swipe To Change Day
@@ -104,11 +105,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
 // MARK: - Default Starting Day
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        setDay()
-    }
     
     func setDay() {
 
