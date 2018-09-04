@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 struct Sponsor {
-    
+
     var mentors: [Mentor]?
     var name: String
     var description: String?

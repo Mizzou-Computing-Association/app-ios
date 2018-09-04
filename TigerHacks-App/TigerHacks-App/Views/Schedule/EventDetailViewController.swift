@@ -10,28 +10,27 @@ import UIKit
 
 class EventDetailViewController: UIViewController {
 
-
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionSubview: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    
+
     var titleText = "No Title"
     var locationText = "No Location"
     var timeText = "No Time"
     var descriptionText = "No Description"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //Label Initializing
         titleLabel.text = titleText
         //navigationItem.title = titleText
         locationLabel.text = locationText
         timeLabel.text = timeText
         descriptionLabel.text = descriptionText
-        
+
         //Subview Corner Curving
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
@@ -41,7 +40,7 @@ class EventDetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
     }

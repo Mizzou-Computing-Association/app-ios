@@ -1,0 +1,8 @@
+disabled_rules:
+  - force_cast
+  - trailing_whitespace
+excluded:
+  -TigerHacks-App⁩/TigerHacks-App⁩/AppDelegate.swift
+  
+line_length: 300
+

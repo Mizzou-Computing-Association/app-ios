@@ -20,48 +20,47 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var typeSubview: UIView!
-    
-    var sponsor:Sponsor?
-    var titleText:String?
-    var rewardText:String?
-    var descriptionText:String?
-    var typeText:String?
-    
+
+    var sponsor: Sponsor?
+    var titleText: String?
+    var rewardText: String?
+    var descriptionText: String?
+    var typeText: String?
+
     var testBeginnerPrizes = [Prize]()
     var testMainPrizes = [Prize]()
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Get Data
-        
+
         Model.sharedInstance.fakeAPICall()
         testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
         testMainPrizes = Model.sharedInstance.mainPrizes!
-        
+
         // Styling for Subviews
-        
+
         self.view.bringSubview(toFront: rewardLabel)
         sponsorSubview.clipsToBounds = true
         rewardSubview.clipsToBounds = true
         descriptionSubview.clipsToBounds = true
         typeSubview.clipsToBounds = true
-        
+
         sponsorSubview.layer.cornerRadius = 20
         rewardSubview.layer.cornerRadius = 20
         descriptionSubview.layer.cornerRadius = 20
         typeSubview.layer.cornerRadius = 20
-        
+
         sponsorSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         rewardSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         typeSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-        
+
         // Set Label Text
-        
+
         navigationItem.title = titleText
         sponsorLabel.text = "\(sponsor?.name ?? "This isn't a sponsored prize")"
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
@@ -71,23 +70,23 @@ class PrizeDetailViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+
         let mainPrizeTest = favoriteMainPrizes.filter { $0.title == titleText }
         let beginnerPrizeTest = favoriteBeginnerPrizes.filter { $0.title == titleText }
-        
+
         if mainPrizeTest.count != 0 || beginnerPrizeTest.count != 0 {
             favoriteButton.image = UIImage(named: "favoriteStar")
         }else {
             favoriteButton.image = UIImage(named: "unfavoriteStar")
         }
-        
+
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     @IBAction func favorite(_ sender: UIBarButtonItem) {
         // Currently only cosmetic. Still need to actually add, save, and present favorites.
         if favoriteButton.image == UIImage(named: "unfavoriteStar") {
@@ -98,7 +97,7 @@ class PrizeDetailViewController: UIViewController {
                     for prize in prize {
                         favoriteBeginnerPrizes.append(prize)
                     }
-                }else {
+                } else {
                     let prize = testMainPrizes.filter { $0.title == titleText }
                     for prize in prize {
                         favoriteMainPrizes.append(prize)
