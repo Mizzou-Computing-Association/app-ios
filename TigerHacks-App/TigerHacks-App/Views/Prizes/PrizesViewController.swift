@@ -48,6 +48,8 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         prizeTableView.addSubview(refreshControl)
+        
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,11 +109,11 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
 //MARK: - Favorites
     
     @IBAction func toggleFavorites(_ sender: UIBarButtonItem) {
-        if favoritesButton.title == "Favorite" {
-            favoritesButton.title = "UnFavorite"
+        if favoritesButton.image == UIImage(named: "favoriteStar") {
+            favoritesButton.image = UIImage(named: "unfavoriteStar")
             prizeTableView.reloadData()
         }else {
-            favoritesButton.title = "Favorite"
+            favoritesButton.image = UIImage(named: "favoriteStar")
             prizeTableView.reloadData()
         }
     }
@@ -120,7 +122,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if favoritesButton.title == "Favorite" {
+        if favoritesButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return testMainPrizes.count
             }
@@ -140,7 +142,7 @@ class PrizesViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        if favoritesButton.title == "Favorite" {
+        if favoritesButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = testMainPrizes[indexPath.row].title
                 cell.prizeReward.text = testMainPrizes[indexPath.row].reward
