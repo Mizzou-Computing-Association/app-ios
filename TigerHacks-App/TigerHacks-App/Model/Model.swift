@@ -156,7 +156,7 @@ class Model {
                   title: "Beginner Prize",
                   reward: "Nothing",
                   description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.beginner),
+                  prizeType: PrizeType.Beginner),
             Prize(sponsor:
                 Sponsor(mentors: nil,
                         name: "Cerner",
@@ -167,7 +167,7 @@ class Model {
                   title: "Beginner Prize",
                   reward: "Something",
                   description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.beginner)]
+                  prizeType: PrizeType.Beginner)]
 
         mainPrizes = [
             Prize(sponsor:
@@ -180,19 +180,19 @@ class Model {
                   title: "Make the World Better for us",
                   reward: "4 trips to a Cerner sponsored hospital facility",
                   description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.main),
+                  prizeType: PrizeType.Main),
             Prize(sponsor:
                 Sponsor(mentors: nil, name: "RJI", description: "we write articles blah blah blah", website: "Cerner.com", location: "Table 7, Main Hallway", image: nil),
                   title: "Do Something for the J-School",
                   reward: "A big ol' drone",
                   description: "You better do this one",
-                  prizeType: PrizeType.main),
+                  prizeType: PrizeType.Main),
             Prize(sponsor:
                 Sponsor(mentors: nil, name: "Google", description: "we google stuff but really its just bing", website: "google.com/careers", location: "Table 99, Main Hallway", image: nil),
                   title: "Snooping For Google",
                   reward: "A google home wink wink",
                   description: "This prize is awarded to the hack that best encompasses Google's mission statement to farm as much information about literally everyone",
-                  prizeType: PrizeType.main),
+                  prizeType: PrizeType.Main),
             Prize(sponsor:
                 Sponsor(mentors: nil,
                         name: "Microsoft",
@@ -203,7 +203,7 @@ class Model {
                   title: "Figure out PageRank",
                   reward: "We'll hire you",
                   description: "This prize is awarded to the hack that best figures out how the hell Google is ranking all those pages",
-                  prizeType: PrizeType.main)]
+                  prizeType: PrizeType.Main)]
 
         //Resource Dummy Data
         resources = [
