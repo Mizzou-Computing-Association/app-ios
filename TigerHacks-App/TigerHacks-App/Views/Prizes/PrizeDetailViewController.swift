@@ -75,9 +75,9 @@ class PrizeDetailViewController: UIViewController {
         let beginnerPrizeTest = favoriteBeginnerPrizes.filter { $0.title == titleText }
 
         if mainPrizeTest.count != 0 || beginnerPrizeTest.count != 0 {
-            favoriteButton.title = "UnFavorite"
-        } else {
-            favoriteButton.title = "Favorite"
+            favoriteButton.image = UIImage(named: "favoriteStar")
+        }else {
+            favoriteButton.image = UIImage(named: "unfavoriteStar")
         }
 
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -89,8 +89,8 @@ class PrizeDetailViewController: UIViewController {
 
     @IBAction func favorite(_ sender: UIBarButtonItem) {
         // Currently only cosmetic. Still need to actually add, save, and present favorites.
-        if favoriteButton.title == "Favorite" {
-            favoriteButton.title = "UnFavorite"
+        if favoriteButton.image == UIImage(named: "unfavoriteStar") {
+            favoriteButton.image = UIImage(named: "favoriteStar")
             if let typeText = typeText {
                 if typeText == "Beginner" {
                     let prize = testBeginnerPrizes.filter { $0.title == titleText }
@@ -104,8 +104,8 @@ class PrizeDetailViewController: UIViewController {
                     }
                 }
             }
-        } else {
-            favoriteButton.title = "Favorite"
+        }else {
+            favoriteButton.image = UIImage(named: "unfavoriteStar")
         }
     }
 }

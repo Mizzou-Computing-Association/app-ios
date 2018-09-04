@@ -239,7 +239,7 @@
                                 <action selector="changeSection:" destination="gAm-gB-hPp" eventType="valueChanged" id="NJZ-Mp-bOC"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="Ubp-JP-C1k">
+                        <barButtonItem key="rightBarButtonItem" image="unfavoriteStar" id="Ubp-JP-C1k">
                             <connections>
                                 <action selector="toggleFavorites:" destination="gAm-gB-hPp" id="FhY-ac-zF8"/>
                             </connections>
@@ -414,7 +414,7 @@
                     </view>
                     <navigationItem key="navigationItem" title=" " largeTitleDisplayMode="never" id="JPp-08-Ke7">
                         <barButtonItem key="backBarButtonItem" title=" " id="iSg-Zv-QRW"/>
-                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="UrW-RM-2Ny">
+                        <barButtonItem key="rightBarButtonItem" image="unfavoriteStar" id="UrW-RM-2Ny">
                             <connections>
                                 <action selector="favorite:" destination="4VW-li-TyV" id="V3M-Au-iXc"/>
                             </connections>
@@ -1264,6 +1264,7 @@
         <image name="file-document-7" width="30" height="30"/>
         <image name="gift-7" width="29" height="30"/>
         <image name="pin-map-7" width="30" height="30"/>
+        <image name="unfavoriteStar" width="16" height="16"/>
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
