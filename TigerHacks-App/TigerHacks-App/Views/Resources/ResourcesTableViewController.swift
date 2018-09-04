@@ -38,8 +38,7 @@ class ResourcesTableViewController: UITableViewController {
 
     func loadResources() {
 
-        Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {
-            (snippets, errorString) in
+        Model.sharedInstance.youtubeLoad(dispatchQueueForHandler: DispatchQueue.main) {(snippets, errorString) in
             if let errorString = errorString {
                 print("Error: \(errorString)")
             } else if let snippets = snippets {

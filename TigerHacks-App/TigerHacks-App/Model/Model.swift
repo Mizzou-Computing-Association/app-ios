@@ -91,11 +91,7 @@ class Model {
                                         image: UIImage(named: "airbnb")),
                                 Sponsor(mentors: cernerMentors,
                                         name: "Cerner",
-                                        description:
-                                    """
-                                    we make healthcare stuff that is good and makes people
-                                    not die probably most of the time this just to get to a length of more than one line
-                                    """,
+                                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
                                         website: "Cerner.com",
                                         location: "Table 6, Main Hallway",
                                         image: UIImage(named: "cerner")),
@@ -125,11 +121,7 @@ class Model {
                                         image: nil),
                                 Sponsor(mentors: nil,
                                         name: "Fulcrum GT",
-                                        description:
-                                    """
-                                    DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT
-                                    YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US
-                                    """,
+                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
                                         website: "dogfood.org",
                                         location: "Table 10, Main Hallway",
                                         image: UIImage(named: "fulcrumgt")),
@@ -255,11 +247,9 @@ class Model {
                               floor: 1,
                               title: "Test Notification",
                               description: "Don't come")]
-
         fullSchedule = sortEvents(events: fullSchedule)
 
         // Scheduling Notifications
-
         center.getNotificationSettings { (notificationSettings) in
             switch notificationSettings.authorizationStatus {
             case .notDetermined:
@@ -275,7 +265,6 @@ class Model {
                 print("Application Not Allowed to Display Notifications")
             }
         }
-
     }
 
 // MARK: - JSON Loading and Parsing for Youtube TigerTalks
@@ -294,9 +283,7 @@ class Model {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
 
-        let task = session.dataTask(with: urlRequest) {
-            (data, _, error) in
-
+        let task = session.dataTask(with: urlRequest) { (data, _, error) in
             guard error == nil, let data = data else {
                 var errorString = "data not available for requested channel "
                 if let error = error {
@@ -333,7 +320,6 @@ class Model {
         }
 
         if let items = rootNode["items"] as? [[String: Any]] {
-
             for item in items {
                 if let snippetNode = item["snippet"] as? [String: Any],
                     let snippetTitle = snippetNode["title"] as? String,
@@ -353,8 +339,6 @@ class Model {
 
     func scheduleNotifications() {
         for event in fullSchedule! {
-            //print(event.trigger.dateComponents.description)
-
             center.add(event.request) { (error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
@@ -367,10 +351,8 @@ class Model {
 // MARK: - Gradient color
 
     func setBarGradient(navigationBar: UINavigationBar) {
-        //set gradient
         navigationBar.setBackgroundImage(Model.sharedInstance.setGradientImageNavBar(), for: UIBarMetrics.default)
-        //Get rid of that pesky top lines
-            navigationBar.shadowImage = UIImage()
+        navigationBar.shadowImage = UIImage()
     }
 
     func setGradientImageNavBar() -> UIImage {
@@ -382,7 +364,6 @@ class Model {
         var gradientImageMove = UIImage()
         //Set the stopping point of each color of the gradient
         let locations = [0.55, 1]
-
         if DeviceType.IS_IPHONE_X {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
         } else {

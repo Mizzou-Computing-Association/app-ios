@@ -1,0 +1,8 @@
+disabled_rules:
+  - force_cast
+  - identifier_name
+excluded:
+  -TigerHacks-App⁩/TigerHacks-App⁩/AppDelegate.swift
+  
+line_length: 200
+
