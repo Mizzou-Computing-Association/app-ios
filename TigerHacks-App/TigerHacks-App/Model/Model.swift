@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 import UserNotifications
-// swiftlint:disable type_body_length function_body_length
+// swiftlint:disable type_body_length
+// swiftlint:disable function_body_length
 class Model {
     static var sharedInstance = Model()
 

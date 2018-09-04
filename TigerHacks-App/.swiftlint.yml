@@ -1,6 +1,6 @@
 disabled_rules:
   - force_cast
-  - identifier_name
+  - trailing_whitespace
 excluded:
   -TigerHacks-App⁩/TigerHacks-App⁩/AppDelegate.swift
   
