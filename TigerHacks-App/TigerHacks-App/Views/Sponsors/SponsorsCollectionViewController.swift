@@ -63,7 +63,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
     func loadSponsors() {
         sponsors = Model.sharedInstance.sponsors!
-        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named: "tigerLogo")))
+        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named: "tigerLogo-allMentors")))
         getAllMentors()
     }
 
