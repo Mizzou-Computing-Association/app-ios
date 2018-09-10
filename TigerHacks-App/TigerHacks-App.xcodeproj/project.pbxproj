@@ -31,6 +31,7 @@
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370E4AA2087C7A6009983FC /* Youtube.swift */; };
+		83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
 		83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* Resource.swift */; };
 		AE8E31D9208957BC0041520F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8E31D8208957BC0041520F /* Constants.swift */; };
@@ -65,6 +66,7 @@
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		8370E4AA2087C7A6009983FC /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
+		83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMentorTableViewController.swift; sourceTree = "<group>"; };
 		83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorTableViewCell.swift; sourceTree = "<group>"; };
 		83F2AFD32054A05B00A137E5 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		AE8E31D8208957BC0041520F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		834C30D62053409B003DA584 /* Sponsors */ = {
 			isa = PBXGroup;
 			children = (
+				83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */,
 				834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */,
 				834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */,
 				834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */,
@@ -209,6 +212,7 @@
 				834C30A620532FFB003DA584 /* Sources */,
 				834C30A720532FFB003DA584 /* Frameworks */,
 				834C30A820532FFB003DA584 /* Resources */,
+				83E116DB2139CB4700C52D8B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -266,6 +270,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		83E116DB2139CB4700C52D8B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		834C30A620532FFB003DA584 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -279,6 +299,7 @@
 				835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */,
 				834C30C520533085003DA584 /* Prize.swift in Sources */,
 				834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */,
+				83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */,
 				834C30CE20533E01003DA584 /* PrizesViewController.swift in Sources */,
 				834C30D320533F6C003DA584 /* ScheduleViewController.swift in Sources */,
 				834C30DD20534994003DA584 /* ResourcesTableViewController.swift in Sources */,

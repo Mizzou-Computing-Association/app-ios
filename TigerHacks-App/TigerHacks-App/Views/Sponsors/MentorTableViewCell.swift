@@ -17,9 +17,9 @@ class MentorTableViewCell: UITableViewCell {
     @IBOutlet weak var mentorNameLabel: UILabel!
     @IBOutlet weak var mentorSkillsLabel: UILabel!
     @IBOutlet weak var contactButton: UIButton!
-    
+
     weak var delegate: MentorCellDelegate?
-    
+
     @IBAction func contactButtonTapped(_ sender: UIButton) {
         delegate?.mentorTableViewCellDidTapContact(self)
     }
