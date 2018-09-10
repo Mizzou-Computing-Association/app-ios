@@ -30,12 +30,14 @@ class SponsorsCollectionViewController: UICollectionViewController {
         let numberOfCells = CGFloat(2)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
 
-            flowLayout.minimumInteritemSpacing = 2
-            flowLayout.minimumLineSpacing = 2
-
-            let horizontalSpacing = flowLayout.minimumInteritemSpacing
+            flowLayout.minimumInteritemSpacing = 20
+            flowLayout.minimumLineSpacing = 20
+            flowLayout.sectionInset.left = 20
+            flowLayout.sectionInset.right = 20
+            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
             let cellWidth = (view.frame.width - (numberOfCells-1)*horizontalSpacing)/numberOfCells
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+            
         }
 
         // Refresh Control
