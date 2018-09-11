@@ -17,7 +17,7 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var sponsorSubview: UIView!
     @IBOutlet weak var rewardSubview: UIView!
     @IBOutlet weak var descriptionSubview: UIView!
-    @IBOutlet weak var favoriteButton: UIBarButtonItem!
+    @IBOutlet weak var favoriteButton: DOFavoriteButton!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var typeSubview: UIView!
 

@@ -12,7 +12,8 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var prizeTableView: UITableView!
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
-    @IBOutlet weak var favoritesButton: UIBarButtonItem!
+    @IBOutlet weak var favoriteButton: DOFavoriteButton!
+    
 
     var testBeginnerPrizes = [Prize]()
     var testMainPrizes = [Prize]()
@@ -48,6 +49,10 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
         prizeTableView.addSubview(refreshControl)
+        
+        // Favorites Button
+        
+        favoriteButton.addTarget(self, action: Selector("tapped:"), for: .touchUpInside)
         
     
     }
@@ -107,21 +112,38 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 // MARK: - Favorites
-
-    @IBAction func toggleFavorites(_ sender: UIBarButtonItem) {
-        if favoritesButton.image == UIImage(named: "favoriteStar") {
-            favoritesButton.image = UIImage(named: "unfavoriteStar")
-            prizeTableView.reloadData()
-        }else {
-            favoritesButton.image = UIImage(named: "favoriteStar")
-            prizeTableView.reloadData()
+    
+//    @IBAction func toggleFavorites(_ sender: DOFavoriteButton) {
+//        if favoriteButton.image == UIImage(named: "favoriteStar") {
+//            favoriteButton.image = UIImage(named: "unfavoriteStar")
+//            prizeTableView.reloadData()
+//        }else {
+//            favoriteButton.image = UIImage(named: "favoriteStar")
+//            prizeTableView.reloadData()
+//        }
+//    }
+    
+    func tapped(sender: DOFavoriteButton) {
+        if sender.isSelected {
+            // deselect
+            sender.deselect()
+        } else {
+            // select with animation
+            sender.select()
         }
     }
+    
+    
+    
+    
+    
+    
+    
 
 // MARK: - Table View
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        if favoritesButton.image == UIImage(named: "unfavoriteStar") {
+        if favoriteButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return testMainPrizes.count
             } else {
@@ -139,7 +161,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        if favoritesButton.image == UIImage(named: "unfavoriteStar") {
+        if favoriteButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = testMainPrizes[indexPath.row].title
                 cell.prizeReward.text = testMainPrizes[indexPath.row].reward

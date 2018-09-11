@@ -36,6 +36,7 @@
 		83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD32054A05B00A137E5 /* Resource.swift */; };
 		AE8E31D9208957BC0041520F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8E31D8208957BC0041520F /* Constants.swift */; };
 		AE8E31DB208958560041520F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8E31DA208958560041520F /* Extensions.swift */; };
+		E2FEDBA221485ECB00C8F849 /* ButtonAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEDBA121485ECB00C8F849 /* ButtonAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		83F2AFD32054A05B00A137E5 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		AE8E31D8208957BC0041520F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AE8E31DA208958560041520F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E2FEDBA121485ECB00C8F849 /* ButtonAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,9 +166,10 @@
 		834C30D52053407F003DA584 /* Prizes */ = {
 			isa = PBXGroup;
 			children = (
+				E2FEDBA021485C5600C8F849 /* Favorite Button Animation */,
 				834C30CD20533E01003DA584 /* PrizesViewController.swift */,
-				834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */,
 				834C30EC20538791003DA584 /* PrizeDetailViewController.swift */,
+				834C30CF20533EBA003DA584 /* PrizeTableViewCell.swift */,
 			);
 			path = Prizes;
 			sourceTree = "<group>";
@@ -200,6 +203,14 @@
 				834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E2FEDBA021485C5600C8F849 /* Favorite Button Animation */ = {
+			isa = PBXGroup;
+			children = (
+				E2FEDBA121485ECB00C8F849 /* ButtonAnimation.swift */,
+			);
+			path = "Favorite Button Animation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +322,7 @@
 				834C30AE20532FFB003DA584 /* AppDelegate.swift in Sources */,
 				83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */,
 				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,
+				E2FEDBA221485ECB00C8F849 /* ButtonAnimation.swift in Sources */,
 				834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */,
 				AE8E31DB208958560041520F /* Extensions.swift in Sources */,
 				834C30E320534B62003DA584 /* MapViewController.swift in Sources */,
