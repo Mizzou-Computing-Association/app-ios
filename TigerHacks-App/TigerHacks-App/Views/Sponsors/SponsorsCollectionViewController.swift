@@ -99,6 +99,13 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.view.clipsToBounds = true
         cell.view.layer.cornerRadius = 20
         cell.view.layer.borderWidth = 0.5
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
+
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
 
         if let image = sponsors[indexPath.row].image {
