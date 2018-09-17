@@ -20,7 +20,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     let testImageArray = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
 
-    var testEventArray = [Event]()
+    var fullSchedule = [Event]()
     var floorOneEvents = [Event]()
     var floorTwoEvents = [Event]()
     var floorThreeEvents = [Event]()
@@ -44,8 +44,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         dateFormatter.timeStyle = .short
 
         // Loading Schedules
-
-        Model.sharedInstance.fakeAPICall()
         loadSchedule()
 
         // Swipe to Change Level
@@ -94,8 +92,23 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 // MARK: - Loading Schedules
 
     func loadSchedule() {
-        testEventArray = Model.sharedInstance.fullSchedule!
-        filterFullScheduleByFloor(fullSchedule: testEventArray)
+        Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let events = events {
+                self.fullSchedule = events
+                var tempEvents = [Event]()
+                for event in events {
+                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    tempEvents.append(event)
+                }
+                self.fullSchedule = tempEvents
+                self.fullSchedule = Model.sharedInstance.sortEvents(events: self.fullSchedule)!
+                self.filterFullScheduleByFloor(fullSchedule: self.fullSchedule)
+                self.mapTableView.reloadData()
+                
+            }
+        }
     }
 
     func filterFullScheduleByFloor(fullSchedule: [Event]) {
@@ -104,11 +117,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         var tempFloorThreeEvents = [Event]()
 
         for event in fullSchedule {
-            if event.floor == 1 {
+            if event.floor == 0 {
                 tempFloorOneEvents.append(event)
-            } else if event.floor == 2 {
+            } else if event.floor == 1 {
                 tempFloorTwoEvents.append(event)
-            } else if event.floor == 3 {
+            } else if event.floor == 2 {
                 tempFloorThreeEvents.append(event)
             }
         }
