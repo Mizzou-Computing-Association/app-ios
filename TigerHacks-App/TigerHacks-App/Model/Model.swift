@@ -205,9 +205,6 @@ class Model {
             case .denied:
                 print("denied")
                 print("Application Not Allowed to Display Notifications")
-                
-            case .provisional:
-                print("provisional")
             }
         }
     }
