@@ -12,7 +12,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var prizeTableView: UITableView!
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
-    @IBOutlet weak var favoriteButton: DOFavoriteButton!
+    @IBOutlet weak var favoriteBarButtonItem: UIBarButtonItem!
     
 
     var testBeginnerPrizes = [Prize]()
@@ -22,6 +22,12 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var favoriteMainPrizes = [Prize]()
 
     var refreshControl: UIRefreshControl!
+    
+    var favorited = false
+    
+    let favoriteIconImage = UIImage(named: "favorite")
+    let favoriteSelectedIconIamge = UIImage(named: "favorite_selected")
+    var favoriteButton: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +58,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Favorites Button
         
-        favoriteButton.addTarget(self, action: Selector("tapped:"), for: .touchUpInside)
-        
+        setupFavoriteBarButtonItem()
     
     }
 
@@ -113,25 +118,45 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
 // MARK: - Favorites
     
-//    @IBAction func toggleFavorites(_ sender: DOFavoriteButton) {
-//        if favoriteButton.image == UIImage(named: "favoriteStar") {
-//            favoriteButton.image = UIImage(named: "unfavoriteStar")
-//            prizeTableView.reloadData()
-//        }else {
-//            favoriteButton.image = UIImage(named: "favoriteStar")
-//            prizeTableView.reloadData()
-//        }
-//    }
-    
-    func tapped(sender: DOFavoriteButton) {
-        if sender.isSelected {
-            // deselect
-            sender.deselect()
+    func toggleFavorited() {
+        if (favorited){
+            favorited = false
+            favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
         } else {
-            // select with animation
-            sender.select()
+            favorited = true
+            favoriteButton?.setBackgroundImage(favoriteSelectedIconIamge, for: .normal)
+        }
+        favoriteButton?.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: .curveLinear, animations: {
+        self.favoriteButton?.transform = CGAffineTransform.identity
+        }, completion: {
+        (result) in
+        print("favorite was tapped and animation happened")
+        })
+    }
+ 
+    
+// MARK: - Favorite Button
+    
+    func setupFavoriteBarButtonItem(){
+        guard let size =
+            favoriteIconImage?.size else {
+                return
+        }
+        
+        let favoriteIconRect = CGRect(origin: CGPoint.zero, size: size)
+        favoriteButton = UIButton(frame: favoriteIconRect)
+        favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
+        favoriteButton?.addTarget(self, action: #selector(tappedFavoriteButton), for: .touchUpInside)
+        if let favoriteButton = favoriteButton {
+            favoriteBarButtonItem.customView = favoriteButton
         }
     }
+    
+    @objc func tappedFavoriteButton(){
+        toggleFavorited()
+    }
+
     
     
     
@@ -143,7 +168,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 // MARK: - Table View
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        if favoriteButton.image == UIImage(named: "unfavoriteStar") {
+        if !favorited {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return testMainPrizes.count
             } else {
@@ -161,7 +186,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        if favoriteButton.image == UIImage(named: "unfavoriteStar") {
+        if !favorited {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = testMainPrizes[indexPath.row].title
                 cell.prizeReward.text = testMainPrizes[indexPath.row].reward
