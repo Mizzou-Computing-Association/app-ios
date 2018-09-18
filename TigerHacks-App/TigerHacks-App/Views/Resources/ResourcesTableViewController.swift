@@ -26,7 +26,7 @@ class ResourcesTableViewController: UITableViewController {
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         if let refreshControl = refreshControl { tableView.addSubview(refreshControl) }
     }
 
@@ -49,11 +49,11 @@ class ResourcesTableViewController: UITableViewController {
                     tempTigerTalks.append(tigerTalk)
                 }
                 self.tigerTalks = tempTigerTalks
-                self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableViewRowAnimation.automatic)
+                self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.automatic)
             }
         }
         self.resources = Model.sharedInstance.resources!
-        self.tableView.reloadSections(IndexSet(integersIn: 1...1), with: UITableViewRowAnimation.automatic)
+        self.tableView.reloadSections(IndexSet(integersIn: 1...1), with: UITableView.RowAnimation.automatic)
     }
 
     @objc func refresh(_ sender: Any) {

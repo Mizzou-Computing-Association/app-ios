@@ -43,7 +43,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         collectionView?.addSubview(refreshControl)
     }
 

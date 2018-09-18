@@ -38,7 +38,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Initial Setup
 
         setUpNavBar()
-         mapImageView.superview?.bringSubview(toFront: mapImageView)
+         mapImageView.superview?.bringSubviewToFront(mapImageView)
         mapTableView.dataSource = self
         mapTableView.delegate = self
         dateFormatter.timeStyle = .short
@@ -51,11 +51,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Swipe to Change Level
 
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
 
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeft)
 
         // Map Image View
@@ -77,7 +77,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mapTableView.addSubview(refreshControl)
     }
 
@@ -182,10 +182,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func handleMapToggle(_ sender: Any) {
         switch mapToggler {
         case .Image:
-            mapImageView.superview?.bringSubview(toFront: mapImageView)
+            mapImageView.superview?.bringSubviewToFront(mapImageView)
             mapToggler = .Map
         case .Map:
-            mapView.superview?.bringSubview(toFront: mapView)
+            mapView.superview?.bringSubviewToFront(mapView)
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
             mapToggler = .Image
         }

@@ -63,7 +63,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mentorTableView.addSubview(refreshControl)
     }
 

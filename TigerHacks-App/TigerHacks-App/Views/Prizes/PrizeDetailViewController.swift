@@ -43,7 +43,7 @@ class PrizeDetailViewController: UIViewController {
 
         // Styling for Subviews
 
-        self.view.bringSubview(toFront: rewardLabel)
+        self.view.bringSubviewToFront(rewardLabel)
         sponsorSubview.clipsToBounds = true
         rewardSubview.clipsToBounds = true
         descriptionSubview.clipsToBounds = true
