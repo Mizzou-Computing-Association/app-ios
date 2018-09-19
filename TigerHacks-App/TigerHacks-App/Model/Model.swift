@@ -214,7 +214,7 @@ class Model {
 
         //Schedule Dummy Data
         fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,
-                              location: "Time Capsule",
+                              location: "The Time Capsule (W0009-Basement)",
                               floor: 1,
                               title: "Game Party",
                               description: "Hanging out and playing games"),
