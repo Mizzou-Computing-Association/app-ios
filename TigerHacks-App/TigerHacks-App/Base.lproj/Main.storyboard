@@ -37,22 +37,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
-                                                    <rect key="frame" x="15" y="4" width="366" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
+                                                    <rect key="frame" x="15" y="4" width="327" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
-                                                    <rect key="frame" x="328" y="40.5" width="38" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
+                                                    <rect key="frame" x="230" y="40.5" width="97" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
-                                                    <rect key="frame" x="15" y="41" width="66.5" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
+                                                    <rect key="frame" x="15" y="41" width="215" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="1tO-2w-MjT"/>
+                                                        <constraint firstAttribute="width" constant="215" id="j9X-2l-eaK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -62,6 +62,7 @@
                                             <constraints>
                                                 <constraint firstItem="R3s-vl-XPx" firstAttribute="centerY" secondItem="36c-3V-hwi" secondAttribute="centerY" id="0o0-9J-iih"/>
                                                 <constraint firstItem="36c-3V-hwi" firstAttribute="top" secondItem="pB2-t3-PV1" secondAttribute="bottom" constant="8" symbolic="YES" id="Im0-ig-p7l"/>
+                                                <constraint firstItem="R3s-vl-XPx" firstAttribute="leading" secondItem="36c-3V-hwi" secondAttribute="trailing" id="QQZ-lG-AsS"/>
                                                 <constraint firstAttribute="bottom" secondItem="36c-3V-hwi" secondAttribute="bottom" constant="11.5" id="TSg-Cg-lHu"/>
                                                 <constraint firstAttribute="trailing" secondItem="pB2-t3-PV1" secondAttribute="trailing" id="Ujd-fI-5PS"/>
                                                 <constraint firstAttribute="trailing" secondItem="R3s-vl-XPx" secondAttribute="trailing" constant="15" id="d6y-2d-4xa"/>
@@ -1268,7 +1269,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aTH-MJ-Dtv"/>
+        <segue reference="6CL-3g-IGv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
