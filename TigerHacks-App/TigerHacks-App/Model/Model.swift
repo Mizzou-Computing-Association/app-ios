@@ -34,40 +34,6 @@ class Model {
     let center = UNUserNotificationCenter.current()
 
     func fakeAPICall() {
-        //Schedule Dummy Data
-
-        let myCalendar = Calendar.current
-        var dateComponents = DateComponents()
-        dateComponents.year = 2018
-        dateComponents.month = 10
-        dateComponents.day = 12
-        dateComponents.hour = 20
-        dateComponents.minute = 30
-        var dateComponents1 = DateComponents()
-        dateComponents1.year = 2018
-        dateComponents1.month = 10
-        dateComponents1.day = 13
-        dateComponents1.hour = 12
-        dateComponents1.minute = 00
-        var dateComponents2 = DateComponents()
-        dateComponents2.year = 2018
-        dateComponents2.month = 10
-        dateComponents2.day = 14
-        dateComponents2.hour = 8
-        dateComponents2.minute = 30
-        var dateComponents3 = DateComponents()
-        dateComponents3.year = 2018
-        dateComponents3.month = 10
-        dateComponents3.day = 14
-        dateComponents3.hour = 1
-        dateComponents3.minute = 30
-        var dateComponents4 = DateComponents()
-        dateComponents4.year = 2018
-        dateComponents4.month = 10
-        dateComponents4.day = 13
-        dateComponents4.hour = 18
-        dateComponents4.minute = 30
-
         // Test Dates for Notifications
         var testDateComponents = DateComponents()
         testDateComponents.year = 2018
@@ -338,6 +304,83 @@ class Model {
             }
         }
         return (snippets, nil)
+    }
+    
+    func scheduleLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Event]?, String?) -> Void) {
+        
+        let config = URLSessionConfiguration.default // Session Configuration
+        let session = URLSession(configuration: config) // Load configuration into Session
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSchedule"
+        
+        guard let url = URL(string: requestString) else {
+            dispatchQueueForHandler.async(execute: {
+                completionHandler(nil, "the url for requesting a channel is invalid")
+            })
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        let task = session.dataTask(with: urlRequest) { (data, _, error) in
+            guard error == nil, let data = data else {
+                var errorString = "data not available for requested channel "
+                if let error = error {
+                    errorString = error.localizedDescription
+                }
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+                return
+            }
+            
+            let (events, errorString) = self.scheduleParse(with: data)
+            
+            if let errorString = errorString {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+            } else {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(events, nil)
+                })
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func scheduleParse(with data: Data) -> ([Event]?, String?) {
+        var events = [Event]()
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let rootNode = json as? [String: Any] else {
+                return (nil, "unable to parse response from server")
+        }
+        
+        if let items = rootNode["schedule"] as? [[String: Any]] {
+            for item in items {
+                if let eventTime = item["Time"] as? String,
+                    let eventTitle = item["Title"] as? String,
+                    let eventLocation = item["Location"] as? String,
+                    let eventDescription = item["Description"] as? String,
+                    let eventFloor = item["Floor"] as? Int {
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+                    
+                    if let date = dateFormatter.date(from: eventTime) {
+                        let calendar = Calendar.current
+                        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+                        if let finalDate = calendar.date(from: components) {
+                            let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
+                            events.append(event)
+                        }
+                    }
+                }
+            }
+        }
+        return (events, nil)
     }
 
     func scheduleNotifications() {
