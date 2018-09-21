@@ -34,40 +34,6 @@ class Model {
     let center = UNUserNotificationCenter.current()
 
     func fakeAPICall() {
-        //Schedule Dummy Data
-
-        let myCalendar = Calendar.current
-        var dateComponents = DateComponents()
-        dateComponents.year = 2018
-        dateComponents.month = 10
-        dateComponents.day = 12
-        dateComponents.hour = 20
-        dateComponents.minute = 30
-        var dateComponents1 = DateComponents()
-        dateComponents1.year = 2018
-        dateComponents1.month = 10
-        dateComponents1.day = 13
-        dateComponents1.hour = 12
-        dateComponents1.minute = 00
-        var dateComponents2 = DateComponents()
-        dateComponents2.year = 2018
-        dateComponents2.month = 10
-        dateComponents2.day = 14
-        dateComponents2.hour = 8
-        dateComponents2.minute = 30
-        var dateComponents3 = DateComponents()
-        dateComponents3.year = 2018
-        dateComponents3.month = 10
-        dateComponents3.day = 14
-        dateComponents3.hour = 1
-        dateComponents3.minute = 30
-        var dateComponents4 = DateComponents()
-        dateComponents4.year = 2018
-        dateComponents4.month = 10
-        dateComponents4.day = 13
-        dateComponents4.hour = 18
-        dateComponents4.minute = 30
-
         // Test Dates for Notifications
         var testDateComponents = DateComponents()
         testDateComponents.year = 2018
@@ -144,66 +110,7 @@ class Model {
                                         website: "dogfood.org",
                                         location: "Table 10, Main Hallway",
                                         image: UIImage(named: "fulcrumgt"))]
-        //Prize Dummy Data
-        beginnerPrizes = [
-            Prize(sponsor:
-                Sponsor(mentors: nil,
-                        name: "Cerner",
-                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-                        website: "Cerner.com",
-                        location: "Table 6, Main Hallway",
-                        image: nil),
-                  title: "Beginner Prize",
-                  reward: "Nothing",
-                  description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.Beginner),
-            Prize(sponsor:
-                Sponsor(mentors: nil,
-                        name: "Cerner",
-                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-                        website: "Cerner.com",
-                        location: "Table 6, Main Hallway",
-                        image: nil),
-                  title: "Beginner Prize",
-                  reward: "Something",
-                  description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.Beginner)]
-
-        mainPrizes = [
-            Prize(sponsor:
-                Sponsor(mentors: nil,
-                        name: "Cerner",
-                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-                        website: "Cerner.com",
-                        location: "Table 6, Main Hallway",
-                        image: nil),
-                  title: "Make the World Better for us",
-                  reward: "4 trips to a Cerner sponsored hospital facility",
-                  description: "This prize is awarded to the hack that best encompasses Cerner's mission statement to make the world a worse place for developers",
-                  prizeType: PrizeType.Main),
-            Prize(sponsor:
-                Sponsor(mentors: nil, name: "RJI", description: "we write articles blah blah blah", website: "Cerner.com", location: "Table 7, Main Hallway", image: nil),
-                  title: "Do Something for the J-School",
-                  reward: "A big ol' drone",
-                  description: "You better do this one",
-                  prizeType: PrizeType.Main),
-            Prize(sponsor:
-                Sponsor(mentors: nil, name: "Google", description: "we google stuff but really its just bing", website: "google.com/careers", location: "Table 99, Main Hallway", image: nil),
-                  title: "Snooping For Google",
-                  reward: "A google home wink wink",
-                  description: "This prize is awarded to the hack that best encompasses Google's mission statement to farm as much information about literally everyone",
-                  prizeType: PrizeType.Main),
-            Prize(sponsor:
-                Sponsor(mentors: nil,
-                        name: "Microsoft",
-                        description: "we search stuff but also computers. Really everything",
-                        website: "microsoft.com/careers",
-                        location: "Table 10, Main Hallway",
-                        image: nil),
-                  title: "Figure out PageRank",
-                  reward: "We'll hire you",
-                  description: "This prize is awarded to the hack that best figures out how the hell Google is ranking all those pages",
-                  prizeType: PrizeType.Main)]
+        
 
         //Resource Dummy Data
         resources = [
@@ -268,6 +175,80 @@ class Model {
                 self.scheduleNotifications()
             }
         }
+    }
+    
+    func prizeLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Prize]?, String?) -> Void) {
+        
+        let config = URLSessionConfiguration.default // Session Configuration
+        let session = URLSession(configuration: config) // Load configuration into Session
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksPrizes"
+        
+        guard let url = URL(string: requestString) else {
+            dispatchQueueForHandler.async(execute: {
+                completionHandler(nil, "the url for requesting a channel is invalid")
+            })
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        let task = session.dataTask(with: urlRequest) { (data, _, error) in
+            guard error == nil, let data = data else {
+                var errorString = "data not available for requested channel "
+                if let error = error {
+                    errorString = error.localizedDescription
+                }
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+                return
+            }
+            print(data)
+            let (prizes, errorString) = self.prizeParse(with: data)
+
+            if let errorString = errorString {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+            } else {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(prizes, nil)
+                })
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func prizeParse(with data: Data) -> ([Prize]?, String?) {
+        var prizes = [Prize]()
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let rootNode = json as? [String: Any] else {
+                return (nil, "unable to parse response from server")
+        }
+        
+        print("JSON: \(json)")
+        
+        if let items = rootNode["prizes"] as? [[String: Any]] {
+            for item in items {
+                print("ITEM: \(item)")
+                if let prizeSponsorID = item["Sponsor"] as? Int,
+                    let prizeTitle = item["Title"] as? String,
+                    let prizeReward = item["Reward"] as? String,
+                    let prizeDescription = item["Description"] as? String,
+                    let prizeType = item["Prizetype"] as? String,
+                    let enumPrizeType = PrizeType(rawValue: prizeType) {
+                    print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
+                    
+                    let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
+                    
+                    prizes.append(prize)
+                }
+            }
+        }
+        return (prizes, nil)
     }
 
 // MARK: - JSON Loading and Parsing for Youtube TigerTalks
@@ -338,6 +319,83 @@ class Model {
             }
         }
         return (snippets, nil)
+    }
+    
+    func scheduleLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Event]?, String?) -> Void) {
+        
+        let config = URLSessionConfiguration.default // Session Configuration
+        let session = URLSession(configuration: config) // Load configuration into Session
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSchedule"
+        
+        guard let url = URL(string: requestString) else {
+            dispatchQueueForHandler.async(execute: {
+                completionHandler(nil, "the url for requesting a channel is invalid")
+            })
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        
+        let task = session.dataTask(with: urlRequest) { (data, _, error) in
+            guard error == nil, let data = data else {
+                var errorString = "data not available for requested channel "
+                if let error = error {
+                    errorString = error.localizedDescription
+                }
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+                return
+            }
+            
+            let (events, errorString) = self.scheduleParse(with: data)
+            
+            if let errorString = errorString {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+            } else {
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(events, nil)
+                })
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func scheduleParse(with data: Data) -> ([Event]?, String?) {
+        var events = [Event]()
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let rootNode = json as? [String: Any] else {
+                return (nil, "unable to parse response from server")
+        }
+        
+        if let items = rootNode["schedule"] as? [[String: Any]] {
+            for item in items {
+                if let eventTime = item["Time"] as? String,
+                    let eventTitle = item["Title"] as? String,
+                    let eventLocation = item["Location"] as? String,
+                    let eventDescription = item["Description"] as? String,
+                    let eventFloor = item["Floor"] as? Int {
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+                    
+                    if let date = dateFormatter.date(from: eventTime) {
+                        let calendar = Calendar.current
+                        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+                        if let finalDate = calendar.date(from: components) {
+                            let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
+                            events.append(event)
+                        }
+                    }
+                }
+            }
+        }
+        return (events, nil)
     }
 
     func scheduleNotifications() {

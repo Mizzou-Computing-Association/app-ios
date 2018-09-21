@@ -134,9 +134,9 @@
                             <rect key="frame" x="90.5" y="7" width="173" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
+                                <segment title="Floor 0"/>
                                 <segment title="Floor 1"/>
                                 <segment title="Floor 2"/>
-                                <segment title="Floor 3"/>
                             </segments>
                             <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -1269,7 +1269,7 @@
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aTH-MJ-Dtv"/>
+        <segue reference="6CL-3g-IGv"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

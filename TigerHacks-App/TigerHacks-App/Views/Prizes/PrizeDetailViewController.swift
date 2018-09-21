@@ -38,8 +38,8 @@ class PrizeDetailViewController: UIViewController {
         // Get Data
 
         Model.sharedInstance.fakeAPICall()
-        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
-        testMainPrizes = Model.sharedInstance.mainPrizes!
+//        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+//        testMainPrizes = Model.sharedInstance.mainPrizes!
 
         // Styling for Subviews
 

@@ -13,6 +13,7 @@ class ResourcesTableViewController: UITableViewController {
     var resources = [Resource]()
     var tigerTalks = [Resource]()
     var snippets = [YoutubeSnippet]()
+    var prizes = [Prize]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,7 @@ class ResourcesTableViewController: UITableViewController {
                 self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.automatic)
             }
         }
+        
         self.resources = Model.sharedInstance.resources!
         self.tableView.reloadSections(IndexSet(integersIn: 1...1), with: UITableView.RowAnimation.automatic)
     }
