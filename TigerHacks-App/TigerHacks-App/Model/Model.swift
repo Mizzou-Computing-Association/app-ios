@@ -34,15 +34,7 @@ class Model {
     let center = UNUserNotificationCenter.current()
 
     func fakeAPICall() {
-        // Test Dates for Notifications
-        var testDateComponents = DateComponents()
-        testDateComponents.year = 2018
-        testDateComponents.month = 5
-        testDateComponents.day = 15
-        testDateComponents.hour = 13
-        testDateComponents.minute = 54
         //Mentor Dummy Data
-
         let cernerMentors = [Mentor(name: "JJ Smith",
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
                                              "That's it" ],
@@ -111,51 +103,12 @@ class Model {
                                         location: "Table 10, Main Hallway",
                                         image: UIImage(named: "fulcrumgt"))]
         
-
         //Resource Dummy Data
         resources = [
             Resource(url: "https://www.google.com", title: "Google", description: "It's a website for googling things that you should use probably a whole lot."),
             Resource(url: "https://www.bing.com", title: "Bing", description: "It's a website for binging things that you should use probably not a whole lot."),
             Resource(url: "https://www.yahoo.com", title: "Yahoo", description: "It's a website for yahooing (sp?) things that you should use probably not a whole lot."),
             Resource(url: "https://www.youtube.com/embed/RmHqOSrkZnk", title: "Embedding Videos into a WebView Tutorial", description: "Tutorial for embedding youtube videos into an iOS app. ")]
-
-        //Schedule Dummy Data
-        fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,
-                              location: "Time Capsule",
-                              floor: 1,
-                              title: "Game Party",
-                              description: "Hanging out and playing games"),
-                        Event(time: myCalendar.date(from: dateComponents1)!,
-                              location: "Time Capsule",
-                              floor: 1,
-                              title: "Lunch",
-                              description: "Hanging out and playing games"),
-                        Event(time: myCalendar.date(from: dateComponents1)!,
-                              location: "Main Hallway",
-                              floor: 2,
-                              title: "Dinner",
-                              description: "Eating dinner"),
-                        Event(time: myCalendar.date(from: dateComponents4)!,
-                              location: "Main Hallway",
-                              floor: 2,
-                              title: "Dinner",
-                              description: "Eating dinner"),
-                        Event(time: myCalendar.date(from: dateComponents2)!,
-                              location: "The Closet",
-                              floor: 3,
-                              title: "Nothin",
-                              description: "Don't come"),
-                        Event(time: myCalendar.date(from: dateComponents3)!,
-                              location: "The Closet",
-                              floor: 3,
-                              title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor",
-                              description: "Don't come"),
-                        Event(time: myCalendar.date(from: testDateComponents)!,
-                              location: "Mizzou",
-                              floor: 1,
-                              title: "Test Notification",
-                              description: "Don't come")]
-        fullSchedule = sortEvents(events: fullSchedule)
 
         // Scheduling Notifications
         center.getNotificationSettings { (notificationSettings) in
@@ -177,6 +130,7 @@ class Model {
         }
     }
     
+// MARK: - JSON Loading and Parsing for Prizes
     func prizeLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Prize]?, String?) -> Void) {
         
         let config = URLSessionConfiguration.default // Session Configuration
@@ -321,6 +275,7 @@ class Model {
         return (snippets, nil)
     }
     
+// MARK: - JSON Loading and Parsing for Schedule Events
     func scheduleLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Event]?, String?) -> Void) {
         
         let config = URLSessionConfiguration.default // Session Configuration
@@ -395,9 +350,11 @@ class Model {
                 }
             }
         }
+        fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
     }
 
+// MARK: - Schedule Notifications
     func scheduleNotifications() {
         for event in fullSchedule! {
             center.add(event.request) { (error: Error?) in
@@ -448,7 +405,6 @@ class Model {
     }
 
     // MARK: - Sort Schedule Events
-
     func sortEvents(events: [Event]?) -> [Event]? {
         guard let events = events else { return nil }
         return events.sorted(by: { $0.time < $1.time })
