@@ -26,11 +26,14 @@ class Model {
     var mainPrizes: [Prize]?
     var resources: [Resource]?
     var fullSchedule: [Event]?
+    
     let weekdayDict: [Int: String] = [1: "Sunday", 2: "Monday", 3: "Tuesday", 4: "Wednesday", 5: "Thursday", 6: "Friday", 7: "Saturday"]
+    
     let youtubeAPIKey = "AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let getRequestString = "GET https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=20&playlistId=UUeKx_seoPvAs4vyXCdCmUGA&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let testGetRequestString =
     "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
+    
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound]
     let defaults = UserDefaults.standard
@@ -47,8 +50,8 @@ class Model {
         testDateComponents.year = 2018
         testDateComponents.month = 9
         testDateComponents.day = 21
-        testDateComponents.hour = 12
-        testDateComponents.minute = 39
+        testDateComponents.hour = 13
+        testDateComponents.minute = 59
         testNotificationEvent.time = calendar.date(from: testDateComponents)!
         
         //Mentor Dummy Data
@@ -154,17 +157,20 @@ class Model {
         }
     }
     func scheduleNotifications() {
-        for event in fullSchedule! {
-            center.add(event.request) { (error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    print("THERE WAS AN ERROR")
-                }else {
-                    print("Scheduled: \(event)")
+        if defaults.object(forKey: "Scheduled") == nil {
+            for event in fullSchedule! {
+                center.add(event.request) { (error: Error?) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        print("THERE WAS AN ERROR")
+                    }
                 }
             }
+            center.getPendingNotificationRequests { (request) in
+                print(request)
+            }
+            defaults.set(true, forKey: "Scheduled")
         }
-        defaults.set(true, forKey: "Scheduled")
     }
     
 // MARK: - JSON Loading and Parsing for Prizes
