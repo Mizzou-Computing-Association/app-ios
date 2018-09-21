@@ -37,23 +37,8 @@ class Model {
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound]
     let defaults = UserDefaults.standard
-    let calendar = Calendar(identifier: .gregorian)
-    var testDateComponents = DateComponents()
-    var testNotificationEvent = Event(time: Date(timeIntervalSinceNow: 2),
-                                      location: "Mizzou",
-                                      floor: 1,
-                                      title: "Test Notification",
-                                      description: "Don't come")
-
+    
     func fakeAPICall() {
-        // Test Dates for Notifications
-        testDateComponents.year = 2018
-        testDateComponents.month = 9
-        testDateComponents.day = 21
-        testDateComponents.hour = 13
-        testDateComponents.minute = 59
-        testNotificationEvent.time = calendar.date(from: testDateComponents)!
-        
         //Mentor Dummy Data
         let cernerMentors = [Mentor(name: "JJ Smith",
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
@@ -165,9 +150,6 @@ class Model {
                         print("THERE WAS AN ERROR")
                     }
                 }
-            }
-            center.getPendingNotificationRequests { (request) in
-                print(request)
             }
             defaults.set(true, forKey: "Scheduled")
         }
@@ -393,7 +375,7 @@ class Model {
                 }
             }
         }
-        events.append(self.testNotificationEvent)
+        
         fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
     }
