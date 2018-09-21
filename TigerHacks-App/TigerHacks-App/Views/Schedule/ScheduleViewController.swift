@@ -25,6 +25,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     let date1 = "10/12/2018"
     let date2 = "10/13/2018"
     let date3 = "10/14/2018"
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
         setDay()
-        loadSchedules()
+        if defaults.object(forKey: "Scheduled") == nil {
+            Model.sharedInstance.checkNotificationPermissions()
+            defaults.set(true, forKey: "Scheduled")
+        }
+        
 
         // Swipe To Change Day
 

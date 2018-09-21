@@ -32,6 +32,8 @@ class Model {
     let testGetRequestString =
     "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .sound]
+    
 
     func fakeAPICall() {
         //Mentor Dummy Data
@@ -109,23 +111,40 @@ class Model {
             Resource(url: "https://www.bing.com", title: "Bing", description: "It's a website for binging things that you should use probably not a whole lot."),
             Resource(url: "https://www.yahoo.com", title: "Yahoo", description: "It's a website for yahooing (sp?) things that you should use probably not a whole lot."),
             Resource(url: "https://www.youtube.com/embed/RmHqOSrkZnk", title: "Embedding Videos into a WebView Tutorial", description: "Tutorial for embedding youtube videos into an iOS app. ")]
-
-        // Scheduling Notifications
+    }
+    
+// MARK: - Schedule Notifications
+    
+    func checkNotificationPermissions() {
         center.getNotificationSettings { (notificationSettings) in
             switch notificationSettings.authorizationStatus {
             case .notDetermined:
                 // Request Authorization
-                self.center.requestAuthorization(completionHandler: { (success, _) in
-                    guard success else { return }
+                print("Not Determined")
+                self.center.requestAuthorization(options: self.options, completionHandler: { (success, _) in
+                    guard success else { print("failure");return }
+                    print("success")
                     self.scheduleNotifications()
                 })
             case .authorized:
+                print("Authorized")
                 self.scheduleNotifications()
             case .denied:
                 print("denied")
                 print("Application Not Allowed to Display Notifications")
             case .provisional:
+                print("Provisional")
                 self.scheduleNotifications()
+            }
+        }
+    }
+    func scheduleNotifications() {
+        for event in fullSchedule! {
+            center.add(event.request) { (error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    print("THERE WAS AN ERROR")
+                }
             }
         }
     }
@@ -352,18 +371,6 @@ class Model {
         }
         fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
-    }
-
-// MARK: - Schedule Notifications
-    func scheduleNotifications() {
-        for event in fullSchedule! {
-            center.add(event.request) { (error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    print("THERE WAS AN ERROR")
-                }
-            }
-        }
     }
 
 // MARK: - Gradient color
