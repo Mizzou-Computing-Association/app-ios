@@ -152,6 +152,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (favorited) {
             favorited = false
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
+
         } else {
             favorited = true
             favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)

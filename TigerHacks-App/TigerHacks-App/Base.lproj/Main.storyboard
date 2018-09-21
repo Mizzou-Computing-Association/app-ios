@@ -235,7 +235,6 @@
                                 <segment title="Main"/>
                                 <segment title="Beginner"/>
                             </segments>
-                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="changeSection:" destination="gAm-gB-hPp" eventType="valueChanged" id="NJZ-Mp-bOC"/>
                             </connections>
