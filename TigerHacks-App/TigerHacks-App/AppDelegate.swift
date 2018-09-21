@@ -26,10 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch notificationSettings.authorizationStatus {
             case .notDetermined:
                 // Request Authorization
-                print("Not Determined")
+                print("Not Determined AppDelegate")
                 center.requestAuthorization(options: Model.sharedInstance.options, completionHandler: { (success, _) in
-                    guard success else { print("failure");return }
-                    print("success")
+                    guard success else { print("failure AppDelegate");return }
+                    print("success AppDelegate")
                 })
             case .authorized:
                 print("Authorized")

@@ -33,7 +33,7 @@ class Model {
     "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUIk5obDbG7wtFP6y-TyiJqQ&key=AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI"
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound]
-    
+    let defaults = UserDefaults.standard
 
     func fakeAPICall() {
         //Mentor Dummy Data
@@ -147,6 +147,7 @@ class Model {
                 }
             }
         }
+        defaults.set(true, forKey: "Scheduled")
     }
     
 // MARK: - JSON Loading and Parsing for Prizes
