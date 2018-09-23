@@ -8,8 +8,15 @@
 
 import Foundation
 
-struct Mentor {
+struct Mentor : Decodable {
     var name: String
     var skills: [String]?
     var contact: String?
+    
+    enum CodingKeys : String, CodingKey
+    {
+        case name = "Name"
+        case skills = "Skills"
+        case contact = "Contacts"
+    }
 }

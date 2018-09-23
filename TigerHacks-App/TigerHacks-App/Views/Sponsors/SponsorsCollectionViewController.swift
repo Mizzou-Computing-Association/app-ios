@@ -64,8 +64,14 @@ class SponsorsCollectionViewController: UICollectionViewController {
     }
 
     func loadSponsors() {
-        sponsors = Model.sharedInstance.sponsors!
-        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named: "tigerLogo")))
+        Model.sharedInstance.sponsorsLoad(dispatchQueueForHandler: DispatchQueue.main) { (sponsors, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let sponsors = sponsors {
+                self.sponsors = sponsors
+            }
+        }
+        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: "tigerLogo"))
         getAllMentors()
     }
 
@@ -107,9 +113,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
 
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
-
+        //TODO: figure out best place to get the image from the url we are given
         if let image = sponsors[indexPath.row].image {
-            cell.sponsorImage?.image = image
+            cell.sponsorImage?.image = UIImage(named: "tigerLogo")//image
         } else {
             cell.sponsorImage?.image = UIImage(named: "noImage")
         }
@@ -136,9 +142,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
             if let row = selectedItem?.row {
                 let sponsor = sponsors[row]
-
+                //TODO: This should be an actual image at this point when we read the image from the API call
                 if let image = sponsor.image {
-                    destination.image = image
+                    destination.image = UIImage(named: "tigerLogo")//image
                 } else {
                     destination.image = UIImage(named: "noImage")
                 }
