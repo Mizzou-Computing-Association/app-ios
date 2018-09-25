@@ -9,23 +9,27 @@
 import Foundation
 import UIKit
 
-struct Sponsor : Decodable {
+struct Sponsor: Decodable {
 
     var mentors: [Mentor]?
     var name: String
     var description: String?
     var website: String?
     var location: String?
-    var image: String?
-
+    var image: UIImage?
+    var imageUrl: String?
+    var level: String?
+    
     enum CodingKeys: String, CodingKey
     {
-        case mentors = "Mentors"
-        case name = "Name"
-        case description = "Description"
-        case website = "Website"
-        case location = "Location"
-        case image = "Image"
+        case mentors
+        case name
+        case description
+        case website
+        case location
+        case imageUrl = "image"
+        case level
     }
+    
     
 }

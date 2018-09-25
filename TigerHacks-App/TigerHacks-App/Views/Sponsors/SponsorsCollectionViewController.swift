@@ -67,11 +67,28 @@ class SponsorsCollectionViewController: UICollectionViewController {
         Model.sharedInstance.sponsorsLoad(dispatchQueueForHandler: DispatchQueue.main) { (sponsors, errorString) in
             if let errorString = errorString {
                 print("Error: \(errorString)")
+                
+                    let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                    
+                    self.present(alert, animated: true)
+                
             } else if let sponsors = sponsors {
                 self.sponsors = sponsors
+                self.collectionView?.reloadData()
             }
         }
-        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: "tigerLogo"))
+        
+        sponsors.append(Sponsor(
+            mentors: nil,
+            name: "All Mentors",
+            description: nil,
+            website: nil,
+            location: nil,
+            image: UIImage(named: "tigerHacks") ,
+            imageUrl: nil,
+            level: nil))
         getAllMentors()
     }
 
@@ -115,9 +132,18 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
         //TODO: figure out best place to get the image from the url we are given
         if let image = sponsors[indexPath.row].image {
-            cell.sponsorImage?.image = UIImage(named: "tigerLogo")//image
-        } else {
-            cell.sponsorImage?.image = UIImage(named: "noImage")
+            cell.sponsorImage?.image = image
+        } else if let imageUrl = sponsors[indexPath.row].imageUrl,
+            !imageUrl.isEmpty {
+            Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
+                if let e = errorString {
+                    print("ERROR! could not download image")
+                }
+                else if let image = finalImage {
+                    self.sponsors[indexPath.row].image = image
+                    collectionView.reloadData()
+                }
+            }
         }
 
         return cell
@@ -144,7 +170,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
                 let sponsor = sponsors[row]
                 //TODO: This should be an actual image at this point when we read the image from the API call
                 if let image = sponsor.image {
-                    destination.image = UIImage(named: "tigerLogo")//image
+                    destination.image = image
                 } else {
                     destination.image = UIImage(named: "noImage")
                 }

@@ -12,5 +12,4 @@ class SponsorCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var sponsorImage: UIImageView!
     @IBOutlet weak var view: UIView!
-
 }

@@ -8,15 +8,30 @@
 
 import Foundation
 
-struct Mentor : Decodable {
+struct Mentor {
     var name: String
     var skills: [String]?
     var contact: String?
     
-    enum CodingKeys : String, CodingKey
+    enum CodingKeys: String, CodingKey
     {
-        case name = "Name"
-        case skills = "Skills"
-        case contact = "Contacts"
+        case name
+        case skills
+        case contact
     }
+
+}
+
+extension Mentor: Decodable {
+    init(from decoder: Decoder) throws
+    {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String.self, forKey: .name)
+        contact = try values.decode(String.self, forKey: .contact)
+        let skillsString = try values.decode(String.self, forKey: .skills)
+        
+//        skills = skillsString.split(separator: ",")
+        skills = skillsString.components(separatedBy: ",")
+    }
+
 }

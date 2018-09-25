@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TigerHacks-App.xcodeproj">
+      location = "group:/Users/evanteters/Documents/College/Senior/Tigerhacks/app-ios/TigerHacks-App/TigerHacks-App/Model/SponsorResponse.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

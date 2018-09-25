@@ -142,6 +142,44 @@ class Model {
         }
     }
     
+    func dowloadImage(imageString: String, dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping (UIImage?, String?) -> Void) {
+        //TODO: Fix error handling
+        guard let imageUrl = URL(string: imageString) else {
+            return
+        }
+        let session = URLSession(configuration: .default)
+        
+        let downloadPicTask = session.dataTask(with: imageUrl) { (data, response, error) in
+            // The download has finished.
+            if let e = error {
+                print("Error downloading picture: \(e)")
+            } else {
+                // No errors found.
+                // It would be weird if we didn't have a response, so check for that too.
+                if let res = response as? HTTPURLResponse {
+                    print("Downloaded picture with response code \(res.statusCode)")
+                    if let imageData = data {
+                        // Finally convert that Data into an image and do what you wish with it.
+                        if let finalImage = UIImage(data: imageData){
+                            dispatchQueueForHandler.async(execute: {
+                                completionHandler(finalImage, nil)
+                            })
+                        }
+                        
+                        
+                        
+                    } else {
+                        print("Couldn't get image: Image is nil")
+                    }
+                } else {
+                    print("Couldn't get response code for some reason")
+                }
+            }
+        }
+        
+        downloadPicTask.resume()
+    }
+    
     func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -172,7 +210,7 @@ class Model {
             }
             print(data)
             
-            let jsonData = data //String(data: data, encoding: .utf8)
+//            let jsonData = data //String(data: data, encoding: .utf8)
             
 //            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
 //                let rootNode = json as? [String: Any] else {
@@ -181,8 +219,8 @@ class Model {
 //
 //            print("JSON: \(json)")
 //
-            let sponsorsObject = try? JSONDecoder().decode(SponsorResponse.self, from: jsonData)
-        
+            let sponsorsObject = try? JSONDecoder().decode(SponsorResponse.self, from: data)
+            
             dispatchQueueForHandler.async(execute: {
                 completionHandler(sponsorsObject?.sponsors, nil)
             })
@@ -248,11 +286,11 @@ class Model {
         if let items = rootNode["prizes"] as? [[String: Any]] {
             for item in items {
                 print("ITEM: \(item)")
-                if let prizeSponsorID = item["Sponsor"] as? Int,
-                    let prizeTitle = item["Title"] as? String,
-                    let prizeReward = item["Reward"] as? String,
-                    let prizeDescription = item["Description"] as? String,
-                    let prizeType = item["Prizetype"] as? String,
+                if let prizeSponsorID = item["sponsor"] as? Int,
+                    let prizeTitle = item["title"] as? String,
+                    let prizeReward = item["reward"] as? String,
+                    let prizeDescription = item["description"] as? String,
+                    let prizeType = item["prizetype"] as? String,
                     let enumPrizeType = PrizeType(rawValue: prizeType) {
                     print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
                     
