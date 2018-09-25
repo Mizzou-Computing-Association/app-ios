@@ -56,11 +56,10 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         prizeTableView.addSubview(refreshControl)
         
+
         // Favorites
         
         setupFavoriteBarButtonItem()
-        
-    
     }
 
     override func didReceiveMemoryWarning() {
