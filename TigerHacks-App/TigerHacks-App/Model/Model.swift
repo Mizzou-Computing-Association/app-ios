@@ -42,7 +42,7 @@ class Model {
         let cernerMentors = [Mentor(name: "JJ Smith",
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
                                              "That's it" ],
-                                    contact: "U8E0F66QN")]
+                                    contact: "U7KA1JLA3")]
 
         //Sponsor Dummy Data
 
@@ -394,6 +394,8 @@ class Model {
         let locations = [0.55, 1]
         if DeviceType.IS_IPHONE_X {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
+        } else if DeviceType.IS_IPHONE_XS_MAX {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
         } else {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
         }
@@ -408,6 +410,8 @@ class Model {
         let locations = [0.0, 0.6]
         if DeviceType.IS_IPHONE_X {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
+        } else if DeviceType.IS_IPHONE_XS_MAX {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
         } else {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
         }
