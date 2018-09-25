@@ -156,7 +156,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             favoriteBarButtonItem.image = UIImage(named: "favorite")
             prizeTableView.reloadData()
         } else {
-            favoritesButton.image = UIImage(named: "favoriteStar")
+            favoriteBarButtonItem.image = UIImage(named: "favorite")
             prizeTableView.reloadData()
         }
     }
