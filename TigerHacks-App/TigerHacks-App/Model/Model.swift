@@ -46,7 +46,7 @@ class Model {
         let cernerMentors = [Mentor(name: "JJ Smith",
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
                                              "That's it" ],
-                                    contact: "U8E0F66QN")]
+                                    contact: "U7KA1JLA3")]
 
         //Sponsor Dummy Data
 
