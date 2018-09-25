@@ -38,12 +38,12 @@ class PrizeDetailViewController: UIViewController {
         // Get Data
 
         Model.sharedInstance.fakeAPICall()
-        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
-        testMainPrizes = Model.sharedInstance.mainPrizes!
+//        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+//        testMainPrizes = Model.sharedInstance.mainPrizes!
 
         // Styling for Subviews
 
-        self.view.bringSubview(toFront: rewardLabel)
+        self.view.bringSubviewToFront(rewardLabel)
         sponsorSubview.clipsToBounds = true
         rewardSubview.clipsToBounds = true
         descriptionSubview.clipsToBounds = true

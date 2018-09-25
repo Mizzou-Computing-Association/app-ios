@@ -21,7 +21,7 @@ struct Event {
 
         content.title = NSString.localizedUserNotificationString(forKey: self.title, arguments: nil)
         content.body = NSString.localizedUserNotificationString(forKey: self.description, arguments: nil)
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
 
         return content
     }

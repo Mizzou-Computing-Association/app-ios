@@ -17,7 +17,7 @@ class TigerTalksDetailViewController: UIViewController, WKNavigationDelegate {
 
     var videoCode: String?
     var descriptionText: String?
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -20,7 +20,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     let testImageArray = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
 
-    var testEventArray = [Event]()
+    var fullSchedule = [Event]()
     var floorOneEvents = [Event]()
     var floorTwoEvents = [Event]()
     var floorThreeEvents = [Event]()
@@ -38,24 +38,22 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Initial Setup
 
         setUpNavBar()
-         mapImageView.superview?.bringSubview(toFront: mapImageView)
+         mapImageView.superview?.bringSubviewToFront(mapImageView)
         mapTableView.dataSource = self
         mapTableView.delegate = self
         dateFormatter.timeStyle = .short
 
         // Loading Schedules
-
-        Model.sharedInstance.fakeAPICall()
         loadSchedule()
 
         // Swipe to Change Level
 
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
 
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeft)
 
         // Map Image View
@@ -77,7 +75,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mapTableView.addSubview(refreshControl)
     }
 
@@ -94,8 +92,23 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 // MARK: - Loading Schedules
 
     func loadSchedule() {
-        testEventArray = Model.sharedInstance.fullSchedule!
-        filterFullScheduleByFloor(fullSchedule: testEventArray)
+        Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let events = events {
+                self.fullSchedule = events
+                var tempEvents = [Event]()
+                for event in events {
+                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    tempEvents.append(event)
+                }
+                self.fullSchedule = tempEvents
+                self.fullSchedule = Model.sharedInstance.sortEvents(events: self.fullSchedule)!
+                self.filterFullScheduleByFloor(fullSchedule: self.fullSchedule)
+                self.mapTableView.reloadData()
+                
+            }
+        }
     }
 
     func filterFullScheduleByFloor(fullSchedule: [Event]) {
@@ -104,11 +117,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         var tempFloorThreeEvents = [Event]()
 
         for event in fullSchedule {
-            if event.floor == 1 {
+            if event.floor == 0 {
                 tempFloorOneEvents.append(event)
-            } else if event.floor == 2 {
+            } else if event.floor == 1 {
                 tempFloorTwoEvents.append(event)
-            } else if event.floor == 3 {
+            } else if event.floor == 2 {
                 tempFloorThreeEvents.append(event)
             }
         }
@@ -182,10 +195,10 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func handleMapToggle(_ sender: Any) {
         switch mapToggler {
         case .Image:
-            mapImageView.superview?.bringSubview(toFront: mapImageView)
+            mapImageView.superview?.bringSubviewToFront(mapImageView)
             mapToggler = .Map
         case .Map:
-            mapView.superview?.bringSubview(toFront: mapView)
+            mapView.superview?.bringSubviewToFront(mapView)
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
             mapToggler = .Image
         }

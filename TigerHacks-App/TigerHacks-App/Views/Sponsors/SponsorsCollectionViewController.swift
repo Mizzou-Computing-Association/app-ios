@@ -30,18 +30,20 @@ class SponsorsCollectionViewController: UICollectionViewController {
         let numberOfCells = CGFloat(2)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
 
-            flowLayout.minimumInteritemSpacing = 2
-            flowLayout.minimumLineSpacing = 2
-
-            let horizontalSpacing = flowLayout.minimumInteritemSpacing
+            flowLayout.minimumInteritemSpacing = 20
+            flowLayout.minimumLineSpacing = 20
+            flowLayout.sectionInset.left = 20
+            flowLayout.sectionInset.right = 20
+            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
             let cellWidth = (view.frame.width - (numberOfCells-1)*horizontalSpacing)/numberOfCells
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+            
         }
 
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         collectionView?.addSubview(refreshControl)
     }
 
@@ -97,6 +99,13 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.view.clipsToBounds = true
         cell.view.layer.cornerRadius = 20
         cell.view.layer.borderWidth = 0.5
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
+
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
 
         if let image = sponsors[indexPath.row].image {

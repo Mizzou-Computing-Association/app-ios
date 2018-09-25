@@ -31,7 +31,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     var refreshControl: UIRefreshControl!
 
-    let baseSlackHooks = "slack://user?team=T89F9GPRR&id="
+    let baseSlackHooks = "slack://user?team=T7F05UNAW&id="
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         // Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mentorTableView.addSubview(refreshControl)
     }
 

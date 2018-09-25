@@ -14,9 +14,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var daySwitcher: UISegmentedControl!
 
     var fullSchedule: [Event] = []
-    var testDayOneArray: [Event] = []
-    var testDayTwoArray: [Event] = []
-    var testDayThreeArray: [Event] = []
+    var dayOneArray: [Event] = []
+    var dayTwoArray: [Event] = []
+    var dayThreeArray: [Event] = []
     var refreshControl: UIRefreshControl!
 
     let dateFormatter = DateFormatter()
@@ -31,7 +31,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
         //Initial Setup
 
-        Model.sharedInstance.fakeAPICall()
         self.setUpNavBar()
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
@@ -42,17 +41,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Swipe To Change Day
 
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
 
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.view.addGestureRecognizer(swipeLeft)
 
         //Refresh Control
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         scheduleTableView.addSubview(refreshControl)
     }
 
@@ -64,13 +63,24 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 // MARK: - Load Schedules
 
     func loadSchedules() {
-        fullSchedule = Model.sharedInstance.fullSchedule!
-        divideEventsByDay()
-//        testDayOneArray = Model.sharedInstance.dayOneSchedule!
-//        testDayTwoArray = Model.sharedInstance.dayTwoSchedule!
-//        testDayThreeArray = Model.sharedInstance.dayThreeSchedule!
+        Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let events = events {
+                self.fullSchedule = events
+                var tempEvents = [Event]()
+                for event in events {
+                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    tempEvents.append(event)
+                }
+                self.fullSchedule = tempEvents
+                self.fullSchedule = Model.sharedInstance.sortEvents(events: self.fullSchedule)!
+                self.divideEventsByDay()
+                self.scheduleTableView.reloadData()
+            }
+        }
     }
-
+    
     @objc func refresh(_ sender: Any) {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
@@ -97,9 +107,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
 
-        testDayOneArray = tempDayOneArray
-        testDayTwoArray = tempDayTwoArray
-        testDayThreeArray = tempDayThreeArray
+        dayOneArray = tempDayOneArray
+        dayTwoArray = tempDayTwoArray
+        dayThreeArray = tempDayThreeArray
     }
 
 // MARK: - Default Starting Day
@@ -170,11 +180,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch daySwitcher.selectedSegmentIndex {
         case 0 :
-            return testDayOneArray.count
+            return dayOneArray.count
         case 1 :
-            return testDayTwoArray.count
+            return dayTwoArray.count
         case 2 :
-            return testDayThreeArray.count
+            return dayThreeArray.count
         default :
             return 0
         }
@@ -185,17 +195,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
         switch daySwitcher.selectedSegmentIndex {
         case 0:
-            cell.eventLabel.text = testDayOneArray[indexPath.row].title
-            cell.locationLabel.text = testDayOneArray[indexPath.row].location
-            cell.timeLabel.text = dateFormatter.string(from: testDayOneArray[indexPath.row].time)
+            cell.eventLabel.text = dayOneArray[indexPath.row].title
+            cell.locationLabel.text = dayOneArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: dayOneArray[indexPath.row].time)
         case 1:
-            cell.eventLabel.text = testDayTwoArray[indexPath.row].title
-            cell.locationLabel.text = testDayTwoArray[indexPath.row].location
-            cell.timeLabel.text = dateFormatter.string(from: testDayTwoArray[indexPath.row].time)
+            cell.eventLabel.text = dayTwoArray[indexPath.row].title
+            cell.locationLabel.text = dayTwoArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: dayTwoArray[indexPath.row].time)
         case 2:
-            cell.eventLabel.text = testDayThreeArray[indexPath.row].title
-            cell.locationLabel.text = testDayThreeArray[indexPath.row].location
-            cell.timeLabel.text = dateFormatter.string(from: testDayThreeArray[indexPath.row].time)
+            cell.eventLabel.text = dayThreeArray[indexPath.row].title
+            cell.locationLabel.text = dayThreeArray[indexPath.row].location
+            cell.timeLabel.text = dateFormatter.string(from: dayThreeArray[indexPath.row].time)
         default:
             cell.eventLabel.text = "There is NO Event"
             cell.locationLabel.text = "Who Knows Where"
@@ -219,20 +229,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //Assign Values to any fields in Event Detail
 
         if daySwitcher.selectedSegmentIndex == 0 {
-            destination.titleText = testDayOneArray[selectedRow.row].title
-            destination.locationText = testDayOneArray[selectedRow.row ].location
-            destination.timeText = dateFormatter.string(from: testDayOneArray[selectedRow.row].time)
-            destination.descriptionText = testDayOneArray[selectedRow.row].description
+            destination.titleText = dayOneArray[selectedRow.row].title
+            destination.locationText = dayOneArray[selectedRow.row ].location
+            destination.timeText = dateFormatter.string(from: dayOneArray[selectedRow.row].time)
+            destination.descriptionText = dayOneArray[selectedRow.row].description
         } else if daySwitcher.selectedSegmentIndex == 1 {
-            destination.titleText = testDayTwoArray[selectedRow.row].title
-            destination.locationText = testDayTwoArray[selectedRow.row].location
-            destination.timeText = dateFormatter.string(from: testDayTwoArray[selectedRow.row].time)
-            destination.descriptionText = testDayTwoArray[selectedRow.row].description
+            destination.titleText = dayTwoArray[selectedRow.row].title
+            destination.locationText = dayTwoArray[selectedRow.row].location
+            destination.timeText = dateFormatter.string(from: dayTwoArray[selectedRow.row].time)
+            destination.descriptionText = dayTwoArray[selectedRow.row].description
         } else {
-            destination.titleText = testDayThreeArray[selectedRow.row].title
-            destination.locationText = testDayThreeArray[selectedRow.row].location
-            destination.timeText = dateFormatter.string(from: testDayThreeArray[selectedRow.row].time)
-            destination.descriptionText = testDayThreeArray[selectedRow.row].description
+            destination.titleText = dayThreeArray[selectedRow.row].title
+            destination.locationText = dayThreeArray[selectedRow.row].location
+            destination.timeText = dateFormatter.string(from: dayThreeArray[selectedRow.row].time)
+            destination.descriptionText = dayThreeArray[selectedRow.row].description
         }
     }
 }
