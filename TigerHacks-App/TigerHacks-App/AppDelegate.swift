@@ -30,17 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 center.requestAuthorization(options: Model.sharedInstance.options, completionHandler: { (success, _) in
                     guard success else { print("failure AppDelegate");return }
                     print("success AppDelegate")
-                    Model.sharedInstance.checkNotificationPermissions()
+                    Model.sharedInstance.scheduleNotifications()
                 })
             case .authorized:
                 print("Authorized")
-                Model.sharedInstance.checkNotificationPermissions()
+                Model.sharedInstance.scheduleNotifications()
             case .denied:
                 print("denied")
                 print("Application Not Allowed to Display Notifications")
             case .provisional:
                 print("Provisional")
-                Model.sharedInstance.checkNotificationPermissions()
+                Model.sharedInstance.scheduleNotifications()
             }
         }
         // Override point for customization after application launch.
