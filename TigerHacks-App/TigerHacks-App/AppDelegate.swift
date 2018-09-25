@@ -10,6 +10,7 @@
 import UIKit
 import CoreData
 import CoreGraphics
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        
+        let center = UNUserNotificationCenter.current()
+        print("Get Notification Approval")
+        center.getNotificationSettings { (notificationSettings) in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+                // Request Authorization
+                print("Not Determined AppDelegate")
+                center.requestAuthorization(options: Model.sharedInstance.options, completionHandler: { (success, _) in
+                    guard success else { print("failure AppDelegate");return }
+                    print("success AppDelegate")
+                    Model.sharedInstance.scheduleNotifications()
+                })
+            case .authorized:
+                print("Authorized")
+                Model.sharedInstance.scheduleNotifications()
+            case .denied:
+                print("denied")
+                print("Application Not Allowed to Display Notifications")
+            case .provisional:
+                print("Provisional")
+                Model.sharedInstance.scheduleNotifications()
+            }
+        }
         // Override point for customization after application launch.
         return true
     }

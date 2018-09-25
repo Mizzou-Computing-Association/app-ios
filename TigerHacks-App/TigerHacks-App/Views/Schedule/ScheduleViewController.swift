@@ -35,9 +35,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
-        setDay()
         loadSchedules()
-
+        setDay()
+        
         // Swipe To Change Day
 
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -75,8 +75,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 self.fullSchedule = tempEvents
                 self.fullSchedule = Model.sharedInstance.sortEvents(events: self.fullSchedule)!
+                Model.sharedInstance.fullSchedule = self.fullSchedule
                 self.divideEventsByDay()
+                Model.sharedInstance.scheduleNotifications()
                 self.scheduleTableView.reloadData()
+                
             }
         }
     }
