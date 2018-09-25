@@ -10,7 +10,8 @@
 import Foundation
 
 struct Prize {
-    var sponsor: Sponsor?
+    //var sponsor: Sponsor?
+    var sponsorID: Int?
     var title: String
     var reward: String
     var description: String
@@ -18,7 +19,7 @@ struct Prize {
 
 }
 
-enum PrizeType {
+enum PrizeType: String {
     case Main
     case Beginner
 }

@@ -14,8 +14,9 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var prizeTypeSwitcher: UISegmentedControl!
     @IBOutlet weak var favoritesButton: UIBarButtonItem!
 
-    var testBeginnerPrizes = [Prize]()
-    var testMainPrizes = [Prize]()
+    var allPrizes = [Prize]()
+    var beginnerPrizes = [Prize]()
+    var mainPrizes = [Prize]()
 
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
@@ -49,7 +50,6 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         prizeTableView.addSubview(refreshControl)
         
-    
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,8 +59,40 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 // MARK: - Loading Prizes
 
     func loadPrizes() {
-        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
-        testMainPrizes = Model.sharedInstance.mainPrizes!
+        Model.sharedInstance.prizeLoad(dispatchQueueForHandler: DispatchQueue.main) {(prizes, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let prizes = prizes {
+                self.allPrizes = prizes
+                print("prizes from vc: \(prizes)")
+                var tempPrizes = [Prize]()
+                for prize in prizes {
+                    let newPrize = Prize(sponsorID: prize.sponsorID, title: prize.title, reward: prize.reward, description: prize.description, prizeType: prize.prizeType)
+                    tempPrizes.append(newPrize)
+                }
+                self.allPrizes = tempPrizes
+                self.dividePrizes()
+                print("tempPrizes from vc: \(tempPrizes)")
+            }
+        }
+        //self.prizeTableView.reloadData()
+    }
+    
+    func dividePrizes() {
+        var tempBeginners = [Prize]()
+        var tempMains = [Prize]()
+        for prize in allPrizes {
+            if prize.prizeType == .Main {
+                tempMains.append(prize)
+                print("added main prize")
+            } else {
+                tempBeginners.append(prize)
+                print("added beginner prize")
+            }
+        }
+        beginnerPrizes = tempBeginners
+        mainPrizes = tempMains
+        prizeTableView.reloadData()
     }
 
     @objc func refresh(_ sender: Any) {
@@ -123,9 +155,9 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         if favoritesButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                return testMainPrizes.count
+                return mainPrizes.count
             } else {
-                return testBeginnerPrizes.count
+                return beginnerPrizes.count
             }
         } else {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
@@ -141,11 +173,11 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
         if favoritesButton.image == UIImage(named: "unfavoriteStar") {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                cell.prizeTitle.text = testMainPrizes[indexPath.row].title
-                cell.prizeReward.text = testMainPrizes[indexPath.row].reward
+                cell.prizeTitle.text = mainPrizes[indexPath.row].title
+                cell.prizeReward.text = mainPrizes[indexPath.row].reward
             } else {
-                cell.prizeTitle.text = testBeginnerPrizes[indexPath.row].title
-                cell.prizeReward.text = testBeginnerPrizes[indexPath.row].reward
+                cell.prizeTitle.text = beginnerPrizes[indexPath.row].title
+                cell.prizeReward.text = beginnerPrizes[indexPath.row].reward
             }
         } else {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
@@ -173,16 +205,16 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Assign values to any outlets in Prize Detail
 
         if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
-            destination.descriptionText = testMainPrizes[selectedRow?.row ?? 0].description
-            destination.titleText = testMainPrizes[selectedRow?.row ?? 0].title
-            destination.rewardText = testMainPrizes[selectedRow?.row ?? 0].reward
+            //destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
+            destination.descriptionText = mainPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = mainPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = mainPrizes[selectedRow?.row ?? 0].reward
             destination.typeText = "Main"
         } else {
-            destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
-            destination.descriptionText = testBeginnerPrizes[selectedRow?.row ?? 0].description
-            destination.titleText = testBeginnerPrizes[selectedRow?.row ?? 0].title
-            destination.rewardText = testBeginnerPrizes[selectedRow?.row ?? 0].reward
+            //destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
+            destination.descriptionText = beginnerPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = beginnerPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = beginnerPrizes[selectedRow?.row ?? 0].reward
             destination.typeText = "Beginner"
         }
     }
