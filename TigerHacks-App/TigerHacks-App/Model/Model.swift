@@ -120,41 +120,41 @@ class Model {
             Resource(url: "https://www.youtube.com/embed/RmHqOSrkZnk", title: "Embedding Videos into a WebView Tutorial", description: "Tutorial for embedding youtube videos into an iOS app. ")]
 
         //Schedule Dummy Data
-        fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,
-                              location: "Time Capsule",
-                              floor: 1,
-                              title: "Game Party",
-                              description: "Hanging out and playing games"),
-                        Event(time: myCalendar.date(from: dateComponents1)!,
-                              location: "Time Capsule",
-                              floor: 1,
-                              title: "Lunch",
-                              description: "Hanging out and playing games"),
-                        Event(time: myCalendar.date(from: dateComponents1)!,
-                              location: "Main Hallway",
-                              floor: 2,
-                              title: "Dinner",
-                              description: "Eating dinner"),
-                        Event(time: myCalendar.date(from: dateComponents4)!,
-                              location: "Main Hallway",
-                              floor: 2,
-                              title: "Dinner",
-                              description: "Eating dinner"),
-                        Event(time: myCalendar.date(from: dateComponents2)!,
-                              location: "The Closet",
-                              floor: 3,
-                              title: "Nothin",
-                              description: "Don't come"),
-                        Event(time: myCalendar.date(from: dateComponents3)!,
-                              location: "The Closet",
-                              floor: 3,
-                              title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor",
-                              description: "Don't come"),
-                        Event(time: myCalendar.date(from: testDateComponents)!,
-                              location: "Mizzou",
-                              floor: 1,
-                              title: "Test Notification",
-                              description: "Don't come")]
+//        fullSchedule = [Event(time: myCalendar.date(from: dateComponents)!,
+//                              location: "Time Capsule",
+//                              floor: 1,
+//                              title: "Game Party",
+//                              description: "Hanging out and playing games"),
+//                        Event(time: myCalendar.date(from: dateComponents1)!,
+//                              location: "Time Capsule",
+//                              floor: 1,
+//                              title: "Lunch",
+//                              description: "Hanging out and playing games"),
+//                        Event(time: myCalendar.date(from: dateComponents1)!,
+//                              location: "Main Hallway",
+//                              floor: 2,
+//                              title: "Dinner",
+//                              description: "Eating dinner"),
+//                        Event(time: myCalendar.date(from: dateComponents4)!,
+//                              location: "Main Hallway",
+//                              floor: 2,
+//                              title: "Dinner",
+//                              description: "Eating dinner"),
+//                        Event(time: myCalendar.date(from: dateComponents2)!,
+//                              location: "The Closet",
+//                              floor: 3,
+//                              title: "Nothin",
+//                              description: "Don't come"),
+//                        Event(time: myCalendar.date(from: dateComponents3)!,
+//                              location: "The Closet",
+//                              floor: 3,
+//                              title: "Nothing happens on this floor I promise  Nothing happens on this floor I promise  Nothing happens on this floor",
+//                              description: "Don't come"),
+//                        Event(time: myCalendar.date(from: testDateComponents)!,
+//                              location: "Mizzou",
+//                              floor: 1,
+//                              title: "Test Notification",
+//                              description: "Don't come")]
         fullSchedule = sortEvents(events: fullSchedule)
 
         // Scheduling Notifications
@@ -427,6 +427,8 @@ class Model {
         let locations = [0.55, 1]
         if DeviceType.IS_IPHONE_X {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
+        } else if DeviceType.IS_IPHONE_XS_MAX {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
         } else {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
         }
@@ -441,6 +443,8 @@ class Model {
         let locations = [0.0, 0.6]
         if DeviceType.IS_IPHONE_X {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
+        } else if DeviceType.IS_IPHONE_XS_MAX {
+            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
         } else {
             gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
         }
