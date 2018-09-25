@@ -427,11 +427,11 @@ class Model {
         
         if let items = rootNode["schedule"] as? [[String: Any]] {
             for item in items {
-                if let eventTime = item["Time"] as? String,
-                    let eventTitle = item["Title"] as? String,
-                    let eventLocation = item["Location"] as? String,
-                    let eventDescription = item["Description"] as? String,
-                    let eventFloor = item["Floor"] as? Int {
+                if let eventTime = item["time"] as? String,
+                    let eventTitle = item["title"] as? String,
+                    let eventLocation = item["location"] as? String,
+                    let eventDescription = item["description"] as? String,
+                    let eventFloor = item["floor"] as? Int {
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
