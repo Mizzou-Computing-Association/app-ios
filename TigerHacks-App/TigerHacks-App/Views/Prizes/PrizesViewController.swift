@@ -170,7 +170,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 // MARK: - Table View
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        if favoriteBarButtonItem.image == UIImage(named: "favorite") {
+        if (favorited) {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return testMainPrizes.count
             } else {
@@ -188,7 +188,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
-        if favoriteBarButtonItem.image == UIImage(named: "favorite") {
+        if (favorited) {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = testMainPrizes[indexPath.row].title
                 cell.prizeReward.text = testMainPrizes[indexPath.row].reward
