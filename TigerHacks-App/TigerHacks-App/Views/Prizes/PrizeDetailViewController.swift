@@ -38,8 +38,8 @@ class PrizeDetailViewController: UIViewController {
         // Get Data
 
         Model.sharedInstance.fakeAPICall()
-        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
-        testMainPrizes = Model.sharedInstance.mainPrizes!
+//        testBeginnerPrizes = Model.sharedInstance.beginnerPrizes!
+//        testMainPrizes = Model.sharedInstance.mainPrizes!
 
         // Styling for Subviews
 
@@ -76,7 +76,7 @@ class PrizeDetailViewController: UIViewController {
 
         if mainPrizeTest.count != 0 || beginnerPrizeTest.count != 0 {
             favoriteButton.image = UIImage(named: "favoriteStar")
-        }else {
+        } else {
             favoriteButton.image = UIImage(named: "unfavoriteStar")
         }
 
@@ -104,7 +104,7 @@ class PrizeDetailViewController: UIViewController {
                     }
                 }
             }
-        }else {
+        } else {
             favoriteButton.image = UIImage(named: "unfavoriteStar")
         }
     }
