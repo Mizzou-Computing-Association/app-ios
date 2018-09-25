@@ -69,9 +69,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
                 print("Error: \(errorString)")
                 
                     let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-                    
+                
                     alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                    
+                
                     self.present(alert, animated: true)
                 
             } else if let sponsors = sponsors {
@@ -86,7 +86,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
             description: nil,
             website: nil,
             location: nil,
-            image: UIImage(named: "tigerHacks") ,
+            image: UIImage(named: "tigerLogo-allMentors") ,
             imageUrl: nil,
             level: nil))
         getAllMentors()
