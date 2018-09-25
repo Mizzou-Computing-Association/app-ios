@@ -36,7 +36,6 @@ class Model {
     
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound]
-    let defaults = UserDefaults.standard
     
     func fakeAPICall() {
         //Mentor Dummy Data
@@ -142,16 +141,13 @@ class Model {
         }
     }
     func addNotifications() {
-        if defaults.object(forKey: "Scheduled") == nil {
-            for event in fullSchedule! {
-                center.add(event.request) { (error: Error?) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        print("THERE WAS AN ERROR")
-                    }
+        for event in fullSchedule! {
+            center.add(event.request) { (error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    print("THERE WAS AN ERROR")
                 }
             }
-            defaults.set(true, forKey: "Scheduled")
         }
     }
     
