@@ -118,7 +118,7 @@ class Model {
     
 // MARK: - Schedule Notifications
     
-    func checkNotificationPermissions() {
+    func scheduleNotifications() {
         center.getNotificationSettings { (notificationSettings) in
             switch notificationSettings.authorizationStatus {
             case .notDetermined:
@@ -127,21 +127,21 @@ class Model {
                 self.center.requestAuthorization(options: self.options, completionHandler: { (success, _) in
                     guard success else { print("failure");return }
                     print("success")
-                    self.scheduleNotifications()
+                    self.addNotifications()
                 })
             case .authorized:
                 print("Authorized")
-                self.scheduleNotifications()
+                self.addNotifications()
             case .denied:
                 print("denied")
                 print("Application Not Allowed to Display Notifications")
             case .provisional:
                 print("Provisional")
-                self.scheduleNotifications()
+                self.addNotifications()
             }
         }
     }
-    func scheduleNotifications() {
+    func addNotifications() {
         if defaults.object(forKey: "Scheduled") == nil {
             for event in fullSchedule! {
                 center.add(event.request) { (error: Error?) in

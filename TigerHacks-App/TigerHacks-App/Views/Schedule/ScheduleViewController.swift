@@ -77,7 +77,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 self.fullSchedule = Model.sharedInstance.sortEvents(events: self.fullSchedule)!
                 Model.sharedInstance.fullSchedule = self.fullSchedule
                 self.divideEventsByDay()
-                Model.sharedInstance.checkNotificationPermissions()
+                Model.sharedInstance.scheduleNotifications()
                 self.scheduleTableView.reloadData()
                 
             }
