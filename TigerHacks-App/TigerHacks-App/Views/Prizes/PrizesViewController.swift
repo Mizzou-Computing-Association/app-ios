@@ -49,7 +49,6 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         prizeTableView.addSubview(refreshControl)
-        
     }
 
     override func didReceiveMemoryWarning() {

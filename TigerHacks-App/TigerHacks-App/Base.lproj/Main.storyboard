@@ -971,7 +971,7 @@
             </objects>
             <point key="canvasLocation" x="2074" y="1657"/>
         </scene>
-        <!--All Mentor Table View Controller-->
+        <!--Mentors-->
         <scene sceneID="oE5-72-3PK">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="GMX-Rm-KHB" customClass="AllMentorTableViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -1042,7 +1042,7 @@
                             <outlet property="delegate" destination="GMX-Rm-KHB" id="AXR-2J-FjE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pKU-Gm-OgF"/>
+                    <navigationItem key="navigationItem" title="Mentors" id="pKU-Gm-OgF"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="205-Bq-z00" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
