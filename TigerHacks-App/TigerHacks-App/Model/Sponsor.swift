@@ -20,8 +20,7 @@ struct Sponsor: Decodable {
     var imageUrl: String?
     var level: String?
     
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case mentors
         case name
         case description
@@ -30,6 +29,4 @@ struct Sponsor: Decodable {
         case imageUrl = "image"
         case level
     }
-    
-    
 }

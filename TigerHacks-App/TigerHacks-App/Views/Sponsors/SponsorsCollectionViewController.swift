@@ -130,16 +130,14 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
 
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
-        //TODO: figure out best place to get the image from the url we are given
         if let image = sponsors[indexPath.row].image {
             cell.sponsorImage?.image = image
         } else if let imageUrl = sponsors[indexPath.row].imageUrl,
             !imageUrl.isEmpty {
             Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
-                if let e = errorString {
+                if let error = errorString {
                     print("ERROR! could not download image")
-                }
-                else if let image = finalImage {
+                } else if let image = finalImage {
                     self.sponsors[indexPath.row].image = image
                     collectionView.reloadData()
                 }
@@ -168,7 +166,6 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
             if let row = selectedItem?.row {
                 let sponsor = sponsors[row]
-                //TODO: This should be an actual image at this point when we read the image from the API call
                 if let image = sponsor.image {
                     destination.image = image
                 } else {

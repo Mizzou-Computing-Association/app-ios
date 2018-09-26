@@ -43,69 +43,6 @@ class Model {
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
                                              "That's it" ],
                                     contact: "U7KA1JLA3")]
-
-        //Sponsor Dummy Data
-
-//        sponsors = [Sponsor(mentors: nil,
-//                                        name: "AirBnb",
-//                                        description: "we find homes that you can rent. Undercut the hotels",
-//                                        website: "airbnb.com",
-//                                        location: "Table 5, Main Hallway",
-//                                        image: UIImage(named: "airbnb")),
-//                                Sponsor(mentors: cernerMentors,
-//                                        name: "Cerner",
-//                                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-//                                        website: "Cerner.com",
-//                                        location: "Table 6, Main Hallway",
-//                                        image: UIImage(named: "cerner")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Google",
-//                                        description: "we google stuff all day",
-//                                        website: "google.com",
-//                                        location: "Table 7, Main Hallway",
-//                                        image: UIImage(named: "google")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Pied Piper",
-//                                        description: "Compression software haha rfelevant topical joke software",
-//                                        website: "There is no website",
-//                                        location: "Table 8, Main Hallway",
-//                                        image: UIImage(named: "piedpiper")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Microsoft",
-//                                        description: "we bing stuff all day",
-//                                        website: "bing.com",
-//                                        location: "Table 9, Main Hallway",
-//                                        image: UIImage(named: "microsoft")),
-//                                Sponsor(mentors: nil,
-//                                        name: "FulcrumGT",
-//                                        description: nil,
-//                                        website: nil,
-//                                        location: nil,
-//                                        image: nil),
-//                                Sponsor(mentors: nil,
-//                                        name: "Fulcrum GT",
-//                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-//                                        website: "dogfood.org",
-//                                        location: "Table 10, Main Hallway",
-//                                        image: UIImage(named: "fulcrumgt")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Fulcrum GT",
-//                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-//                                        website: "dogfood.org",
-//                                        location: "Table 10, Main Hallway",
-//                                        image: UIImage(named: "fulcrumgt")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Fulcrum GT",
-//                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-//                                        website: "dogfood.org",
-//                                        location: "Table 10, Main Hallway",
-//                                        image: UIImage(named: "fulcrumgt")),
-//                                Sponsor(mentors: nil,
-//                                        name: "Fulcrum GT",
-//                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-//                                        website: "dogfood.org",
-//                                        location: "Table 10, Main Hallway",
-//                                        image: UIImage(named: "fulcrumgt"))]
         
         //Resource Dummy Data
         resources = [
@@ -141,27 +78,28 @@ class Model {
         }
     }
     func addNotifications() {
-        for event in fullSchedule! {
-            center.add(event.request) { (error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    print("THERE WAS AN ERROR")
+            for event in fullSchedule! {
+                center.add(event.request) { (error: Error?) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        print("THERE WAS AN ERROR")
+                    }
                 }
             }
-        }
+        
     }
     
     func dowloadImage(imageString: String, dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping (UIImage?, String?) -> Void) {
-        //TODO: Fix error handling
         guard let imageUrl = URL(string: imageString) else {
+            print("Could not make image url")
             return
         }
         let session = URLSession(configuration: .default)
         
         let downloadPicTask = session.dataTask(with: imageUrl) { (data, response, error) in
             // The download has finished.
-            if let e = error {
-                print("Error downloading picture: \(e)")
+            if let error = error {
+                print("Error downloading picture: \(error)")
             } else {
                 // No errors found.
                 // It would be weird if we didn't have a response, so check for that too.
@@ -169,14 +107,11 @@ class Model {
                     print("Downloaded picture with response code \(res.statusCode)")
                     if let imageData = data {
                         // Finally convert that Data into an image and do what you wish with it.
-                        if let finalImage = UIImage(data: imageData){
+                        if let finalImage = UIImage(data: imageData) {
                             dispatchQueueForHandler.async(execute: {
                                 completionHandler(finalImage, nil)
                             })
                         }
-                        
-                        
-                        
                     } else {
                         print("Couldn't get image: Image is nil")
                     }
@@ -194,7 +129,6 @@ class Model {
         let session = URLSession(configuration: config)
         let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSponsors"
         
-        
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async {
                 completionHandler(nil, "the url for requesting a channel is invalid" )
@@ -205,8 +139,7 @@ class Model {
         
         urlRequest.httpMethod = "GET"
         
-        let task =  session.dataTask(with: urlRequest){
-            (data, _, error) in
+        let task =  session.dataTask(with: urlRequest) { (data, _, error) in
             guard error == nil, let data = data else {
                 var errorString = "data not available for requested channel"
                 if let error = error {

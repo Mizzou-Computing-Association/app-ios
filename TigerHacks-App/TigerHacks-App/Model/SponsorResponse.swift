@@ -9,5 +9,5 @@
 import Foundation
 
 struct SponsorResponse: Decodable {
-    var sponsors:[Sponsor]
+    var sponsors: [Sponsor]
 }

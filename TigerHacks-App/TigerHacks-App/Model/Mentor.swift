@@ -13,8 +13,7 @@ struct Mentor {
     var skills: [String]?
     var contact: String?
     
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case name
         case skills
         case contact
@@ -23,8 +22,7 @@ struct Mentor {
 }
 
 extension Mentor: Decodable {
-    init(from decoder: Decoder) throws
-    {
+    init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
         contact = try values.decode(String.self, forKey: .contact)
