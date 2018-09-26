@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+// swiftlint:disable type_name
+
+
 struct Sponsor: Decodable {
 
     var mentors: [Mentor]?
