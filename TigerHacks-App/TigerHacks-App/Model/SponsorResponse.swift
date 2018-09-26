@@ -7,6 +7,7 @@
 //
 
 import Foundation
+// swiftlint:disable type_name
 
 struct SponsorResponse: Decodable {
     var sponsors: [Sponsor]
