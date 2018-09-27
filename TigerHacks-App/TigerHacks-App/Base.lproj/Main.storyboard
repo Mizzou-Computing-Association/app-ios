@@ -188,13 +188,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-34-OJc">
-                                                    <rect key="frame" x="15" y="-6" width="351" height="35"/>
+                                                    <rect key="frame" x="15" y="-6" width="312" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
-                                                    <rect key="frame" x="15" y="30" width="351" height="19.5"/>
+                                                    <rect key="frame" x="15" y="30" width="312" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
@@ -241,14 +241,14 @@
                                 <action selector="changeSection:" destination="gAm-gB-hPp" eventType="valueChanged" id="NJZ-Mp-bOC"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" image="unfavoriteStar" id="Ubp-JP-C1k">
+                        <barButtonItem key="rightBarButtonItem" image="favorite" id="Ubp-JP-C1k">
                             <connections>
                                 <action selector="toggleFavorites:" destination="gAm-gB-hPp" id="FhY-ac-zF8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="favoritesButton" destination="Ubp-JP-C1k" id="SWB-ft-NLn"/>
+                        <outlet property="favoriteBarButtonItem" destination="Ubp-JP-C1k" id="zXH-8a-Bdj"/>
                         <outlet property="prizeTableView" destination="PmS-AX-4ZZ" id="EOG-en-IaS"/>
                         <outlet property="prizeTypeSwitcher" destination="Yt7-xG-p5O" id="TpM-gi-rve"/>
                         <segue destination="4VW-li-TyV" kind="show" identifier="prizeSegue" id="g6g-mQ-r8c"/>
@@ -416,7 +416,7 @@
                     </view>
                     <navigationItem key="navigationItem" title=" " largeTitleDisplayMode="never" id="JPp-08-Ke7">
                         <barButtonItem key="backBarButtonItem" title=" " id="iSg-Zv-QRW"/>
-                        <barButtonItem key="rightBarButtonItem" image="unfavoriteStar" id="UrW-RM-2Ny">
+                        <barButtonItem key="rightBarButtonItem" image="favorite" id="UrW-RM-2Ny">
                             <connections>
                                 <action selector="favorite:" destination="4VW-li-TyV" id="V3M-Au-iXc"/>
                             </connections>
@@ -828,7 +828,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Mp-Sm-aHI">
-                                                    <rect key="frame" x="15" y="11" width="224" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="185" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="x20-U3-QtO"/>
                                                     </constraints>
@@ -843,13 +843,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="skills,skills skills" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-3a-TJI">
-                                                    <rect key="frame" x="62" y="40" width="337" height="21"/>
+                                                    <rect key="frame" x="62" y="40" width="298" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DD-8g-ZZ7">
-                                                    <rect key="frame" x="332" y="6.5" width="55" height="30"/>
+                                                    <rect key="frame" x="293" y="6.5" width="55" height="30"/>
                                                     <state key="normal" title="Contact"/>
                                                     <connections>
                                                         <action selector="contactButtonTapped:" destination="DBm-UW-KRy" eventType="touchUpInside" id="aHG-11-HZq"/>
@@ -1028,6 +1028,7 @@
                                         <constraint firstAttribute="bottom" secondItem="MEA-Wd-wW8" secondAttribute="bottom" constant="14.5" id="fJG-oe-GoJ"/>
                                         <constraint firstAttribute="trailing" secondItem="quh-ad-kkL" secondAttribute="trailing" constant="27" id="gqh-L7-XH2"/>
                                         <constraint firstItem="quh-ad-kkL" firstAttribute="centerY" secondItem="bUt-sx-uTq" secondAttribute="centerY" id="ujL-Ex-Gd0"/>
+                                        <constraint firstItem="MEA-Wd-wW8" firstAttribute="leading" secondItem="dC3-n0-GvN" secondAttribute="trailing" constant="-5" id="vsT-iY-UUt"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1262,10 +1263,10 @@
     </scenes>
     <resources>
         <image name="crown-7" width="30" height="30"/>
+        <image name="favorite" width="24" height="24"/>
         <image name="file-document-7" width="30" height="30"/>
         <image name="gift-7" width="29" height="30"/>
         <image name="pin-map-7" width="30" height="30"/>
-        <image name="unfavoriteStar" width="25.600000381469727" height="25.600000381469727"/>
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>

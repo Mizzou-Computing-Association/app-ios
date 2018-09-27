@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import UserNotifications
 // swiftlint:disable type_body_length
-// swiftlint:disable function_body_length
 class Model {
     static var sharedInstance = Model()
 
@@ -38,12 +37,6 @@ class Model {
     let options: UNAuthorizationOptions = [.alert, .sound]
     
     func fakeAPICall() {
-        //Mentor Dummy Data
-        let cernerMentors = [Mentor(name: "JJ Smith",
-                                    skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
-                                             "That's it" ],
-                                    contact: "U7KA1JLA3")]
-        
         //Resource Dummy Data
         resources = [
             Resource(url: "https://www.google.com", title: "Google", description: "It's a website for googling things that you should use probably a whole lot."),
