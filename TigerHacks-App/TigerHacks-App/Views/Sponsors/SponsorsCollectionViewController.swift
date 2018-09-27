@@ -136,7 +136,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
             !imageUrl.isEmpty {
             Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
                 if let error = errorString {
-                    print("ERROR! could not download image")
+                    print("ERROR! could not download image: \(error.localizedLowercase)")
                 } else if let image = finalImage {
                     self.sponsors[indexPath.row].image = image
                     collectionView.reloadData()

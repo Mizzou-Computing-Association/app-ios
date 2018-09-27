@@ -6,7 +6,6 @@
 //  Copyright © 2018 Zukosky, Jonah. All rights reserved.
 //
 
-
 import Foundation
 // swiftlint:disable type_name
 struct Mentor {
