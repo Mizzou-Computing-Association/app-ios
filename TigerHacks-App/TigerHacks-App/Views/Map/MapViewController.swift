@@ -17,7 +17,9 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var mapTableView: UITableView!
     @IBOutlet weak var mapScrollView: UIScrollView!
     @IBOutlet weak var mapView: MKMapView!
-
+    @IBOutlet weak var mapSuperView: UIView!
+    @IBOutlet weak var mapImageSuperView: UIView!
+    
     let testImageArray = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
 
     var fullSchedule = [Event]()
@@ -38,7 +40,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // Initial Setup
 
         setUpNavBar()
-         mapImageView.superview?.bringSubviewToFront(mapImageView)
+         mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
         mapTableView.dataSource = self
         mapTableView.delegate = self
         dateFormatter.timeStyle = .short
@@ -195,10 +197,14 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func handleMapToggle(_ sender: Any) {
         switch mapToggler {
         case .Image:
-            mapImageView.superview?.bringSubviewToFront(mapImageView)
+            //mapScrollView.setZoomScale(1.0, animated: true)
+            //mapView.isUserInteractionEnabled = false
+            mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
+            //mapImageView.superview?.bringSubviewToFront(mapImageView)
             mapToggler = .Map
         case .Map:
-            mapView.superview?.bringSubviewToFront(mapView)
+            mapSuperView.superview?.bringSubviewToFront(mapSuperView)
+            //mapView.superview?.bringSubviewToFront(mapView)
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
             mapToggler = .Image
         }
