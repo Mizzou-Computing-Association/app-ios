@@ -64,8 +64,31 @@ class SponsorsCollectionViewController: UICollectionViewController {
     }
 
     func loadSponsors() {
-        sponsors = Model.sharedInstance.sponsors!
-        sponsors.append(Sponsor(mentors: nil, name: "All Mentors", description: nil, website: nil, location: nil, image: UIImage(named: "tigerLogo-allMentors")))
+        Model.sharedInstance.sponsorsLoad(dispatchQueueForHandler: DispatchQueue.main) { (sponsors, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+                
+                    let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+                
+                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                
+                    self.present(alert, animated: true)
+                
+            } else if let sponsors = sponsors {
+                self.sponsors = sponsors
+                self.collectionView?.reloadData()
+            }
+        }
+        
+        sponsors.append(Sponsor(
+            mentors: nil,
+            name: "All Mentors",
+            description: nil,
+            website: nil,
+            location: nil,
+            image: UIImage(named: "tigerLogo-allMentors") ,
+            imageUrl: nil,
+            level: nil))
         getAllMentors()
     }
 
@@ -107,11 +130,18 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
 
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
-
         if let image = sponsors[indexPath.row].image {
             cell.sponsorImage?.image = image
-        } else {
-            cell.sponsorImage?.image = UIImage(named: "noImage")
+        } else if let imageUrl = sponsors[indexPath.row].imageUrl,
+            !imageUrl.isEmpty {
+            Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
+                if let error = errorString {
+                    print("ERROR! could not download image")
+                } else if let image = finalImage {
+                    self.sponsors[indexPath.row].image = image
+                    collectionView.reloadData()
+                }
+            }
         }
 
         return cell
@@ -136,7 +166,6 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
             if let row = selectedItem?.row {
                 let sponsor = sponsors[row]
-
                 if let image = sponsor.image {
                     destination.image = image
                 } else {

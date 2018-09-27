@@ -43,69 +43,6 @@ class Model {
                                     skills: ["Computers", "Swift", "Objective C", "Eating Apples", "Nothing else",
                                              "That's it" ],
                                     contact: "U7KA1JLA3")]
-
-        //Sponsor Dummy Data
-
-        sponsors = [Sponsor(mentors: nil,
-                                        name: "AirBnb",
-                                        description: "we find homes that you can rent. Undercut the hotels",
-                                        website: "airbnb.com",
-                                        location: "Table 5, Main Hallway",
-                                        image: UIImage(named: "airbnb")),
-                                Sponsor(mentors: cernerMentors,
-                                        name: "Cerner",
-                                        description: "we make healthcare stuff that is good and makes people not die probably most of the time this just to get to a length of more than one line",
-                                        website: "Cerner.com",
-                                        location: "Table 6, Main Hallway",
-                                        image: UIImage(named: "cerner")),
-                                Sponsor(mentors: nil,
-                                        name: "Google",
-                                        description: "we google stuff all day",
-                                        website: "google.com",
-                                        location: "Table 7, Main Hallway",
-                                        image: UIImage(named: "google")),
-                                Sponsor(mentors: nil,
-                                        name: "Pied Piper",
-                                        description: "Compression software haha rfelevant topical joke software",
-                                        website: "There is no website",
-                                        location: "Table 8, Main Hallway",
-                                        image: UIImage(named: "piedpiper")),
-                                Sponsor(mentors: nil,
-                                        name: "Microsoft",
-                                        description: "we bing stuff all day",
-                                        website: "bing.com",
-                                        location: "Table 9, Main Hallway",
-                                        image: UIImage(named: "microsoft")),
-                                Sponsor(mentors: nil,
-                                        name: "FulcrumGT",
-                                        description: nil,
-                                        website: nil,
-                                        location: nil,
-                                        image: nil),
-                                Sponsor(mentors: nil,
-                                        name: "Fulcrum GT",
-                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                        website: "dogfood.org",
-                                        location: "Table 10, Main Hallway",
-                                        image: UIImage(named: "fulcrumgt")),
-                                Sponsor(mentors: nil,
-                                        name: "Fulcrum GT",
-                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                        website: "dogfood.org",
-                                        location: "Table 10, Main Hallway",
-                                        image: UIImage(named: "fulcrumgt")),
-                                Sponsor(mentors: nil,
-                                        name: "Fulcrum GT",
-                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                        website: "dogfood.org",
-                                        location: "Table 10, Main Hallway",
-                                        image: UIImage(named: "fulcrumgt")),
-                                Sponsor(mentors: nil,
-                                        name: "Fulcrum GT",
-                                        description: "DOGFOOD GOES TO THE MARKET, YOU WALKED IT THERE, YOU'RE KILLIN IT YOU YOUNG ENTREPRENEUR. NOBODY HAS A .ORG NOT EVEN US",
-                                        website: "dogfood.org",
-                                        location: "Table 10, Main Hallway",
-                                        image: UIImage(named: "fulcrumgt"))]
         
         //Resource Dummy Data
         resources = [
@@ -141,17 +78,99 @@ class Model {
         }
     }
     func addNotifications() {
-        for event in fullSchedule! {
-            center.add(event.request) { (error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    print("THERE WAS AN ERROR")
+            for event in fullSchedule! {
+                center.add(event.request) { (error: Error?) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        print("THERE WAS AN ERROR")
+                    }
+                }
+            }
+        
+    }
+    
+    func dowloadImage(imageString: String, dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping (UIImage?, String?) -> Void) {
+        guard let imageUrl = URL(string: imageString) else {
+            print("Could not make image url")
+            return
+        }
+        let session = URLSession(configuration: .default)
+        
+        let downloadPicTask = session.dataTask(with: imageUrl) { (data, response, error) in
+            // The download has finished.
+            if let error = error {
+                print("Error downloading picture: \(error)")
+            } else {
+                // No errors found.
+                // It would be weird if we didn't have a response, so check for that too.
+                if let res = response as? HTTPURLResponse {
+                    print("Downloaded picture with response code \(res.statusCode)")
+                    if let imageData = data {
+                        // Finally convert that Data into an image and do what you wish with it.
+                        if let finalImage = UIImage(data: imageData) {
+                            dispatchQueueForHandler.async(execute: {
+                                completionHandler(finalImage, nil)
+                            })
+                        }
+                    } else {
+                        print("Couldn't get image: Image is nil")
+                    }
+                } else {
+                    print("Couldn't get response code for some reason")
                 }
             }
         }
+        
+        downloadPicTask.resume()
     }
     
-// MARK: - JSON Loading and Parsing for Prizes
+    func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSponsors"
+        
+        guard let url = URL(string: requestString) else {
+            dispatchQueueForHandler.async {
+                completionHandler(nil, "the url for requesting a channel is invalid" )
+            }
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        
+        urlRequest.httpMethod = "GET"
+        
+        let task =  session.dataTask(with: urlRequest) { (data, _, error) in
+            guard error == nil, let data = data else {
+                var errorString = "data not available for requested channel"
+                if let error = error {
+                    errorString = error.localizedDescription
+                }
+                dispatchQueueForHandler.async(execute: {
+                    completionHandler(nil, errorString)
+                })
+                return
+            }
+            print(data)
+            
+//            let jsonData = data //String(data: data, encoding: .utf8)
+            
+//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+//                let rootNode = json as? [String: Any] else {
+//                    completionHandler(nil, "unable to parse response from server")
+//            }
+//
+//            print("JSON: \(json)")
+//
+            let sponsorsObject = try? JSONDecoder().decode(SponsorResponse.self, from: data)
+            
+            dispatchQueueForHandler.async(execute: {
+                completionHandler(sponsorsObject?.sponsors, nil)
+            })
+
+        }
+        task.resume()
+    }
+    
     func prizeLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Prize]?, String?) -> Void) {
         
         let config = URLSessionConfiguration.default // Session Configuration
@@ -209,11 +228,11 @@ class Model {
         if let items = rootNode["prizes"] as? [[String: Any]] {
             for item in items {
                 print("ITEM: \(item)")
-                if let prizeSponsorID = item["Sponsor"] as? Int,
-                    let prizeTitle = item["Title"] as? String,
-                    let prizeReward = item["Reward"] as? String,
-                    let prizeDescription = item["Description"] as? String,
-                    let prizeType = item["Prizetype"] as? String,
+                if let prizeSponsorID = item["sponsor"] as? Int,
+                    let prizeTitle = item["title"] as? String,
+                    let prizeReward = item["reward"] as? String,
+                    let prizeDescription = item["description"] as? String,
+                    let prizeType = item["prizetype"] as? String,
                     let enumPrizeType = PrizeType(rawValue: prizeType) {
                     print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
                     
@@ -351,11 +370,11 @@ class Model {
         
         if let items = rootNode["schedule"] as? [[String: Any]] {
             for item in items {
-                if let eventTime = item["Time"] as? String,
-                    let eventTitle = item["Title"] as? String,
-                    let eventLocation = item["Location"] as? String,
-                    let eventDescription = item["Description"] as? String,
-                    let eventFloor = item["Floor"] as? Int {
+                if let eventTime = item["time"] as? String,
+                    let eventTitle = item["title"] as? String,
+                    let eventLocation = item["location"] as? String,
+                    let eventDescription = item["description"] as? String,
+                    let eventFloor = item["floor"] as? Int {
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"

@@ -20,31 +20,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let center = UNUserNotificationCenter.current()
-        print("Get Notification Approval")
-        center.getNotificationSettings { (notificationSettings) in
-            switch notificationSettings.authorizationStatus {
-            case .notDetermined:
-                // Request Authorization
-                print("Not Determined AppDelegate")
-                center.requestAuthorization(options: Model.sharedInstance.options, completionHandler: { (success, _) in
-                    guard success else { print("failure AppDelegate");return }
-                    print("success AppDelegate")
-                    Model.sharedInstance.scheduleNotifications()
-                })
-            case .authorized:
-                print("Authorized")
-                Model.sharedInstance.scheduleNotifications()
-            case .denied:
-                print("denied")
-                print("Application Not Allowed to Display Notifications")
-            case .provisional:
-                print("Provisional")
-                Model.sharedInstance.scheduleNotifications()
+        //MARK: Pre-load schedule!
+        Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
+            if let errorString = errorString {
+                print("Error: \(errorString)")
+            } else if let events = events {
+                
+                var tempEvents = [Event]()
+                for event in events {
+                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    tempEvents.append(event)
+                }
+                
+                Model.sharedInstance.fullSchedule = tempEvents
+             
+                //MARK: Notifications
+                let center = UNUserNotificationCenter.current()
+                print("Get Notification Approval")
+                center.getNotificationSettings { (notificationSettings) in
+                    switch notificationSettings.authorizationStatus {
+                    case .notDetermined:
+                        // Request Authorization
+                        print("Not Determined AppDelegate")
+                        center.requestAuthorization(options: Model.sharedInstance.options, completionHandler: { (success, _) in
+                            guard success else { print("failure AppDelegate");return }
+                            print("success AppDelegate")
+                            Model.sharedInstance.scheduleNotifications()
+                        })
+                    case .authorized:
+                        print("Authorized")
+                        Model.sharedInstance.scheduleNotifications()
+                    case .denied:
+                        print("denied")
+                        print("Application Not Allowed to Display Notifications")
+                    case .provisional:
+                        print("Provisional")
+                        Model.sharedInstance.scheduleNotifications()
+                    }
+                }    
             }
         }
-        // Override point for customization after application launch.
         return true
+
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

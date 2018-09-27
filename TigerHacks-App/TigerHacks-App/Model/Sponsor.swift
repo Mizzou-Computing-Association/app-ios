@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 
-struct Sponsor {
+// swiftlint:disable type_name
+
+
+struct Sponsor: Decodable {
 
     var mentors: [Mentor]?
     var name: String
@@ -17,5 +20,16 @@ struct Sponsor {
     var website: String?
     var location: String?
     var image: UIImage?
-
+    var imageUrl: String?
+    var level: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case mentors
+        case name
+        case description
+        case website
+        case location
+        case imageUrl = "image"
+        case level
+    }
 }
