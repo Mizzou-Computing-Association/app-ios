@@ -37,22 +37,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
                                                     <rect key="frame" x="15" y="4" width="327" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
-                                                    <rect key="frame" x="230" y="40.5" width="97" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
+                                                    <rect key="frame" x="185" y="40.5" width="149" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
-                                                    <rect key="frame" x="15" y="41" width="215" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
+                                                    <rect key="frame" x="15" y="41" width="170" height="19.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="215" id="j9X-2l-eaK"/>
+                                                        <constraint firstAttribute="width" constant="170" id="j9X-2l-eaK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -63,11 +63,11 @@
                                                 <constraint firstItem="R3s-vl-XPx" firstAttribute="centerY" secondItem="36c-3V-hwi" secondAttribute="centerY" id="0o0-9J-iih"/>
                                                 <constraint firstItem="36c-3V-hwi" firstAttribute="top" secondItem="pB2-t3-PV1" secondAttribute="bottom" constant="8" symbolic="YES" id="Im0-ig-p7l"/>
                                                 <constraint firstItem="R3s-vl-XPx" firstAttribute="leading" secondItem="36c-3V-hwi" secondAttribute="trailing" id="QQZ-lG-AsS"/>
-                                                <constraint firstAttribute="bottom" secondItem="36c-3V-hwi" secondAttribute="bottom" constant="11.5" id="TSg-Cg-lHu"/>
                                                 <constraint firstAttribute="trailing" secondItem="pB2-t3-PV1" secondAttribute="trailing" id="Ujd-fI-5PS"/>
-                                                <constraint firstAttribute="trailing" secondItem="R3s-vl-XPx" secondAttribute="trailing" constant="15" id="d6y-2d-4xa"/>
+                                                <constraint firstAttribute="trailing" secondItem="R3s-vl-XPx" secondAttribute="trailing" constant="8" id="d6y-2d-4xa"/>
                                                 <constraint firstItem="pB2-t3-PV1" firstAttribute="leading" secondItem="RhU-PR-YcR" secondAttribute="leading" constant="15" id="eed-FF-yLr"/>
                                                 <constraint firstItem="36c-3V-hwi" firstAttribute="leading" secondItem="pB2-t3-PV1" secondAttribute="leading" id="gl7-R2-jvR"/>
+                                                <constraint firstAttribute="bottom" secondItem="36c-3V-hwi" secondAttribute="bottom" constant="12" id="sgm-i1-ztJ"/>
                                                 <constraint firstItem="pB2-t3-PV1" firstAttribute="top" secondItem="RhU-PR-YcR" secondAttribute="top" constant="4" id="vwp-fm-kZG"/>
                                             </constraints>
                                         </tableViewCellContentView>
