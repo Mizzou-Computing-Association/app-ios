@@ -26,37 +26,26 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var floorOneEvents = [Event]()
     var floorTwoEvents = [Event]()
     var floorThreeEvents = [Event]()
+    var outsideEvents = [Event]()
 
     var refreshControl: UIRefreshControl!
     let dateFormatter = DateFormatter()
 
-    var mapToggler = MapToggle.Map
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Initial Setup
 
         setUpNavBar()
-         mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
+        mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
         mapTableView.dataSource = self
         mapTableView.delegate = self
         dateFormatter.timeStyle = .short
 
         // Loading Schedules
         loadSchedule()
-
-        // Swipe to Change Level
-
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-        self.view.addGestureRecognizer(swipeRight)
-
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
-        self.view.addGestureRecognizer(swipeLeft)
 
         // Map Image View
 
@@ -114,9 +103,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     func filterFullScheduleByFloor(fullSchedule: [Event]) {
+        print(fullSchedule)
         var tempFloorOneEvents = [Event]()
         var tempFloorTwoEvents = [Event]()
         var tempFloorThreeEvents = [Event]()
+        var tempOutsideEvents = [Event]()
 
         for event in fullSchedule {
             if event.floor == 0 {
@@ -125,11 +116,14 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 tempFloorTwoEvents.append(event)
             } else if event.floor == 2 {
                 tempFloorThreeEvents.append(event)
+            } else if event.floor == 4 {
+                tempOutsideEvents.append(event)
             }
         }
         floorOneEvents = tempFloorOneEvents
         floorTwoEvents = tempFloorTwoEvents
         floorThreeEvents = tempFloorThreeEvents
+        outsideEvents = tempOutsideEvents
         mapTableView.reloadData()
     }
 
@@ -152,34 +146,17 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 // MARK: - Change Map Level
 
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
-        mapScrollView.zoomScale = 1.0
-        mapImageView.image = testImageArray[sender.selectedSegmentIndex]
-        mapTableView.reloadData()
-    }
-
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
-
-        switch swipeGesture.direction {
-        case .left:
-
-            if floorSelector.selectedSegmentIndex != 2 {
-                floorSelector.selectedSegmentIndex += 1
-                mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                mapTableView.reloadData()
-            }
-
-        case .right:
-
-            if floorSelector.selectedSegmentIndex != 0 {
-                floorSelector.selectedSegmentIndex -= 1
-                mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
-                mapTableView.reloadData()
-            }
-
-        default:
-            break
+        if sender.selectedSegmentIndex != 3 {
+            mapScrollView.superview?.bringSubviewToFront(mapScrollView)
+            mapImageView.image = testImageArray[sender.selectedSegmentIndex]
+            mapTableView.reloadData()
+        } else {
+            mapScrollView.setZoomScale(1.0, animated: true)
+            mapSuperView.superview?.bringSubviewToFront(mapSuperView)
+            mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
+            mapTableView.reloadData()
         }
+        
     }
 
 // MARK: - Map Zoom
@@ -190,24 +167,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
-    }
-
-// MARK: - Toggle Map
-
-    @IBAction func handleMapToggle(_ sender: Any) {
-        switch mapToggler {
-        case .Image:
-            //mapScrollView.setZoomScale(1.0, animated: true)
-            //mapView.isUserInteractionEnabled = false
-            mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
-            //mapImageView.superview?.bringSubviewToFront(mapImageView)
-            mapToggler = .Map
-        case .Map:
-            mapSuperView.superview?.bringSubviewToFront(mapSuperView)
-            //mapView.superview?.bringSubviewToFront(mapView)
-            mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
-            mapToggler = .Image
-        }
     }
 
 // MARK: - Tableview
@@ -229,6 +188,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return floorTwoEvents.count
         case 2:
             return floorThreeEvents.count
+        case 3:
+            return outsideEvents.count
         default :
             return 0
         }
@@ -256,6 +217,12 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 cell.timeLabel.text =
                     Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]!
                     + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
+        case 3:
+            cell.eventLabel.text = outsideEvents[indexPath.row].title
+            cell.locationLabel.text = outsideEvents[indexPath.row].location
+            cell.timeLabel.text =
+                Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: outsideEvents[indexPath.row].time)]!
+                + ", " + dateFormatter.string(from: outsideEvents[indexPath.row].time)
         default:
                 cell.eventLabel.text = "There is NO Event"
                 cell.locationLabel.text = "Who Knows Where"
@@ -292,6 +259,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             destination.locationText = floorThreeEvents[selectedRow.row].location
             destination.timeText = dateFormatter.string(from: floorThreeEvents[selectedRow.row].time)
             destination.descriptionText = floorThreeEvents[selectedRow.row].description
+        case 3:
+            destination.titleText = outsideEvents[selectedRow.row].title
+            destination.locationText = outsideEvents[selectedRow.row].location
+            destination.timeText = dateFormatter.string(from: outsideEvents[selectedRow.row].time)
+            destination.descriptionText = outsideEvents[selectedRow.row].description
         default:
             destination.titleText = "There is NO Event"
             destination.locationText = "Who Knows Where"
@@ -300,9 +272,4 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         }
 
     }
-}
-
-enum MapToggle {
-    case Image
-    case Map
 }
