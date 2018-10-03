@@ -128,6 +128,9 @@ class ResourcesTableViewController: UITableViewController {
             destination.videoCode = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].url
         } else {
             // INCOMPLETE - should segue to other resource view
+            let destination = segue.destination as! ResourceDetailViewController
+            destination.urlString = resources[tableView.indexPathForSelectedRow?.row ?? 0].url
+            destination.navigationItem.title = resources[tableView.indexPathForSelectedRow?.row ?? 0].title
         }
     }
 }

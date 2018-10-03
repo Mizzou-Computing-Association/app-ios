@@ -664,20 +664,48 @@
             </objects>
             <point key="canvasLocation" x="2016.8" y="207.34632683658174"/>
         </scene>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="E7c-aM-vqO">
             <objects>
-                <viewController id="CHO-lX-hQd" sceneMemberID="viewController">
+                <viewController id="CHO-lX-hQd" customClass="ResourceDetailViewController" customModule="TigerHacks_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dm9-4V-XGI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iUO-NY-X23">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iUO-NY-X23" secondAttribute="bottom" id="JXO-js-mmc"/>
+                            <constraint firstItem="iUO-NY-X23" firstAttribute="leading" secondItem="FZh-eC-tOC" secondAttribute="leading" id="k3R-Z4-WmI"/>
+                            <constraint firstItem="iUO-NY-X23" firstAttribute="trailing" secondItem="FZh-eC-tOC" secondAttribute="trailing" id="nVA-5p-Tt6"/>
+                            <constraint firstItem="iUO-NY-X23" firstAttribute="top" secondItem="FZh-eC-tOC" secondAttribute="top" id="yF8-PZ-oGG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="FZh-eC-tOC"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="PXy-ff-MPV">
+                        <barButtonItem key="rightBarButtonItem" image="safari" id="23I-ck-qKK">
+                            <connections>
+                                <action selector="openInSafari:" destination="CHO-lX-hQd" id="0uj-yc-tGO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="resourceWebView" destination="iUO-NY-X23" id="9Do-oP-Umu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QgG-Hl-HMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2841" y="-393"/>
+            <point key="canvasLocation" x="2840.8000000000002" y="-393.55322338830587"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MGU-8p-pGZ">
@@ -1267,6 +1295,7 @@
         <image name="file-document-7" width="30" height="30"/>
         <image name="gift-7" width="29" height="30"/>
         <image name="pin-map-7" width="30" height="30"/>
+        <image name="safari" width="30" height="30"/>
         <image name="video-player-7" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
