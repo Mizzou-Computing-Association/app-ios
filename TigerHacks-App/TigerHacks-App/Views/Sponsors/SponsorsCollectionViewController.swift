@@ -59,7 +59,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
             self.sponsors.removeAll()
             self.loadSponsors()
             self.refreshControl.endRefreshing()
-            self.collectionView?.reloadData()
+//            self.collectionView?.reloadData()
         }
     }
 
@@ -89,8 +89,6 @@ class SponsorsCollectionViewController: UICollectionViewController {
                 self.getAllMentors()
             }
         }
-        
-        
     }
 
     func getAllMentors() {
