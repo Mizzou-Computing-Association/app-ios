@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import SafariServices
 
 class ResourceDetailViewController: UIViewController, WKNavigationDelegate {
 
