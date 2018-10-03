@@ -37,22 +37,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pB2-t3-PV1">
                                                     <rect key="frame" x="15" y="4" width="327" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
-                                                    <rect key="frame" x="230" y="40.5" width="97" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-vl-XPx">
+                                                    <rect key="frame" x="185" y="40.5" width="149" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
-                                                    <rect key="frame" x="15" y="41" width="215" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36c-3V-hwi">
+                                                    <rect key="frame" x="15" y="41" width="170" height="19.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="215" id="j9X-2l-eaK"/>
+                                                        <constraint firstAttribute="width" constant="170" id="j9X-2l-eaK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -63,11 +63,11 @@
                                                 <constraint firstItem="R3s-vl-XPx" firstAttribute="centerY" secondItem="36c-3V-hwi" secondAttribute="centerY" id="0o0-9J-iih"/>
                                                 <constraint firstItem="36c-3V-hwi" firstAttribute="top" secondItem="pB2-t3-PV1" secondAttribute="bottom" constant="8" symbolic="YES" id="Im0-ig-p7l"/>
                                                 <constraint firstItem="R3s-vl-XPx" firstAttribute="leading" secondItem="36c-3V-hwi" secondAttribute="trailing" id="QQZ-lG-AsS"/>
-                                                <constraint firstAttribute="bottom" secondItem="36c-3V-hwi" secondAttribute="bottom" constant="11.5" id="TSg-Cg-lHu"/>
                                                 <constraint firstAttribute="trailing" secondItem="pB2-t3-PV1" secondAttribute="trailing" id="Ujd-fI-5PS"/>
-                                                <constraint firstAttribute="trailing" secondItem="R3s-vl-XPx" secondAttribute="trailing" constant="15" id="d6y-2d-4xa"/>
+                                                <constraint firstAttribute="trailing" secondItem="R3s-vl-XPx" secondAttribute="trailing" constant="8" id="d6y-2d-4xa"/>
                                                 <constraint firstItem="pB2-t3-PV1" firstAttribute="leading" secondItem="RhU-PR-YcR" secondAttribute="leading" constant="15" id="eed-FF-yLr"/>
                                                 <constraint firstItem="36c-3V-hwi" firstAttribute="leading" secondItem="pB2-t3-PV1" secondAttribute="leading" id="gl7-R2-jvR"/>
+                                                <constraint firstAttribute="bottom" secondItem="36c-3V-hwi" secondAttribute="bottom" constant="12" id="sgm-i1-ztJ"/>
                                                 <constraint firstItem="pB2-t3-PV1" firstAttribute="top" secondItem="RhU-PR-YcR" secondAttribute="top" constant="4" id="vwp-fm-kZG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -79,27 +79,35 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsh-WL-6bM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="226"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-WB-mK2">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="226"/>
+                                    </mapView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Hk2-WB-mK2" firstAttribute="leading" secondItem="Qsh-WL-6bM" secondAttribute="leading" id="94x-nk-foy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hk2-WB-mK2" secondAttribute="trailing" id="GSX-u0-oYM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hk2-WB-mK2" secondAttribute="bottom" id="bNg-bt-ccD"/>
+                                    <constraint firstItem="Hk2-WB-mK2" firstAttribute="top" secondItem="Qsh-WL-6bM" secondAttribute="top" id="kCa-HK-ow7"/>
+                                </constraints>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIw-uG-srD">
-                                <rect key="frame" x="8" y="72" width="359" height="238"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="226"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOr-Yr-XHg">
-                                        <rect key="frame" x="0.0" y="0.0" width="359" height="238"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="226"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I47-5H-ELc">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="238"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="226"/>
                                             </imageView>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-WB-mK2">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="238"/>
-                                            </mapView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Hk2-WB-mK2" secondAttribute="trailing" id="8Fy-pm-hrA"/>
-                                            <constraint firstAttribute="bottom" secondItem="Hk2-WB-mK2" secondAttribute="bottom" id="9jH-kr-NTA"/>
                                             <constraint firstItem="I47-5H-ELc" firstAttribute="top" secondItem="wOr-Yr-XHg" secondAttribute="top" id="DyT-se-L7f"/>
-                                            <constraint firstItem="Hk2-WB-mK2" firstAttribute="leading" secondItem="wOr-Yr-XHg" secondAttribute="leading" id="E63-Bs-fgO"/>
                                             <constraint firstAttribute="trailing" secondItem="I47-5H-ELc" secondAttribute="trailing" id="HFr-fm-9PT"/>
-                                            <constraint firstItem="Hk2-WB-mK2" firstAttribute="top" secondItem="wOr-Yr-XHg" secondAttribute="top" id="J7y-XB-13U"/>
                                             <constraint firstAttribute="bottom" secondItem="I47-5H-ELc" secondAttribute="bottom" id="iH5-8S-R7h"/>
                                             <constraint firstItem="I47-5H-ELc" firstAttribute="leading" secondItem="wOr-Yr-XHg" secondAttribute="leading" id="ive-rb-sWp"/>
                                         </constraints>
@@ -117,43 +125,51 @@
                                     <outlet property="delegate" destination="6jk-Lc-9j7" id="H2Z-iY-UcF"/>
                                 </connections>
                             </scrollView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zyM-kV-wWU">
+                                <rect key="frame" x="-2" y="290" width="379" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="NOs-tn-7YT"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Floor 0"/>
+                                    <segment title="Floor 1"/>
+                                    <segment title="Floor 2"/>
+                                    <segment title="Outside"/>
+                                </segments>
+                                <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="changeLevelOfMap:" destination="6jk-Lc-9j7" eventType="valueChanged" id="jkC-ou-Pf6"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TIw-uG-srD" firstAttribute="leading" secondItem="O6l-yE-WKN" secondAttribute="leading" constant="8" id="88e-ne-P7N"/>
+                            <constraint firstItem="zyM-kV-wWU" firstAttribute="trailing" secondItem="O6l-yE-WKN" secondAttribute="trailing" constant="2" id="2v0-KI-l5O"/>
+                            <constraint firstItem="TIw-uG-srD" firstAttribute="leading" secondItem="O6l-yE-WKN" secondAttribute="leading" id="88e-ne-P7N"/>
                             <constraint firstItem="Fqm-bA-K7n" firstAttribute="leading" secondItem="O6l-yE-WKN" secondAttribute="leading" id="9ZZ-kf-70d"/>
-                            <constraint firstItem="Fqm-bA-K7n" firstAttribute="top" secondItem="TIw-uG-srD" secondAttribute="bottom" constant="8" id="Tr5-LQ-7qS"/>
-                            <constraint firstItem="TIw-uG-srD" firstAttribute="top" secondItem="O6l-yE-WKN" secondAttribute="top" constant="8" id="ZXO-sJ-EH4"/>
+                            <constraint firstItem="zyM-kV-wWU" firstAttribute="top" secondItem="TIw-uG-srD" secondAttribute="bottom" id="ERZ-cf-sqY"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="trailing" secondItem="O6l-yE-WKN" secondAttribute="trailing" id="WHH-Os-F0N"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="leading" secondItem="TIw-uG-srD" secondAttribute="leading" id="ZA9-Mv-ieA"/>
+                            <constraint firstItem="TIw-uG-srD" firstAttribute="top" secondItem="O6l-yE-WKN" secondAttribute="top" id="ZXO-sJ-EH4"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="leading" secondItem="O6l-yE-WKN" secondAttribute="leading" id="ZnB-wx-YIT"/>
                             <constraint firstItem="O6l-yE-WKN" firstAttribute="bottom" secondItem="Fqm-bA-K7n" secondAttribute="bottom" id="avX-Y2-zcv"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="top" secondItem="TIw-uG-srD" secondAttribute="top" id="gSM-No-S10"/>
+                            <constraint firstItem="zyM-kV-wWU" firstAttribute="leading" secondItem="O6l-yE-WKN" secondAttribute="leading" constant="-2" id="k11-Ee-IdM"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="bottom" secondItem="TIw-uG-srD" secondAttribute="bottom" id="kfR-Vv-trG"/>
+                            <constraint firstItem="Fqm-bA-K7n" firstAttribute="top" secondItem="zyM-kV-wWU" secondAttribute="bottom" id="pGH-8k-ERb"/>
+                            <constraint firstItem="Qsh-WL-6bM" firstAttribute="trailing" secondItem="TIw-uG-srD" secondAttribute="trailing" id="pJ7-6U-UaS"/>
                             <constraint firstItem="O6l-yE-WKN" firstAttribute="trailing" secondItem="Fqm-bA-K7n" secondAttribute="trailing" id="qq4-7p-lyS"/>
-                            <constraint firstItem="O6l-yE-WKN" firstAttribute="trailing" secondItem="TIw-uG-srD" secondAttribute="trailing" constant="8" id="zxi-7Y-yWA"/>
+                            <constraint firstItem="O6l-yE-WKN" firstAttribute="trailing" secondItem="TIw-uG-srD" secondAttribute="trailing" id="zxi-7Y-yWA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O6l-yE-WKN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Maps" largeTitleDisplayMode="never" id="nw1-eo-8V3">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zyM-kV-wWU">
-                            <rect key="frame" x="90.5" y="7" width="173" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Floor 0"/>
-                                <segment title="Floor 1"/>
-                                <segment title="Floor 2"/>
-                            </segments>
-                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="changeLevelOfMap:" destination="6jk-Lc-9j7" eventType="valueChanged" id="jkC-ou-Pf6"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Toggle Map" id="ClO-JS-aAT">
-                            <connections>
-                                <action selector="handleMapToggle:" destination="6jk-Lc-9j7" id="djO-4V-3PN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Maps" largeTitleDisplayMode="never" id="nw1-eo-8V3"/>
                     <connections>
                         <outlet property="floorSelector" destination="zyM-kV-wWU" id="f7E-zc-idm"/>
+                        <outlet property="mapImageSuperView" destination="wOr-Yr-XHg" id="Mff-XO-RFp"/>
                         <outlet property="mapImageView" destination="I47-5H-ELc" id="Kuk-Lx-LQi"/>
                         <outlet property="mapScrollView" destination="TIw-uG-srD" id="qx6-hC-jDA"/>
+                        <outlet property="mapSuperView" destination="Qsh-WL-6bM" id="FZJ-m2-LaP"/>
                         <outlet property="mapTableView" destination="Fqm-bA-K7n" id="Bwy-hS-aNb"/>
                         <outlet property="mapView" destination="Hk2-WB-mK2" id="iFp-kg-7t5"/>
                         <segue destination="Tsl-tO-JKi" kind="show" identifier="mapEventDetail" id="6CL-3g-IGv"/>
