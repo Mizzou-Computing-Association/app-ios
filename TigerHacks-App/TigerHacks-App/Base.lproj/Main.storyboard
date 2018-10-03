@@ -229,12 +229,13 @@
                         <viewLayoutGuide key="safeArea" id="eLp-WV-D3d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
                             <rect key="frame" x="118" y="7" width="139" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Main"/>
+                                <segment title="Developer"/>
                                 <segment title="Beginner"/>
+                                <segment title="StartUp"/>
                             </segments>
                             <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

@@ -17,9 +17,11 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var allPrizes = [Prize]()
     var beginnerPrizes = [Prize]()
     var mainPrizes = [Prize]()
+    var startUpPrizes = [Prize]()
 
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
+    var favoriteStartUpPrizes = [Prize]()
 
     var refreshControl: UIRefreshControl!
     
@@ -90,13 +92,16 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func dividePrizes() {
         var tempBeginners = [Prize]()
         var tempMains = [Prize]()
+        var tempStartUps = [Prize]()
+        
         for prize in allPrizes {
-            if prize.prizeType == .Main {
+            switch prize.prizeType {
+            case .Main:
                 tempMains.append(prize)
-                print("added main prize")
-            } else {
+            case .Beginner:
                 tempBeginners.append(prize)
-                print("added beginner prize")
+            case .StartUp:
+                tempStartUps.append(prize)
             }
         }
         beginnerPrizes = tempBeginners
