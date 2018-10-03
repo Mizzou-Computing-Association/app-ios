@@ -1226,11 +1226,11 @@
             </objects>
             <point key="canvasLocation" x="2836" y="-1084.4077961019491"/>
         </scene>
-        <!--TigerTalks-->
+        <!--Resources-->
         <scene sceneID="YDO-Zm-ao1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="snB-R6-dXq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="TigerTalks" image="video-player-7" selectedImage="video-player-7" id="xjz-kf-tBo"/>
+                    <tabBarItem key="tabBarItem" title="Resources" image="video-player-7" selectedImage="video-player-7" id="xjz-kf-tBo"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bSn-m7-Y3i">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

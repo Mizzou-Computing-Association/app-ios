@@ -40,7 +40,8 @@ class Model {
         //Resource Dummy Data
         resources = [
             Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
-            Resource(url: "https://tigerhacks.slack.com", title: "Join the Slack", description: "")]
+            Resource(url: "https://tigerhacks.slack.com", title: "Join the Slack", description: ""),
+            Resource(url: "https://tigerhacks.devpost.com", title: "Devpost", description: "")]
     }
     
 // MARK: - Schedule Notifications
