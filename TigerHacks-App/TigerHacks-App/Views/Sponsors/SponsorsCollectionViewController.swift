@@ -54,9 +54,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
 // MARK: - Load Sponsors
 
     @objc func refresh(_ sender: Any) {
-        Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
+            self.sponsors.removeAll()
             self.loadSponsors()
             self.refreshControl.endRefreshing()
             self.collectionView?.reloadData()
@@ -77,19 +77,20 @@ class SponsorsCollectionViewController: UICollectionViewController {
             } else if let sponsors = sponsors {
                 self.sponsors = sponsors
                 self.collectionView?.reloadData()
+                self.sponsors.append(Sponsor(
+                    mentors: nil,
+                    name: "All Mentors",
+                    description: nil,
+                    website: nil,
+                    location: nil,
+                    image: UIImage(named: "tigerLogo-allMentors"),
+                    imageUrl: nil,
+                    level: nil))
+                self.getAllMentors()
             }
         }
         
-        sponsors.append(Sponsor(
-            mentors: nil,
-            name: "All Mentors",
-            description: nil,
-            website: nil,
-            location: nil,
-            image: UIImage(named: "tigerLogo-allMentors") ,
-            imageUrl: nil,
-            level: nil))
-        getAllMentors()
+        
     }
 
     func getAllMentors() {
@@ -139,7 +140,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
                     print("ERROR! could not download image: \(error.localizedLowercase)")
                 } else if let image = finalImage {
                     self.sponsors[indexPath.row].image = image
-                    collectionView.reloadData()
+                    collectionView.reloadItems(at: [indexPath])
                 }
             }
         }
