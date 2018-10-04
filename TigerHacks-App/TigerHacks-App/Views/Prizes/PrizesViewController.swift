@@ -183,11 +183,15 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func toggleFavorited() {
         if favorited {
             favorited = false
+            prizeTypeSwitcher.tintColor = view.tintColor
+            prizeTypeSwitcher.isEnabled = true
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
             prizeTableView.reloadData()
 
         } else {
             favorited = true
+            prizeTypeSwitcher.tintColor = UIColor.gray
+            prizeTypeSwitcher.isEnabled = false
             favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
             prizeTableView.reloadData()
         }
