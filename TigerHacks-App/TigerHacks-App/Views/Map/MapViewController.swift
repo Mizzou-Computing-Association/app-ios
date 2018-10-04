@@ -39,6 +39,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     let geologicalPin = MKPointAnnotation()
     let quadPin = MKPointAnnotation()
     let parkingPin = MKPointAnnotation()
+    
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +84,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         parkingPin.title = "Parking"
         
         mapView.addAnnotations([geologicalPin, parkingPin, quadPin])
+        //mapView.setUserTrackingMode(.follow, animated: true)
         
         let locationImage = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
         centeringButton.setImage(locationImage, for: .normal)
@@ -92,6 +95,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mapTableView.addSubview(refreshControl)
+        locationManager.requestWhenInUseAuthorization()
     }
 
     override func didReceiveMemoryWarning() {
@@ -192,7 +196,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
     }
-    
     @IBAction func centerOnLafferre(_ sender: Any) {
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
     }
