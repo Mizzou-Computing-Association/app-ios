@@ -19,9 +19,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var mainPrizes = [Prize]()
     var startUpPrizes = [Prize]()
 
-    var favoriteBeginnerPrizes = [Prize]()
-    var favoriteMainPrizes = [Prize]()
-    var favoriteStartUpPrizes = [Prize]()
+    var favoritePrizes = [Prize]()
 
     var refreshControl: UIRefreshControl!
     
@@ -128,23 +126,27 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
 
-        switch swipeGesture.direction {
-        case .left:
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                prizeTypeSwitcher.selectedSegmentIndex = 1
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                prizeTypeSwitcher.selectedSegmentIndex = 2
+        if !favorited {
+            switch swipeGesture.direction {
+            case .left:
+                if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 1
+                } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 2
+                }
+            case .right:
+                if prizeTypeSwitcher.selectedSegmentIndex == 2 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 1
+                } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+                    prizeTypeSwitcher.selectedSegmentIndex = 0
+                }
+            default:
+                break
             }
-        case .right:
-            if prizeTypeSwitcher.selectedSegmentIndex == 2 {
-                prizeTypeSwitcher.selectedSegmentIndex = 1
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                prizeTypeSwitcher.selectedSegmentIndex = 0
-            }
-        default:
-            break
+            prizeTableView.reloadData()
         }
-        prizeTableView.reloadData()
+        
+        
     }
 
 // MARK: - Nav Bar Gradient
@@ -185,11 +187,15 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func toggleFavorited() {
         if favorited {
             favorited = false
+            prizeTypeSwitcher.tintColor = view.tintColor
+            prizeTypeSwitcher.isEnabled = true
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
             prizeTableView.reloadData()
 
         } else {
             favorited = true
+            prizeTypeSwitcher.tintColor = UIColor.gray
+            prizeTypeSwitcher.isEnabled = false
             favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
             prizeTableView.reloadData()
         }
@@ -205,13 +211,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         if favorited {
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                return favoriteMainPrizes.count
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                return favoriteBeginnerPrizes.count
-            } else {
-                return favoriteStartUpPrizes.count
-            }
+            return favoritePrizes.count
         } else {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return mainPrizes.count
@@ -238,16 +238,8 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 cell.prizeReward.text = startUpPrizes[indexPath.row].reward
             }
         } else {
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                cell.prizeTitle.text = favoriteMainPrizes[indexPath.row].title
-                cell.prizeReward.text = favoriteMainPrizes[indexPath.row].reward
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                cell.prizeTitle.text = favoriteBeginnerPrizes[indexPath.row].title
-                cell.prizeReward.text = favoriteBeginnerPrizes[indexPath.row].reward
-            } else {
-                cell.prizeTitle.text = favoriteStartUpPrizes[indexPath.row].title
-                cell.prizeReward.text = favoriteStartUpPrizes[indexPath.row].reward
-            }
+            cell.prizeTitle.text = favoritePrizes[indexPath.row].title
+            cell.prizeReward.text = favoritePrizes[indexPath.row].reward
         }
         return cell
     }
