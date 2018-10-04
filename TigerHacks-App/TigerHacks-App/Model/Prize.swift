@@ -22,4 +22,5 @@ struct Prize {
 enum PrizeType: String {
     case Main
     case Beginner
+    case StartUp
 }

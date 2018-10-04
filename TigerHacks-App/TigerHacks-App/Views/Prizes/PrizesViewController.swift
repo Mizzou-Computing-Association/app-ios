@@ -17,9 +17,11 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var allPrizes = [Prize]()
     var beginnerPrizes = [Prize]()
     var mainPrizes = [Prize]()
+    var startUpPrizes = [Prize]()
 
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
+    var favoriteStartUpPrizes = [Prize]()
 
     var refreshControl: UIRefreshControl!
     
@@ -90,13 +92,16 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func dividePrizes() {
         var tempBeginners = [Prize]()
         var tempMains = [Prize]()
+        var tempStartUps = [Prize]()
+        
         for prize in allPrizes {
-            if prize.prizeType == .Main {
+            switch prize.prizeType {
+            case .Main:
                 tempMains.append(prize)
-                print("added main prize")
-            } else {
+            case .Beginner:
                 tempBeginners.append(prize)
-                print("added beginner prize")
+            case .StartUp:
+                tempStartUps.append(prize)
             }
         }
         beginnerPrizes = tempBeginners
@@ -127,9 +132,13 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case .left:
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 prizeTypeSwitcher.selectedSegmentIndex = 1
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+                prizeTypeSwitcher.selectedSegmentIndex = 2
             }
         case .right:
-            if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+            if prizeTypeSwitcher.selectedSegmentIndex == 2 {
+                prizeTypeSwitcher.selectedSegmentIndex = 1
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
                 prizeTypeSwitcher.selectedSegmentIndex = 0
             }
         default:
@@ -150,13 +159,6 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 // MARK: - Favorites
 
     @IBAction func toggleFavorites(_ sender: UIBarButtonItem) {
-//        if favoriteBarButtonItem.image == UIImage(named: "favorite_selected") {
-//            favoriteBarButtonItem.image = UIImage(named: "favorite")
-//            prizeTableView.reloadData()
-//        } else {
-//            favoriteBarButtonItem.image = UIImage(named: "favorite")
-//            prizeTableView.reloadData()
-//        }
         toggleFavorited()
     }
     
@@ -203,18 +205,20 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         if favorited {
-            print("Favorited")
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return favoriteMainPrizes.count
-            } else {
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
                 return favoriteBeginnerPrizes.count
+            } else {
+                return favoriteStartUpPrizes.count
             }
         } else {
-            print("Not favorited")
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 return mainPrizes.count
-            } else {
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
                 return beginnerPrizes.count
+            } else {
+                return startUpPrizes.count
             }
         }
     }
@@ -226,17 +230,23 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = mainPrizes[indexPath.row].title
                 cell.prizeReward.text = mainPrizes[indexPath.row].reward
-            } else {
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
                 cell.prizeTitle.text = beginnerPrizes[indexPath.row].title
                 cell.prizeReward.text = beginnerPrizes[indexPath.row].reward
+            } else {
+                cell.prizeTitle.text = startUpPrizes[indexPath.row].title
+                cell.prizeReward.text = startUpPrizes[indexPath.row].reward
             }
         } else {
             if prizeTypeSwitcher.selectedSegmentIndex == 0 {
                 cell.prizeTitle.text = favoriteMainPrizes[indexPath.row].title
                 cell.prizeReward.text = favoriteMainPrizes[indexPath.row].reward
-            } else {
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
                 cell.prizeTitle.text = favoriteBeginnerPrizes[indexPath.row].title
                 cell.prizeReward.text = favoriteBeginnerPrizes[indexPath.row].reward
+            } else {
+                cell.prizeTitle.text = favoriteStartUpPrizes[indexPath.row].title
+                cell.prizeReward.text = favoriteStartUpPrizes[indexPath.row].reward
             }
         }
         return cell
@@ -261,12 +271,17 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             destination.titleText = mainPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = mainPrizes[selectedRow?.row ?? 0].reward
             destination.typeText = "Main"
-        } else {
+        } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
             //destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
             destination.descriptionText = beginnerPrizes[selectedRow?.row ?? 0].description
             destination.titleText = beginnerPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = beginnerPrizes[selectedRow?.row ?? 0].reward
             destination.typeText = "Beginner"
+        } else {
+            destination.descriptionText = startUpPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = startUpPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = startUpPrizes[selectedRow?.row ?? 0].reward
+            destination.typeText = "StartUp"
         }
     }
 }
