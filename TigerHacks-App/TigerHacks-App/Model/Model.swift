@@ -39,10 +39,9 @@ class Model {
     func fakeAPICall() {
         //Resource Dummy Data
         resources = [
-            Resource(url: "https://www.google.com", title: "Google", description: "It's a website for googling things that you should use probably a whole lot."),
-            Resource(url: "https://www.bing.com", title: "Bing", description: "It's a website for binging things that you should use probably not a whole lot."),
-            Resource(url: "https://www.yahoo.com", title: "Yahoo", description: "It's a website for yahooing (sp?) things that you should use probably not a whole lot."),
-            Resource(url: "https://www.youtube.com/embed/RmHqOSrkZnk", title: "Embedding Videos into a WebView Tutorial", description: "Tutorial for embedding youtube videos into an iOS app. ")]
+            Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
+            Resource(url: "https://tigerhacks.slack.com", title: "Join the Slack", description: ""),
+            Resource(url: "https://tigerhacks.devpost.com", title: "Devpost", description: "")]
     }
     
 // MARK: - Schedule Notifications
