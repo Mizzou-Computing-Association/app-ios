@@ -10,7 +10,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var floorSelector: UISegmentedControl!
     @IBOutlet weak var mapImageView: UIImageView!
@@ -19,6 +19,8 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapSuperView: UIView!
     @IBOutlet weak var mapImageSuperView: UIView!
+    @IBOutlet weak var centeringButton: UIButton!
+    @IBOutlet weak var centeringButtonBackground: UIView!
     
     let testImageArray = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
 
@@ -32,7 +34,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     let dateFormatter = DateFormatter()
 
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
-    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002)
+    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+    
+    let geologicalPin = MKPointAnnotation()
+    let quadPin = MKPointAnnotation()
+    let parkingPin = MKPointAnnotation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +46,12 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
         setUpNavBar()
         mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
+        centeringButtonBackground.superview?.bringSubviewToFront(centeringButtonBackground)
+        //centeringButton.superview?.bringSubviewToFront(centeringButton)
+        centeringButton.tintColor = view.tintColor
         mapTableView.dataSource = self
         mapTableView.delegate = self
+        mapView.delegate = self
         dateFormatter.timeStyle = .short
 
         // Loading Schedules
@@ -62,7 +72,21 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
         mapView.mapType = .hybrid
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
-
+        
+        geologicalPin.coordinate = CLLocationCoordinate2D(latitude: 38.947200, longitude: -92.329208)
+        quadPin.coordinate = CLLocationCoordinate2D(latitude: 38.946563, longitude: -92.329148)
+        parkingPin.coordinate = CLLocationCoordinate2D(latitude: 38.944117, longitude: -92.330883)
+        
+        geologicalPin.title = "Geological Sciences"
+        quadPin.title = "The Quad"
+        parkingPin.title = "Parking"
+        
+        mapView.addAnnotations([geologicalPin, parkingPin, quadPin])
+        
+        let locationImage = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
+        centeringButton.setImage(locationImage, for: .normal)
+        centeringButtonBackground.layer.cornerRadius = 8
+        
         // Refresh Control
 
         refreshControl = UIRefreshControl()
@@ -168,7 +192,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
     }
-
+    
+    @IBAction func centerOnLafferre(_ sender: Any) {
+        mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
+    }
+    
 // MARK: - Tableview
 
     func numberOfSections(in tableView: UITableView) -> Int {
