@@ -27,9 +27,7 @@ struct Event {
     }
 
     var trigger: UNCalendarNotificationTrigger {
-        // In the future, this should be ~15 minutes prior to actual event,
-        // or possibly multiple notifications at different times prior.
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self.time)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: self.time.addingTimeInterval(-15*60))
         return UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
     }
 
