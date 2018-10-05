@@ -70,6 +70,7 @@ class Model {
         }
     }
     func addNotifications() {
+        center.removeAllPendingNotificationRequests()
             for event in fullSchedule! {
                 center.add(event.request) { (error: Error?) in
                     if let error = error {
