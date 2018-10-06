@@ -82,14 +82,41 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsh-WL-6bM">
                                 <rect key="frame" x="0.0" y="64" width="375" height="226"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-WB-mK2">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bgt-2K-vgQ">
+                                        <rect key="frame" x="320" y="171" width="40" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeO-FV-8NC">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="1xf-pb-hHe"/>
+                                                    <constraint firstAttribute="width" constant="40" id="YCV-tD-N8C"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="location"/>
+                                                <connections>
+                                                    <action selector="centerOnLafferre:" destination="6jk-Lc-9j7" eventType="touchUpInside" id="DY5-Jb-Ibp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="GeO-FV-8NC" firstAttribute="leading" secondItem="Bgt-2K-vgQ" secondAttribute="leading" id="9MA-iS-Dwh"/>
+                                            <constraint firstAttribute="width" constant="40" id="Bfy-hc-s1j"/>
+                                            <constraint firstItem="GeO-FV-8NC" firstAttribute="top" secondItem="Bgt-2K-vgQ" secondAttribute="top" id="LsV-U8-Yk3"/>
+                                            <constraint firstAttribute="trailing" secondItem="GeO-FV-8NC" secondAttribute="trailing" id="NgQ-Xn-8La"/>
+                                            <constraint firstAttribute="bottom" secondItem="GeO-FV-8NC" secondAttribute="bottom" id="Wdx-d5-4he"/>
+                                            <constraint firstAttribute="height" constant="40" id="f8G-br-TJq"/>
+                                        </constraints>
+                                    </view>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hk2-WB-mK2">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="226"/>
                                     </mapView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Hk2-WB-mK2" firstAttribute="leading" secondItem="Qsh-WL-6bM" secondAttribute="leading" id="94x-nk-foy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bgt-2K-vgQ" secondAttribute="trailing" constant="15" id="AM2-J4-xFe"/>
                                     <constraint firstAttribute="trailing" secondItem="Hk2-WB-mK2" secondAttribute="trailing" id="GSX-u0-oYM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Bgt-2K-vgQ" secondAttribute="bottom" constant="15" id="GZg-A5-4N7"/>
                                     <constraint firstAttribute="bottom" secondItem="Hk2-WB-mK2" secondAttribute="bottom" id="bNg-bt-ccD"/>
                                     <constraint firstItem="Hk2-WB-mK2" firstAttribute="top" secondItem="Qsh-WL-6bM" secondAttribute="top" id="kCa-HK-ow7"/>
                                 </constraints>
@@ -115,11 +142,11 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wOr-Yr-XHg" secondAttribute="trailing" id="0oG-2f-4c2"/>
+                                    <constraint firstItem="wOr-Yr-XHg" firstAttribute="centerY" secondItem="TIw-uG-srD" secondAttribute="centerY" id="JN5-ro-8j7"/>
+                                    <constraint firstItem="wOr-Yr-XHg" firstAttribute="centerX" secondItem="TIw-uG-srD" secondAttribute="centerX" id="XK1-y0-vu6"/>
                                     <constraint firstItem="wOr-Yr-XHg" firstAttribute="top" secondItem="TIw-uG-srD" secondAttribute="top" id="mJM-YZ-fUp"/>
-                                    <constraint firstItem="wOr-Yr-XHg" firstAttribute="height" secondItem="TIw-uG-srD" secondAttribute="height" id="pnS-Ct-j5c"/>
                                     <constraint firstAttribute="bottom" secondItem="wOr-Yr-XHg" secondAttribute="bottom" id="tPJ-D8-E1k"/>
                                     <constraint firstItem="wOr-Yr-XHg" firstAttribute="leading" secondItem="TIw-uG-srD" secondAttribute="leading" id="udh-uB-nUG"/>
-                                    <constraint firstItem="wOr-Yr-XHg" firstAttribute="width" secondItem="TIw-uG-srD" secondAttribute="width" id="yI1-fz-wPt"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="6jk-Lc-9j7" id="H2Z-iY-UcF"/>
@@ -165,6 +192,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Maps" largeTitleDisplayMode="never" id="nw1-eo-8V3"/>
                     <connections>
+                        <outlet property="centeringButton" destination="GeO-FV-8NC" id="vsU-Xp-SiK"/>
+                        <outlet property="centeringButtonBackground" destination="Bgt-2K-vgQ" id="Bv4-0F-dnW"/>
                         <outlet property="floorSelector" destination="zyM-kV-wWU" id="f7E-zc-idm"/>
                         <outlet property="mapImageSuperView" destination="wOr-Yr-XHg" id="Mff-XO-RFp"/>
                         <outlet property="mapImageView" destination="I47-5H-ELc" id="Kuk-Lx-LQi"/>
@@ -245,8 +274,8 @@
                         <viewLayoutGuide key="safeArea" id="eLp-WV-D3d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
-                            <rect key="frame" x="118" y="7" width="139" height="30"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
+                            <rect key="frame" x="72.5" y="7" width="230" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Developer"/>
@@ -1311,6 +1340,7 @@
         <image name="favorite" width="24" height="24"/>
         <image name="file-document-7" width="30" height="30"/>
         <image name="gift-7" width="29" height="30"/>
+        <image name="location" width="72" height="72"/>
         <image name="pin-map-7" width="30" height="30"/>
         <image name="safari" width="30" height="30"/>
         <image name="video-player-7" width="30" height="30"/>
