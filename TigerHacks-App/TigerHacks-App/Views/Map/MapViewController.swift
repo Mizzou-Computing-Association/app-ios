@@ -39,6 +39,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     let geologicalPin = MKPointAnnotation()
     let quadPin = MKPointAnnotation()
     let parkingPin = MKPointAnnotation()
+    let lafferrePin = MKPointAnnotation()
     
     let locationManager = CLLocationManager()
 
@@ -78,13 +79,14 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         geologicalPin.coordinate = CLLocationCoordinate2D(latitude: 38.947200, longitude: -92.329208)
         quadPin.coordinate = CLLocationCoordinate2D(latitude: 38.946563, longitude: -92.329148)
         parkingPin.coordinate = CLLocationCoordinate2D(latitude: 38.944117, longitude: -92.330883)
+        lafferrePin.coordinate = CLLocationCoordinate2D(latitude: 38.946111, longitude: -92.330466)
         
         geologicalPin.title = "Geological Sciences"
         quadPin.title = "The Quad"
         parkingPin.title = "Parking"
+        lafferrePin.title = "Lafferre"
         
-        mapView.addAnnotations([geologicalPin, parkingPin, quadPin])
-        //mapView.setUserTrackingMode(.follow, animated: true)
+        mapView.addAnnotations([geologicalPin, parkingPin, quadPin, lafferrePin])
         
         let locationImage = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
         centeringButton.setImage(locationImage, for: .normal)
