@@ -11,7 +11,7 @@ import UIKit
 class AllMentorTableViewController: UITableViewController, MentorCellDelegate, UISearchBarDelegate, UISearchResultsUpdating {
 
     let searchController = UISearchController(searchResultsController: nil)
-    let baseSlackHooks = "slack://user?team=T89F9GPRR&id="
+    let baseSlackHooks = "slack://user?team=TD7JKSFPA&id="
     var mentorList = [Mentor]()
     var filteredMentors = [Mentor]()
 
