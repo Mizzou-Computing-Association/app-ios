@@ -17,7 +17,6 @@ class Model {
     }
     // Hex code for colors: FDFAE5
 
-    var sponsors: [Sponsor]?
     var dayOneSchedule: [Event]?
     var dayTwoSchedule: [Event]?
     var dayThreeSchedule: [Event]?
