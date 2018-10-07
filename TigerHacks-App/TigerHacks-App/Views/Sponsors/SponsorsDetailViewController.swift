@@ -35,7 +35,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMentors()
 
         // Label Initialization
 
@@ -73,17 +72,10 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
 // MARK: - Load Mentor Data
 
-    func loadMentors() {
-        if let titleText = titleText {
-            mentorList = Model.sharedInstance.sponsors?.first(where: {$0.name == titleText})?.mentors
-        }
-    }
-
     @objc func refresh(_ sender: Any) {
         Model.sharedInstance.fakeAPICall()
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.loadMentors()
             self.refreshControl.endRefreshing()
             self.mentorTableView.reloadData()
         }
