@@ -17,7 +17,7 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var sponsorSubview: UIView!
     @IBOutlet weak var rewardSubview: UIView!
     @IBOutlet weak var descriptionSubview: UIView!
-    @IBOutlet weak var favoriteButton: UIBarButtonItem!
+    @IBOutlet weak var favoriteBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var typeSubview: UIView!
 
@@ -31,6 +31,11 @@ class PrizeDetailViewController: UIViewController {
     var testMainPrizes = [Prize]()
     var favoriteBeginnerPrizes = [Prize]()
     var favoriteMainPrizes = [Prize]()
+    
+    var favorited = false
+    let favoriteIconImage = UIImage(named: "favorite")
+    let favoriteSelectedIconImage = UIImage(named: "favorite_selected")
+    var favoriteButton: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +71,10 @@ class PrizeDetailViewController: UIViewController {
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
         descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
         typeLabel.text = "\(typeText ?? "There is no type")"
+        
+        // Favorites
+        
+        setupFavoriteBarButtonItem()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -75,9 +84,9 @@ class PrizeDetailViewController: UIViewController {
         let beginnerPrizeTest = favoriteBeginnerPrizes.filter { $0.title == titleText }
 
         if mainPrizeTest.count != 0 || beginnerPrizeTest.count != 0 {
-            favoriteButton.image = UIImage(named: "favorite_selected")
+            favorited = true
         } else {
-            favoriteButton.image = UIImage(named: "favorite")
+            favorited = false
         }
 
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -87,25 +96,52 @@ class PrizeDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: - Favorites
+    
     @IBAction func favorite(_ sender: UIBarButtonItem) {
         // Currently only cosmetic. Still need to actually add, save, and present favorites.
-        if favoriteButton.image == UIImage(named: "favorite") {
-            favoriteButton.image = UIImage(named: "favorite_selected")
-            if let typeText = typeText {
-                if typeText == "Beginner" {
-                    let prize = testBeginnerPrizes.filter { $0.title == titleText }
-                    for prize in prize {
-                        favoriteBeginnerPrizes.append(prize)
-                    }
-                } else {
-                    let prize = testMainPrizes.filter { $0.title == titleText }
-                    for prize in prize {
-                        favoriteMainPrizes.append(prize)
-                    }
-                }
-            }
-        } else {
-            favoriteButton.image = UIImage(named: "favorite")
+        toggleFavorited()
+        
+        let prize = testBeginnerPrizes.filter { $0.title == titleText }
+        for prize in prize {
+            favoriteBeginnerPrizes.append(prize)
         }
+        
+    }
+    
+    // MARK: - Favorites
+    
+    @objc func tappedFavoriteButton() {
+        toggleFavorited()
+    }
+    
+    func setupFavoriteBarButtonItem() {
+        guard let size = favoriteIconImage?.size else {
+            return
+        }
+        
+        let favoriteIconRect = CGRect(origin: CGPoint.zero, size: size)
+        favoriteButton = UIButton(frame: favoriteIconRect)
+        favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
+        favoriteButton?.addTarget(self, action: #selector(tappedFavoriteButton), for: .touchUpInside)
+        if let favoriteButton = favoriteButton {
+            favoriteBarButtonItem.customView = favoriteButton
+        }
+    }
+    
+    func toggleFavorited(){
+        if favorited {
+            favorited = false
+            favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
+        } else {
+            favorited = true
+        favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
+        }
+        favoriteButton?.transform = CGAffineTransform.init(scaleX: 0, y: 0)
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: .curveLinear, animations: {
+            self.favoriteButton?.transform = CGAffineTransform.identity
+        }, completion: { (_) in
+            print("favorite was tapped and the animation happened")
+        })
     }
 }

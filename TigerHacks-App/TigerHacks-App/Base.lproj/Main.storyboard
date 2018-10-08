@@ -471,7 +471,7 @@
                     <connections>
                         <outlet property="descriptionLabel" destination="Grh-ep-IQe" id="ZSK-jf-oLk"/>
                         <outlet property="descriptionSubview" destination="Ge6-vc-TGW" id="2WU-hp-NBv"/>
-                        <outlet property="favoriteButton" destination="UrW-RM-2Ny" id="Mfw-iR-V9v"/>
+                        <outlet property="favoriteBarButtonItem" destination="UrW-RM-2Ny" id="Mfw-iR-V9v"/>
                         <outlet property="navItem" destination="JPp-08-Ke7" id="g8O-hw-FDl"/>
                         <outlet property="rewardLabel" destination="Zj5-4z-uuv" id="BUz-mC-fok"/>
                         <outlet property="rewardSubview" destination="i2X-q1-LcF" id="Hyk-g9-dmc"/>
