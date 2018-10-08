@@ -23,7 +23,9 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
         setUpNavBar()
         Model.sharedInstance.fakeAPICall()
-        loadSponsors()
+        loadSponsors(dispatchQueueForHandler: DispatchQueue.main){_,_ in
+            //Do nothing as far as I can tell
+        }
 
         // Collection View Setup
 
@@ -54,25 +56,30 @@ class SponsorsCollectionViewController: UICollectionViewController {
 // MARK: - Load Sponsors
 
     @objc func refresh(_ sender: Any) {
-        let when = DispatchTime.now() + 0.7
-        DispatchQueue.main.asyncAfter(deadline: when) {
+        self.loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {(sponsors, errorString) in
             self.sponsors.removeAll()
-            self.loadSponsors()
+            if let sponsors = sponsors {
+                self.sponsors = sponsors
+            }
             self.refreshControl.endRefreshing()
-//            self.collectionView?.reloadData()
         }
+        
+//      self.collectionView?.reloadData()
+        
     }
 
-    func loadSponsors() {
+    func loadSponsors(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
         Model.sharedInstance.sponsorsLoad(dispatchQueueForHandler: DispatchQueue.main) { (sponsors, errorString) in
             if let errorString = errorString {
                 print("Error: \(errorString)")
                 
-                    let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
+            
+                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            
+                self.present(alert, animated: true)
                 
-                    alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-                
-                    self.present(alert, animated: true)
+                completionHandler(nil, "Error loading Sponsors")
                 
             } else if let sponsors = sponsors {
                 self.sponsors = sponsors
@@ -87,6 +94,8 @@ class SponsorsCollectionViewController: UICollectionViewController {
                     imageUrl: nil,
                     level: nil))
                 self.getAllMentors()
+                completionHandler(sponsors, nil)
+
             }
         }
     }
