@@ -115,6 +115,8 @@ class PrizeDetailViewController: UIViewController {
         toggleFavorited()
     }
     
+    // MARK: - Favorite Button Animation 
+    
     func setupFavoriteBarButtonItem() {
         guard let size = favoriteIconImage?.size else {
             return
