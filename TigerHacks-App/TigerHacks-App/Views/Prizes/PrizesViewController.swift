@@ -104,6 +104,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         beginnerPrizes = tempBeginners
         mainPrizes = tempMains
+        startUpPrizes = tempStartUps
         prizeTableView.reloadData()
     }
 
