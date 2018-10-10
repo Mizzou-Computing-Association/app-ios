@@ -29,13 +29,14 @@ class PrizeDetailViewController: UIViewController {
 
     var testBeginnerPrizes = [Prize]()
     var testMainPrizes = [Prize]()
-    var favoriteBeginnerPrizes = [Prize]()
-    var favoriteMainPrizes = [Prize]()
+    var favoritePrizes = [String]()
     
-    var favorited = false
+    var favorited = Bool()
     let favoriteIconImage = UIImage(named: "favorite")
     let favoriteSelectedIconImage = UIImage(named: "favorite_selected")
     var favoriteButton: UIButton?
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,22 +75,31 @@ class PrizeDetailViewController: UIViewController {
         
         // Favorites
         
-        setupFavoriteBarButtonItem()
+        
+        
+        //setupFavoriteBarButtonItem()
+        
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-
-        let mainPrizeTest = favoriteMainPrizes.filter { $0.title == titleText }
-        let beginnerPrizeTest = favoriteBeginnerPrizes.filter { $0.title == titleText }
-
-        if mainPrizeTest.count != 0 || beginnerPrizeTest.count != 0 {
-            favorited = true
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if let defaultFavorites = defaults.array(forKey: "Favorited"){
+            if let stringFavoritePrizes = defaultFavorites as? [String],
+                let titleText = titleText {
+                favoritePrizes = stringFavoritePrizes
+                if stringFavoritePrizes.contains(titleText) {
+                    print("String favorite prizes has prize")
+                    favorited = true
+                } else {
+                    favorited = false
+                }
+            } else {
+                favorited = false
+            }
         } else {
             favorited = false
         }
-
-        navigationController?.navigationBar.prefersLargeTitles = true
+        setupFavoriteBarButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,10 +112,10 @@ class PrizeDetailViewController: UIViewController {
         // Currently only cosmetic. Still need to actually add, save, and present favorites.
         toggleFavorited()
         
-        let prize = testBeginnerPrizes.filter { $0.title == titleText }
-        for prize in prize {
-            favoriteBeginnerPrizes.append(prize)
-        }
+//        let prize = testBeginnerPrizes.filter { $0.title == titleText }
+//        for prize in prize {
+//            favoriteBeginnerPrizes.append(prize)
+//        }
         
     }
     
@@ -124,9 +134,15 @@ class PrizeDetailViewController: UIViewController {
         
         let favoriteIconRect = CGRect(origin: CGPoint.zero, size: size)
         favoriteButton = UIButton(frame: favoriteIconRect)
-        favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
         favoriteButton?.addTarget(self, action: #selector(tappedFavoriteButton), for: .touchUpInside)
         if let favoriteButton = favoriteButton {
+            if favorited {
+                print("Setting selected")
+                favoriteButton.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
+            } else {
+                print("Setting unselected")
+                favoriteButton.setBackgroundImage(favoriteIconImage, for: .normal)
+            }
             favoriteBarButtonItem.customView = favoriteButton
         }
     }
@@ -134,10 +150,22 @@ class PrizeDetailViewController: UIViewController {
     func toggleFavorited(){
         if favorited {
             favorited = false
+            favoritePrizes.removeAll { (title) -> Bool in
+                if title == titleText {
+                    print("removing prize")
+                    print("favorited: \(favorited)")
+                }
+                return title == titleText
+            }
+            defaults.set(favoritePrizes, forKey: "Favorited")
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
         } else {
             favorited = true
-        favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
+            if let titleText = titleText {
+                favoritePrizes.append(titleText)
+            }
+            defaults.set(favoritePrizes, forKey: "Favorited")
+            favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
         }
         favoriteButton?.transform = CGAffineTransform.init(scaleX: 0, y: 0)
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: .curveLinear, animations: {
