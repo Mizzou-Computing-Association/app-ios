@@ -28,6 +28,10 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let favoriteIconImage = UIImage(named: "favorite")
     let favoriteSelectedIconImage = UIImage(named: "favorite_selected")
     var favoriteButton: UIButton?
+    
+    let prizeTitle = String()
+    let defaults = UserDefaults.standard
+    var favoritePrizeTitles = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +63,16 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Favorites
         
         setupFavoriteBarButtonItem()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getFavoritedPrizes()
     }
 
 // MARK: - Loading Prizes
@@ -113,6 +123,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let when = DispatchTime.now() + 0.7
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.loadPrizes()
+            self.getFavoritedPrizes()
             self.refreshControl.endRefreshing()
             self.prizeTableView.reloadData()
         }
@@ -191,6 +202,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             prizeTypeSwitcher.tintColor = view.tintColor
             prizeTypeSwitcher.isEnabled = true
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
+            //getFavoritedPrizes()
             prizeTableView.reloadData()
 
         } else {
@@ -198,7 +210,9 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             prizeTypeSwitcher.tintColor = UIColor.gray
             prizeTypeSwitcher.isEnabled = false
             favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
+//            getFavoritedPrizes()
             prizeTableView.reloadData()
+            
         }
         favoriteButton?.transform = CGAffineTransform.init(scaleX: 0, y: 0)
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: .curveLinear, animations: {
@@ -206,6 +220,30 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }, completion: { (_) in
             print("favorite was tapped and the animation happened")
         })
+    }
+    
+    func getFavoritedPrizes() {
+        if let favoritedArray = defaults.array(forKey: "Favorited"),
+            let stringFavoritedArray = favoritedArray as? [String] {
+            favoritePrizeTitles = stringFavoritedArray
+            favoritePrizes = [Prize]()
+            for title in favoritePrizeTitles {
+                for prize in allPrizes {
+                    if title == prize.title {
+                        for (index,favoritePrize) in favoritePrizes.enumerated() {
+                            if favoritePrize.title == title {
+                                print("Removing prize from favoritePrizes: \(favoritePrize.title)")
+                                favoritePrizes.remove(at: index)
+                            }
+                        }
+                        favoritePrizes.append(prize)
+                    }
+                }
+            }
+            print("Favorite Prize Titles: \(favoritePrizeTitles)")
+            print("Favorite Prizes: \(favoritePrizes)")
+            prizeTableView.reloadData()
+        }
     }
     
 // MARK: - Table View
@@ -258,23 +296,31 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         //Assign values to any outlets in Prize Detail
 
-        if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-            //destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
-            destination.descriptionText = mainPrizes[selectedRow?.row ?? 0].description
-            destination.titleText = mainPrizes[selectedRow?.row ?? 0].title
-            destination.rewardText = mainPrizes[selectedRow?.row ?? 0].reward
-            destination.typeText = "Main"
-        } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-            //destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
-            destination.descriptionText = beginnerPrizes[selectedRow?.row ?? 0].description
-            destination.titleText = beginnerPrizes[selectedRow?.row ?? 0].title
-            destination.rewardText = beginnerPrizes[selectedRow?.row ?? 0].reward
-            destination.typeText = "Beginner"
+        if !favorited {
+            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+                //destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
+                destination.descriptionText = mainPrizes[selectedRow?.row ?? 0].description
+                destination.titleText = mainPrizes[selectedRow?.row ?? 0].title
+                destination.rewardText = mainPrizes[selectedRow?.row ?? 0].reward
+                destination.typeText = "Main"
+            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+                //destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
+                destination.descriptionText = beginnerPrizes[selectedRow?.row ?? 0].description
+                destination.titleText = beginnerPrizes[selectedRow?.row ?? 0].title
+                destination.rewardText = beginnerPrizes[selectedRow?.row ?? 0].reward
+                destination.typeText = "Beginner"
+            } else {
+                destination.descriptionText = startUpPrizes[selectedRow?.row ?? 0].description
+                destination.titleText = startUpPrizes[selectedRow?.row ?? 0].title
+                destination.rewardText = startUpPrizes[selectedRow?.row ?? 0].reward
+                destination.typeText = "StartUp"
+            }
         } else {
-            destination.descriptionText = startUpPrizes[selectedRow?.row ?? 0].description
-            destination.titleText = startUpPrizes[selectedRow?.row ?? 0].title
-            destination.rewardText = startUpPrizes[selectedRow?.row ?? 0].reward
-            destination.typeText = "StartUp"
+            destination.descriptionText = favoritePrizes[selectedRow?.row ?? 0].description
+            destination.titleText = favoritePrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = favoritePrizes[selectedRow?.row ?? 0].reward
+            destination.typeText = favoritePrizes[selectedRow?.row ?? 0].prizeType.rawValue
         }
+        
     }
 }
