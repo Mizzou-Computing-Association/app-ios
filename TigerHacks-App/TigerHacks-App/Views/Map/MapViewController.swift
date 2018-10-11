@@ -74,6 +74,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         // MapView
 
         mapView.mapType = .hybrid
+        mapView.isHidden = true
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
         
         geologicalPin.coordinate = CLLocationCoordinate2D(latitude: 38.947200, longitude: -92.329208)
@@ -179,9 +180,11 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         if sender.selectedSegmentIndex != 3 {
             mapScrollView.superview?.bringSubviewToFront(mapScrollView)
             mapImageView.image = testImageArray[sender.selectedSegmentIndex]
+            mapView.isHidden = true
             mapTableView.reloadData()
         } else {
             mapScrollView.setZoomScale(1.0, animated: true)
+            mapView.isHidden = false
             mapSuperView.superview?.bringSubviewToFront(mapSuperView)
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
             mapTableView.reloadData()
