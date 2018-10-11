@@ -37,7 +37,7 @@ class Model {
         resources = [
             Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
             Resource(url: "https://join.slack.com/t/tigerhacks2018/shared_invite/enQtNDUwNTU1MTg3OTA5LWQ4NDNkOWJhMWNlNjM4NGIwZWE1NTEzZmZhOGE4MjRiMTM4NzA1ODYzMjZiZWQ0NmRkMTM4ZDYyYjMxZTM1NTY", title: "Join the Slack", description: ""),
-            Resource(url: "https://tigerhacks.devpost.com", title: "Devpost", description: "")]
+            Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: "")]
     }
     
 // MARK: - Schedule Notifications
