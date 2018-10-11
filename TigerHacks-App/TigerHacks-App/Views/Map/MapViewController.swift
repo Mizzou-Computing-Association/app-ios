@@ -198,6 +198,12 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.mapImageView
     }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        if scrollView.zoomScale < 1.0 {
+            scrollView.zoomScale = 1.0
+        }
+    }
     @IBAction func centerOnLafferre(_ sender: Any) {
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
     }
