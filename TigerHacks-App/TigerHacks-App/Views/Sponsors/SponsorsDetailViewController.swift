@@ -31,7 +31,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     var refreshControl: UIRefreshControl!
 
-    let baseSlackHooks = "slack://user?team=T7F05UNAW&id="
+    let baseSlackHooks = "slack://user?team=TD7JKSFPA&id="
 
     override func viewDidLoad() {
         super.viewDidLoad()
