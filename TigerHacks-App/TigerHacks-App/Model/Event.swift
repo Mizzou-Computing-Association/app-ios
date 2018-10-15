@@ -32,6 +32,13 @@ struct Event {
     }
 
     var request: UNNotificationRequest {
-        return UNNotificationRequest(identifier: self.title, content: self.content, trigger: self.trigger)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        
+        let tempContent = self.content
+        tempContent.subtitle = "\(dateFormatter.string(from: self.time)): \(self.content)"
+        tempContent.title = self.title + "in 15 minutes"
+    
+        return UNNotificationRequest(identifier: self.title, content: tempContent, trigger: self.trigger)
     }
 }
