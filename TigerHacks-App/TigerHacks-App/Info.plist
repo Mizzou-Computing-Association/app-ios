@@ -23,6 +23,9 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>slack</string>
+		<string>instagram</string>
+		<string>twitter</string>
+		<string>fb</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
