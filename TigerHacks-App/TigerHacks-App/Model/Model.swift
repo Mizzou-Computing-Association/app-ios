@@ -370,7 +370,7 @@ class Model {
                     
                     if let date = dateFormatter.date(from: eventTime) {
                         let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+                        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
                         if let finalDate = calendar.date(from: components) {
                             let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
                             events.append(event)
