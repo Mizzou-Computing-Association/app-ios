@@ -10,7 +10,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var floorSelector: UISegmentedControl!
     @IBOutlet weak var mapImageView: UIImageView!
@@ -22,7 +22,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var centeringButton: UIButton!
     @IBOutlet weak var centeringButtonBackground: UIView!
     
-    let testImageArray = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
+    let mapImages = [UIImage(named: "firstFloor"), UIImage(named: "secondFloor"), UIImage(named: "thirdFloor")]
 
     var fullSchedule = [Event]()
     var floorOneEvents = [Event]()
@@ -35,22 +35,18 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-    
+    let locationManager = CLLocationManager()
     let geologicalPin = MKPointAnnotation()
     let quadPin = MKPointAnnotation()
     let parkingPin = MKPointAnnotation()
     let lafferrePin = MKPointAnnotation()
-    
-    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initial Setup
-
         setUpNavBar()
         mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
         centeringButtonBackground.superview?.bringSubviewToFront(centeringButtonBackground)
-        //centeringButton.superview?.bringSubviewToFront(centeringButton)
         centeringButton.tintColor = view.tintColor
         mapTableView.dataSource = self
         mapTableView.delegate = self
@@ -61,8 +57,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         loadSchedule()
 
         // Map Image View
-
-        mapImageView.image = testImageArray[floorSelector.selectedSegmentIndex]
+        mapImageView.image = mapImages[floorSelector.selectedSegmentIndex]
         self.mapScrollView.minimumZoomScale = 1.0
         self.mapScrollView.maximumZoomScale = 8.0
 
@@ -72,7 +67,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         mapScrollView.addGestureRecognizer(tap)
 
         // MapView
-
         mapView.mapType = .hybrid
         mapView.isHidden = true
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
@@ -94,7 +88,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
         centeringButtonBackground.layer.cornerRadius = 8
         
         // Refresh Control
-
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         mapTableView.addSubview(refreshControl)
@@ -107,7 +100,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
     }
 
@@ -134,7 +126,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
 
     func filterFullScheduleByFloor(fullSchedule: [Event]) {
-        print(fullSchedule)
         var tempFloorOneEvents = [Event]()
         var tempFloorTwoEvents = [Event]()
         var tempFloorThreeEvents = [Event]()
@@ -179,7 +170,7 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func changeLevelOfMap(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex != 3 {
             mapScrollView.superview?.bringSubviewToFront(mapScrollView)
-            mapImageView.image = testImageArray[sender.selectedSegmentIndex]
+            mapImageView.image = mapImages[sender.selectedSegmentIndex]
             mapView.isHidden = true
             mapTableView.reloadData()
         } else {
@@ -189,7 +180,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: false)
             mapTableView.reloadData()
         }
-        
     }
 
 // MARK: - Map Zoom
@@ -210,19 +200,16 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
     @IBAction func centerOnLafferre(_ sender: Any) {
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
     }
-    
-// MARK: - Tableview
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+}
 
-        return 1
-    }
+extension MapViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Events on This Floor"
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         switch floorSelector.selectedSegmentIndex {
         case 0:
             return floorOneEvents.count
@@ -236,29 +223,29 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapTableViewCell
-
+        
         switch floorSelector.selectedSegmentIndex {
         case 0:
-                cell.eventLabel.text = floorOneEvents[indexPath.row].title
-                cell.locationLabel.text = floorOneEvents[indexPath.row].location
-                cell.timeLabel.text =
-                    Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorOneEvents[indexPath.row].time)]!
-                    + ", " + dateFormatter.string(from: floorOneEvents[indexPath.row].time)
+            cell.eventLabel.text = floorOneEvents[indexPath.row].title
+            cell.locationLabel.text = floorOneEvents[indexPath.row].location
+            cell.timeLabel.text =
+                Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorOneEvents[indexPath.row].time)]!
+                + ", " + dateFormatter.string(from: floorOneEvents[indexPath.row].time)
         case 1:
-                cell.eventLabel.text = floorTwoEvents[indexPath.row].title
-                cell.locationLabel.text = floorTwoEvents[indexPath.row].location
-                cell.timeLabel.text =
-                    Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorTwoEvents[indexPath.row].time)]!
-                    + ", " + dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
+            cell.eventLabel.text = floorTwoEvents[indexPath.row].title
+            cell.locationLabel.text = floorTwoEvents[indexPath.row].location
+            cell.timeLabel.text =
+                Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorTwoEvents[indexPath.row].time)]!
+                + ", " + dateFormatter.string(from: floorTwoEvents[indexPath.row].time)
         case 2:
-                cell.eventLabel.text = floorThreeEvents[indexPath.row].title
-                cell.locationLabel.text = floorThreeEvents[indexPath.row].location
-                cell.timeLabel.text =
-                    Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]!
-                    + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
+            cell.eventLabel.text = floorThreeEvents[indexPath.row].title
+            cell.locationLabel.text = floorThreeEvents[indexPath.row].location
+            cell.timeLabel.text =
+                Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: floorThreeEvents[indexPath.row].time)]!
+                + ", " + dateFormatter.string(from: floorThreeEvents[indexPath.row].time)
         case 3:
             cell.eventLabel.text = outsideEvents[indexPath.row].title
             cell.locationLabel.text = outsideEvents[indexPath.row].location
@@ -266,25 +253,25 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 Model.sharedInstance.weekdayDict[Calendar.current.component(.weekday, from: outsideEvents[indexPath.row].time)]!
                 + ", " + dateFormatter.string(from: outsideEvents[indexPath.row].time)
         default:
-                cell.eventLabel.text = "There is NO Event"
-                cell.locationLabel.text = "Who Knows Where"
-                cell.timeLabel.text = "No Time"
+            cell.eventLabel.text = "There is NO Event"
+            cell.locationLabel.text = "Who Knows Where"
+            cell.timeLabel.text = "No Time"
         }
-
+        
         return cell
     }
-
-// MARK: - Segues
-
+    
+    // MARK: - Segues
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "mapEventDetail", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! EventDetailViewController
         guard let selectedRow = mapTableView.indexPathForSelectedRow else {return}
-
+        
         switch floorSelector.selectedSegmentIndex {
         case 0:
             destination.titleText = floorOneEvents[selectedRow.row].title
@@ -312,6 +299,6 @@ class MapViewController: UIViewController, UITableViewDataSource, UITableViewDel
             destination.timeText = "No Time"
             destination.descriptionText = "No Description"
         }
-
     }
+
 }
