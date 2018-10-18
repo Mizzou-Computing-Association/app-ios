@@ -379,7 +379,6 @@ class Model {
                 }
             }
         }
-        
         fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
     }

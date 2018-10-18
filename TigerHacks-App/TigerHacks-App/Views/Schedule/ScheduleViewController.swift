@@ -28,9 +28,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //Initial Setup
-
         self.setUpNavBar()
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
@@ -39,7 +37,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         setDay()
         
         // Swipe To Change Day
-
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
@@ -49,7 +46,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.addGestureRecognizer(swipeLeft)
 
         //Refresh Control
-
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         scheduleTableView.addSubview(refreshControl)
@@ -57,11 +53,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 // MARK: - Load Schedules
-
+    
     func loadSchedules() {
         Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
             if let errorString = errorString {
@@ -79,7 +74,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 self.divideEventsByDay()
                 Model.sharedInstance.scheduleNotifications()
                 self.scheduleTableView.reloadData()
-                
             }
         }
     }

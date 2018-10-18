@@ -23,7 +23,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
         setUpNavBar()
         Model.sharedInstance.fakeAPICall()
-        loadSponsors(dispatchQueueForHandler: DispatchQueue.main){_,_ in
+        loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {_, _ in
             //Do nothing as far as I can tell
         }
 
@@ -56,7 +56,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 // MARK: - Load Sponsors
 
     @objc func refresh(_ sender: Any) {
-        self.loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {(sponsors, errorString) in
+        self.loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {(sponsors, _) in
             self.sponsors.removeAll()
             if let sponsors = sponsors {
                 self.sponsors = sponsors
@@ -72,15 +72,10 @@ class SponsorsCollectionViewController: UICollectionViewController {
         Model.sharedInstance.sponsorsLoad(dispatchQueueForHandler: DispatchQueue.main) { (sponsors, errorString) in
             if let errorString = errorString {
                 print("Error: \(errorString)")
-                
                 let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: .alert)
-            
                 alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
-            
                 self.present(alert, animated: true)
-                
                 completionHandler(nil, "Error loading Sponsors")
-                
             } else if let sponsors = sponsors {
                 self.sponsors = sponsors
                 self.collectionView?.reloadData()
