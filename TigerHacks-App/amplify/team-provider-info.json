@@ -1,0 +1,19 @@
+{
+    "thenv": {
+        "awscloudformation": {
+            "AuthRoleName": "tigerhacks-app-thenv-20190528095248-authRole",
+            "UnauthRoleArn": "arn:aws:iam::710191857929:role/tigerhacks-app-thenv-20190528095248-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::710191857929:role/tigerhacks-app-thenv-20190528095248-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "tigerhacks-app-thenv-20190528095248-deployment",
+            "UnauthRoleName": "tigerhacks-app-thenv-20190528095248-unauthRole",
+            "StackName": "tigerhacks-app-thenv-20190528095248",
+            "StackId": "arn:aws:cloudformation:us-east-2:710191857929:stack/tigerhacks-app-thenv-20190528095248/42aeae00-8158-11e9-a12f-0a768148c3d2"
+        },
+        "categories": {
+            "auth": {
+                "cognito62a64182": {}
+            }
+        }
+    }
+}

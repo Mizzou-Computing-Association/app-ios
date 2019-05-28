@@ -234,6 +234,7 @@
 		83F984FC229D7FC900D65BC3 /* AWSRekognition.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRekognition.framework; sourceTree = "<group>"; };
 		83F984FD229D7FCA00D65BC3 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		83F984FE229D7FCA00D65BC3 /* AWSTranslate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSTranslate.framework; sourceTree = "<group>"; };
+		83F9854B229D887200D65BC3 /* TigerHacks-App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TigerHacks-App-Bridging-Header.h"; sourceTree = "<group>"; };
 		AE4CBCD3215C1DD200BD049C /* SponsorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SponsorResponse.swift; sourceTree = "<group>"; };
 		AE8E31D8208957BC0041520F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AE8E31DA208958560041520F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -353,6 +354,7 @@
 			children = (
 				83F98463229D73F000D65BC3 /* TigerHacks-App.entitlements */,
 				834C30AD20532FFB003DA584 /* AppDelegate.swift */,
+				83F9854B229D887200D65BC3 /* TigerHacks-App-Bridging-Header.h */,
 				834C30B120532FFB003DA584 /* Main.storyboard */,
 				AE8E31DA208958560041520F /* Extensions.swift */,
 				834C30CC205330F0003DA584 /* Model */,
@@ -747,6 +749,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TigerHacks-App/TigerHacks-App-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -774,6 +777,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TigerHacks-App/TigerHacks-App-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
