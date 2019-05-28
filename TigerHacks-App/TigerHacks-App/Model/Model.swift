@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UserNotifications
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class Model {
     static var sharedInstance = Model()
 
