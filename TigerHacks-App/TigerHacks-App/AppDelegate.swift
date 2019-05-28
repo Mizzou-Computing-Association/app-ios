@@ -60,8 +60,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }    
             }
         }
+        
+        // Make Request to APNS
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { (granted, error) in
+            guard granted else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                application.registerForRemoteNotifications()
+            }
+        }
+        
+        
         return true
-
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
