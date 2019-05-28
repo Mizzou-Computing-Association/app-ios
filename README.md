@@ -18,3 +18,19 @@ For the scope of the Software Engineering Final Project, the team will be focusi
 ### Demonstration  
 [Youtube](https://youtu.be/ELYOm7Ls11w)
 
+
+### How to Contribute
+
+Create a Secrets Class: 
+
+```Swift
+class Secrets {
+static let platformApplicationArn = "YOUR_PLATFORM_ARN_HERE"
+
+static let identityPoolId = "YOUR_CONTIGO_POOL_ID"
+
+static let subscriptionArn = "YOUR_SUBSCRIPTION_ARN"
+}
+```
+
+
