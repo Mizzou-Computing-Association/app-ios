@@ -16,12 +16,12 @@ import AWSSNS
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-    let platformApplicationArn = "arn:aws:sns:us-east-1:710191857929:app/APNS_SANDBOX/TigerHacks"
+    let platformApplicationArn = Secrets.platformApplicationArn
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        UNUserNotificationCenter.current().delegate = self
         //MARK: Pre-load schedule!
         Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
             if let errorString = errorString {
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-                                                                identityPoolId:"us-east-1:0021c7de-9de2-4ef5-98d8-1fed61f32ac0")
+                                                                identityPoolId:Secrets.identityPoolId)
         
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
         
@@ -87,30 +87,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        var token = ""
-        for i in 0..<deviceToken.count {
-            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
-        }
+        //Get Token ENDPOINT
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         
-        print(token)
-        UserDefaults.standard.set(token, forKey: "deviceTokenForSNS")
-        /// Create a platform endpoint. In this case, the endpoint is a
-        /// device endpoint ARN
+        //Create SNS Module
         let sns = AWSSNS.default()
         let request = AWSSNSCreatePlatformEndpointInput()
-        request?.token = token
+        request?.token = deviceTokenString
+        
+        //Send Request
         request?.platformApplicationArn = platformApplicationArn
-        sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
+        
+        sns.createPlatformEndpoint(request!).continueWith(block: { (task: AWSTask!) -> AnyObject? in
             if task.error != nil {
-                print("Error: \(String(describing: task.error))")
+                print("Error: \(task.error)")
             } else {
+                
                 let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-                if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                    print("endpointArn: \(endpointArnForSNS)")
-                    UserDefaults.standard.set(endpointArnForSNS, forKey: "endpointArnForSNS")
-                }
+                print("endpointArn: \(createEndpointResponse.endpointArn)")
+                
+                let subscription = Secrets.subscriptionArn
+                //Create Subscription request
+                let subscriptionRequest = AWSSNSSubscribeInput()
+                
+                
+                subscriptionRequest?.protocols = "application"
+                subscriptionRequest?.topicArn = subscription
+                subscriptionRequest?.endpoint = createEndpointResponse.endpointArn
+                
+                sns.subscribe(subscriptionRequest!).continueWith (block: {
+                    (task:AWSTask) -> AnyObject? in
+                    if task.error != nil {
+                        print("Error subscribing: \(task.error)")
+                        return nil
+                    }
+                    
+                    print("Subscribed succesfully")
+                    
+                    //Confirm subscription
+                    let subscriptionConfirmInput = AWSSNSConfirmSubscriptionInput()
+                    subscriptionConfirmInput?.token = createEndpointResponse.endpointArn
+                    subscriptionConfirmInput?.topicArn = subscription
+                    sns.confirmSubscription(subscriptionConfirmInput!).continueWith (block: {
+                        (task:AWSTask) -> AnyObject? in
+                        if task.error != nil {
+                            print("Error subscribing: \(task.error)")
+                        }
+                        return nil
+                    })
+                    return nil
+                    
+                })
+                
             }
             return nil
+            
         })
     }
     
@@ -121,8 +152,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // Called when a notification is delivered to a foreground app.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("User Info = ", notification.request.content.userInfo)
-        completionHandler([.alert, .badge, .sound])
+        
+        let alert = UIAlertController(title: "A Message From The Organizers:\n", message: notification.request.content.body, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+            }}))
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     // Called to let your app know which action was selected by the user for a given notification.
     @available(iOS 10.0, *)

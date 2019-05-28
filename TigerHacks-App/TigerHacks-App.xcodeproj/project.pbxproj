@@ -31,6 +31,7 @@
 		834C30EB2053634E003DA584 /* ResourcesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */; };
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
+		836A302B229DAACB00EE167D /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A302A229DAACB00EE167D /* Secrets.swift */; };
 		8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370E4AA2087C7A6009983FC /* Youtube.swift */; };
 		83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
@@ -192,6 +193,7 @@
 		834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesTableViewCell.swift; sourceTree = "<group>"; };
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		836A302A229DAACB00EE167D /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secrets.swift; path = Model/Secrets.swift; sourceTree = "<group>"; };
 		8370E4AA2087C7A6009983FC /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
 		83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMentorTableViewController.swift; sourceTree = "<group>"; };
 		83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorTableViewCell.swift; sourceTree = "<group>"; };
@@ -291,43 +293,7 @@
 		083FAB2273A5142E52EB3170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83F984E8229D7FC400D65BC3 /* AWSAPIGateway.framework */,
-				83F984E4229D7FC400D65BC3 /* AWSAuthCore.framework */,
-				83F984F7229D7FC800D65BC3 /* AWSAuthUI.framework */,
-				83F984F9229D7FC900D65BC3 /* AWSAutoScaling.framework */,
-				83F984EC229D7FC500D65BC3 /* AWSCloudWatch.framework */,
-				83F984F8229D7FC800D65BC3 /* AWSCognito.framework */,
-				83F984F4229D7FC800D65BC3 /* AWSCognitoAuth.framework */,
-				83F984E5229D7FC400D65BC3 /* AWSCognitoIdentityProvider.framework */,
-				83F984F2229D7FC700D65BC3 /* AWSCognitoIdentityProviderASF.framework */,
-				83F984FB229D7FC900D65BC3 /* AWSComprehend.framework */,
-				83F984D9229D7FC100D65BC3 /* AWSCore.framework */,
-				83F984DD229D7FC200D65BC3 /* AWSDynamoDB.framework */,
-				83F984F1229D7FC700D65BC3 /* AWSEC2.framework */,
-				83F984FA229D7FC900D65BC3 /* AWSElasticLoadBalancing.framework */,
-				83F984DB229D7FC200D65BC3 /* AWSFacebookSignIn.framework */,
-				83F984E9229D7FC500D65BC3 /* AWSGoogleSignIn.framework */,
-				83F984ED229D7FC600D65BC3 /* AWSIoT.framework */,
-				83F984F3229D7FC700D65BC3 /* AWSKinesis.framework */,
-				83F984DE229D7FC200D65BC3 /* AWSKinesisVideo.framework */,
-				83F984F0229D7FC600D65BC3 /* AWSKinesisVideoArchivedMedia.framework */,
-				83F984F5229D7FC800D65BC3 /* AWSKMS.framework */,
-				83F984EA229D7FC500D65BC3 /* AWSLambda.framework */,
-				83F984DC229D7FC200D65BC3 /* AWSLex.framework */,
-				83F984DA229D7FC200D65BC3 /* AWSLogs.framework */,
-				83F984E6229D7FC400D65BC3 /* AWSMachineLearning.framework */,
-				83F984EE229D7FC600D65BC3 /* AWSMobileAnalytics.framework */,
-				83F984EB229D7FC500D65BC3 /* AWSPinpoint.framework */,
-				83F984E2229D7FC300D65BC3 /* AWSPolly.framework */,
-				83F984FC229D7FC900D65BC3 /* AWSRekognition.framework */,
-				83F984FD229D7FCA00D65BC3 /* AWSS3.framework */,
-				83F984DF229D7FC300D65BC3 /* AWSSES.framework */,
-				83F984EF229D7FC600D65BC3 /* AWSSimpleDB.framework */,
-				83F984F6229D7FC800D65BC3 /* AWSSNS.framework */,
-				83F984E3229D7FC300D65BC3 /* AWSSQS.framework */,
-				83F984E0229D7FC300D65BC3 /* AWSTranscribe.framework */,
-				83F984FE229D7FCA00D65BC3 /* AWSTranslate.framework */,
-				83F984E7229D7FC400D65BC3 /* AWSUserPoolsSignIn.framework */,
+				836A3029229D95AB00EE167D /* frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -354,6 +320,7 @@
 			children = (
 				83F98463229D73F000D65BC3 /* TigerHacks-App.entitlements */,
 				834C30AD20532FFB003DA584 /* AppDelegate.swift */,
+				836A302A229DAACB00EE167D /* Secrets.swift */,
 				83F9854B229D887200D65BC3 /* TigerHacks-App-Bridging-Header.h */,
 				834C30B120532FFB003DA584 /* Main.storyboard */,
 				AE8E31DA208958560041520F /* Extensions.swift */,
@@ -445,6 +412,50 @@
 				834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		836A3029229D95AB00EE167D /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83F984E8229D7FC400D65BC3 /* AWSAPIGateway.framework */,
+				83F984E4229D7FC400D65BC3 /* AWSAuthCore.framework */,
+				83F984F7229D7FC800D65BC3 /* AWSAuthUI.framework */,
+				83F984F9229D7FC900D65BC3 /* AWSAutoScaling.framework */,
+				83F984EC229D7FC500D65BC3 /* AWSCloudWatch.framework */,
+				83F984F8229D7FC800D65BC3 /* AWSCognito.framework */,
+				83F984F4229D7FC800D65BC3 /* AWSCognitoAuth.framework */,
+				83F984E5229D7FC400D65BC3 /* AWSCognitoIdentityProvider.framework */,
+				83F984F2229D7FC700D65BC3 /* AWSCognitoIdentityProviderASF.framework */,
+				83F984FB229D7FC900D65BC3 /* AWSComprehend.framework */,
+				83F984D9229D7FC100D65BC3 /* AWSCore.framework */,
+				83F984DD229D7FC200D65BC3 /* AWSDynamoDB.framework */,
+				83F984F1229D7FC700D65BC3 /* AWSEC2.framework */,
+				83F984FA229D7FC900D65BC3 /* AWSElasticLoadBalancing.framework */,
+				83F984DB229D7FC200D65BC3 /* AWSFacebookSignIn.framework */,
+				83F984E9229D7FC500D65BC3 /* AWSGoogleSignIn.framework */,
+				83F984ED229D7FC600D65BC3 /* AWSIoT.framework */,
+				83F984F3229D7FC700D65BC3 /* AWSKinesis.framework */,
+				83F984DE229D7FC200D65BC3 /* AWSKinesisVideo.framework */,
+				83F984F0229D7FC600D65BC3 /* AWSKinesisVideoArchivedMedia.framework */,
+				83F984F5229D7FC800D65BC3 /* AWSKMS.framework */,
+				83F984EA229D7FC500D65BC3 /* AWSLambda.framework */,
+				83F984DC229D7FC200D65BC3 /* AWSLex.framework */,
+				83F984DA229D7FC200D65BC3 /* AWSLogs.framework */,
+				83F984E6229D7FC400D65BC3 /* AWSMachineLearning.framework */,
+				83F984EE229D7FC600D65BC3 /* AWSMobileAnalytics.framework */,
+				83F984EB229D7FC500D65BC3 /* AWSPinpoint.framework */,
+				83F984E2229D7FC300D65BC3 /* AWSPolly.framework */,
+				83F984FC229D7FC900D65BC3 /* AWSRekognition.framework */,
+				83F984FD229D7FCA00D65BC3 /* AWSS3.framework */,
+				83F984DF229D7FC300D65BC3 /* AWSSES.framework */,
+				83F984EF229D7FC600D65BC3 /* AWSSimpleDB.framework */,
+				83F984F6229D7FC800D65BC3 /* AWSSNS.framework */,
+				83F984E3229D7FC300D65BC3 /* AWSSQS.framework */,
+				83F984E0229D7FC300D65BC3 /* AWSTranscribe.framework */,
+				83F984FE229D7FCA00D65BC3 /* AWSTranslate.framework */,
+				83F984E7229D7FC400D65BC3 /* AWSUserPoolsSignIn.framework */,
+			);
+			name = frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -582,6 +593,7 @@
 				83F2AFD42054A05B00A137E5 /* Resource.swift in Sources */,
 				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,
 				834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */,
+				836A302B229DAACB00EE167D /* Secrets.swift in Sources */,
 				AE4CBCD4215C1DD200BD049C /* SponsorResponse.swift in Sources */,
 				AE8E31DB208958560041520F /* Extensions.swift in Sources */,
 				834C30E320534B62003DA584 /* MapViewController.swift in Sources */,
