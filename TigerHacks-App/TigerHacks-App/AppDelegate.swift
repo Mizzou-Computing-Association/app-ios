@@ -16,7 +16,7 @@ import AWSSNS
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-    let SNSPlatformApplicationArn = "arn:aws:sns:us-east-1:710191857929:app/APNS_SANDBOX/TigerHacks"
+    let platformApplicationArn = "arn:aws:sns:us-east-1:710191857929:app/APNS_SANDBOX/TigerHacks"
     var window: UIWindow?
 
 
@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let sns = AWSSNS.default()
         let request = AWSSNSCreatePlatformEndpointInput()
         request?.token = token
-        request?.platformApplicationArn = SNSPlatformApplicationArn
+        request?.platformApplicationArn = platformApplicationArn
         sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
             if task.error != nil {
                 print("Error: \(String(describing: task.error))")
@@ -121,13 +121,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // Called when a notification is delivered to a foreground app.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("User Info = ",notification.request.content.userInfo)
+        print("User Info = ", notification.request.content.userInfo)
         completionHandler([.alert, .badge, .sound])
     }
     // Called to let your app know which action was selected by the user for a given notification.
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("User Info = ",response.notification.request.content.userInfo)
+        print("User Info = ", response.notification.request.content.userInfo)
         completionHandler()
     }
     
@@ -202,4 +202,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
-
