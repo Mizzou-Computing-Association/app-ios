@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 var tempEvents = [Event]()
                 for event in events {
-                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    let event = Event(time: event.time, day: event.day, location: event.location, floor: event.floor, title: event.title, description: event.description)
                     tempEvents.append(event)
                 }
                 
@@ -134,4 +134,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-

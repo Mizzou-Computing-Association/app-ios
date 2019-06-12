@@ -164,7 +164,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksPrizes"
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksNewPrizes"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -208,27 +208,26 @@ class Model {
         var prizes = [Prize]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [[String: Any]] else {
                 return (nil, "unable to parse response from server")
         }
         
         print("JSON: \(json)")
         
-        if let items = rootNode["prizes"] as? [[String: Any]] {
-            for item in items {
-                print("ITEM: \(item)")
-                if let prizeSponsorID = item["sponsor"] as? Int,
-                    let prizeTitle = item["title"] as? String,
-                    let prizeReward = item["reward"] as? String,
-                    let prizeDescription = item["description"] as? String,
-                    let prizeType = item["prizetype"] as? String,
-                    let enumPrizeType = PrizeType(rawValue: prizeType) {
-                    print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
-                    
-                    let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
-                    
-                    prizes.append(prize)
-                }
+        
+        for item in items {
+            print("ITEM: \(item)")
+            if let prizeSponsorID = item["sponsor"] as? String,
+                let prizeTitle = item["title"] as? String,
+                let prizeReward = item["reward"] as? String,
+                let prizeDescription = item["description"] as? String,
+                let prizeType = item["prizetype"] as? String,
+                let enumPrizeType = PrizeType(rawValue: prizeType) {
+                print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
+                
+                let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
+                
+                prizes.append(prize)
             }
         }
         return (prizes, nil)
@@ -309,7 +308,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSchedule"
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksNewSchedule"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -353,32 +352,32 @@ class Model {
         var events = [Event]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [[String: Any]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        if let items = rootNode["schedule"] as? [[String: Any]] {
-            for item in items {
-                if let eventTime = item["time"] as? String,
-                    let eventTitle = item["title"] as? String,
-                    let eventLocation = item["location"] as? String,
-                    let eventDescription = item["description"] as? String,
-                    let eventFloor = item["floor"] as? Int {
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-                    
-                    if let date = dateFormatter.date(from: eventTime) {
-                        let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-                        if let finalDate = calendar.date(from: components) {
-                            let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
-                            events.append(event)
-                        }
+        for item in items {
+            if let eventTime = item["time"] as? String,
+                let eventDay = item["day"] as? Int,
+                let eventTitle = item["title"] as? String,
+                let eventLocation = item["location"] as? String,
+                let eventDescription = item["description"] as? String,
+                let eventFloor = item["floor"] as? Int {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+                
+                if let date = dateFormatter.date(from: eventTime) {
+                    let calendar = Calendar.current
+                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+                    if let finalDate = calendar.date(from: components) {
+                        let event = Event(time: finalDate, day: eventDay, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
+                        events.append(event)
                     }
                 }
             }
         }
+        
         fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
     }

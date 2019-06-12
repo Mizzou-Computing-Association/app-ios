@@ -11,7 +11,7 @@ import Foundation
 
 struct Prize {
     //var sponsor: Sponsor?
-    var sponsorID: Int?
+    var sponsorID: String
     var title: String
     var reward: String
     var description: String
