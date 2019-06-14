@@ -11,6 +11,7 @@ import UserNotifications
 
 struct Event {
     var time: Date
+    var day: Int
     var location: String
     var floor: Int
     var title: String
