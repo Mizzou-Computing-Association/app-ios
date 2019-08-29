@@ -21,6 +21,7 @@ class ResourcesTableViewController: UITableViewController {
         // Initial Setup
 
         Model.sharedInstance.fakeAPICall()
+        setUpNavBar()
         loadResources()
 
         // Refresh Control
@@ -65,6 +66,12 @@ class ResourcesTableViewController: UITableViewController {
             self.refreshControl?.endRefreshing()
             self.tableView.reloadData()
         }
+    }
+
+// MARK: - Nav Bar Gradient
+
+    func setUpNavBar() {
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
 // MARK: - Table View

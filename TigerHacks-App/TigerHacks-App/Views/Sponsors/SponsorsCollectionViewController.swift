@@ -21,6 +21,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
         // Initial Setup
 
+        setUpNavBar()
         Model.sharedInstance.fakeAPICall()
         loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {_, _ in
             //Do nothing as far as I can tell
@@ -104,6 +105,12 @@ class SponsorsCollectionViewController: UICollectionViewController {
             }
 
         }
+    }
+
+// MARK: - Nav Bar Gradient
+
+    func setUpNavBar() {
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
 // MARK: - Collection View
