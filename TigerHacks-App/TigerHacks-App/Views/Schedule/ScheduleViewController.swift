@@ -29,6 +29,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         //Initial Setup
+        self.setUpNavBar()
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
@@ -124,6 +125,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             daySwitcher.selectedSegmentIndex = 0
         }
         scheduleTableView.reloadData()
+    }
+
+// MARK: - Nav Bar Gradient
+
+    func setUpNavBar() {
+        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
+        //Tab bar
+        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
+        tabBarController?.tabBar.shadowImage =  UIImage()
     }
 
 // MARK: - Change Day
