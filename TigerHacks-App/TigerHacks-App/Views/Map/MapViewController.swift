@@ -44,7 +44,6 @@ class MapViewController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initial Setup
-        setUpNavBar()
         mapImageSuperView.superview?.bringSubviewToFront(mapImageSuperView)
         centeringButtonBackground.superview?.bringSubviewToFront(centeringButtonBackground)
         centeringButton.tintColor = view.tintColor
@@ -157,12 +156,6 @@ class MapViewController: UIViewController, UIScrollViewDelegate, UIGestureRecogn
             self.refreshControl.endRefreshing()
             self.mapTableView.reloadData()
         }
-    }
-
-// MARK: - Nav Bar Gradient
-
-    func setUpNavBar() {
-        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
     }
 
 // MARK: - Change Map Level

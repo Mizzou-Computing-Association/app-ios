@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>101828787945-an103083gbmsk9r108i1ovka3mkphaf9.apps.googleusercontent.com</string>
+	<string>177120544304-vmhutqbh8g0csn6ksqashr8192aos3rk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.101828787945-an103083gbmsk9r108i1ovka3mkphaf9</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>101828787945-sf3usrs1i7505q2virc9evf33mtokfj3.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.177120544304-vmhutqbh8g0csn6ksqashr8192aos3rk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI</string>
+	<string>AIzaSyDclASdYPrIHgyQhV63Mig5qHZZEkd7_cE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>101828787945</string>
+	<string>177120544304</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>edu.missouri.TigerHacks-App</string>
 	<key>PROJECT_ID</key>
-	<string>tigerhacksapp</string>
+	<string>tigerhacks</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tigerhacksapp.appspot.com</string>
+	<string>tigerhacks.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:101828787945:ios:75b0bee34cda89c0</string>
+	<string>1:177120544304:ios:6a022230115c9aef844ff5</string>
 	<key>DATABASE_URL</key>
-	<string>https://tigerhacksapp.firebaseio.com</string>
+	<string>https://tigerhacks.firebaseio.com</string>
 </dict>
 </plist>
