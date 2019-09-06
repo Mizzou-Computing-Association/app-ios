@@ -1,7 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:/Users/jacob/Documents/TigerHacks/app-ios/TigerHacks-App/Firebase/FirebaseAuth.framework"
+      name = "FirebaseAuth.framework">
+      <FileRef
+         location = "group:FirebaseAuth">
+      </FileRef>
+      <Group
+         location = "group:Headers"
+         name = "Headers">
+         <FileRef
+            location = "group:FIRUser.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRGitHubAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIROAuthCredential.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRGameCenterAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuth.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRPhoneAuthCredential.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRFederatedAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIREmailAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRFacebookAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthDataResult.h">
+         </FileRef>
+         <FileRef
+            location = "group:FirebaseAuth.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAdditionalUserInfo.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthSettings.h">
+         </FileRef>
+         <FileRef
+            location = "group:FirebaseAuthVersion.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthCredential.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthTokenResult.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRActionCodeSettings.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRTwitterAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthAPNSTokenType.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthUIDelegate.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRAuthErrors.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRUserMetadata.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRPhoneAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIROAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRGoogleAuthProvider.h">
+         </FileRef>
+         <FileRef
+            location = "group:FIRUserInfo.h">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Modules"
+         name = "Modules">
+         <FileRef
+            location = "group:module.modulemap">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:../Firebase/GTMSessionFetcher.framework"
+      name = "GTMSessionFetcher.framework">
+      <FileRef
+         location = "group:GTMSessionFetcher">
+      </FileRef>
+      <Group
+         location = "group:Headers"
+         name = "Headers">
+         <FileRef
+            location = "group:GTMMIMEDocument.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMSessionFetcher.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMSessionUploadFetcher.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMGatherInputStream.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMSessionFetcherLogging.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMReadMonitorInputStream.h">
+         </FileRef>
+         <FileRef
+            location = "group:GTMSessionFetcherService.h">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Modules"
+         name = "Modules">
+         <FileRef
+            location = "group:module.modulemap">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
-      location = "self:TigerHacks-App.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
