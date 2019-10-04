@@ -214,7 +214,6 @@ class Model {
         
         print("JSON: \(json)")
         
-        
         for item in items {
             print("ITEM: \(item)")
             if let prizeSponsorID = item["sponsor"] as? String,
@@ -308,7 +307,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksNewSchedule"
+        let requestString = "https://tigerhacks.com/api/schedule"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -357,24 +356,24 @@ class Model {
         }
         
         for item in items {
-            if let eventTime = item["time"] as? String,
-                let eventDay = item["day"] as? Int,
-                let eventTitle = item["title"] as? String,
-                let eventLocation = item["location"] as? String,
-                let eventDescription = item["description"] as? String,
-                let eventFloor = item["floor"] as? Int {
+            if let eventTime = item["time"],
+                let eventTitle = item["title"] {
+                let eventLocation = item["location"] ?? " "
+                let eventDescription = item["description"] ?? " "
                 
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-                
-                if let date = dateFormatter.date(from: eventTime) {
-                    let calendar = Calendar.current
-                    let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-                    if let finalDate = calendar.date(from: components) {
-                        let event = Event(time: finalDate, day: eventDay, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
-                        events.append(event)
-                    }
+                if let eventTime = eventTime as? Double,
+                    let eventTitle = eventTitle as? String,
+                    let eventLocation = eventLocation as? String,
+                    let eventDescription = eventDescription as? String {
+                    
+                    let date = Date(timeIntervalSince1970: eventTime/1000)
+                    
+                    let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
+                    print("Event: " + String(describing: event))
+                    events.append(event)
+                    
                 }
+                
             }
         }
         

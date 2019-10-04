@@ -22,9 +22,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     let dateFormatter = DateFormatter()
     let longDateFormatter = DateFormatter()
 
-    let date1 = "10/12/2018"
-    let date2 = "10/13/2018"
-    let date3 = "10/14/2018"
+    let date1 = "11/08/2019"
+    let date2 = "11/09/2019"
+    let date3 = "11/10/2019"
 
     override func viewDidLoad() {
         super.viewDidLoad()
