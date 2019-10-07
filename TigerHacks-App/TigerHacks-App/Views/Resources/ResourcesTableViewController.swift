@@ -102,25 +102,61 @@ class ResourcesTableViewController: UITableViewController {
     }
 
 // MARK: - Segues
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             performSegue(withIdentifier: "tigerTalkSegue", sender: self)
         } else {
-           performSegue(withIdentifier: "resourceSegue", sender: self)
+            if resources[indexPath.row].title == "Instagram" {
+                if let url = URL(string: "instagram://user?username=tigerhacks") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            UIApplication.shared.openURL(url)
+                        }
+                    } else {
+                        performSegue(withIdentifier: "resourceSegue", sender: self)
+                    }
+                }
+            } else if resources[indexPath.row].title == "Twitter" {
+                if let url = URL(string: "twitter://user?id=1898715698") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            UIApplication.shared.openURL(url)
+                        }
+                    } else {
+                        performSegue(withIdentifier: "resourceSegue", sender: self)
+                    }
+                }
+            } else if resources[indexPath.row].title == "Facebook" {
+                if let url = URL(string: "fb://profile/227243744100144") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            UIApplication.shared.openURL(url)
+                        }
+                    } else {
+                        performSegue(withIdentifier: "resourceSegue", sender: self)
+                    }
+                }
+            } else {
+               performSegue(withIdentifier: "resourceSegue", sender: self)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         if segue.identifier == "tigerTalkSegue" {
             let destination = segue.destination as! TigerTalksDetailViewController
             destination.navigationItem.title = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].title
             destination.descriptionText = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].description
             destination.videoCode = tigerTalks[tableView.indexPathForSelectedRow?.row ?? 0].url
         } else {
-            // INCOMPLETE - should segue to other resource view
             let destination = segue.destination as! ResourceDetailViewController
             destination.urlString = resources[tableView.indexPathForSelectedRow?.row ?? 0].url
             destination.navigationItem.title = resources[tableView.indexPathForSelectedRow?.row ?? 0].title
