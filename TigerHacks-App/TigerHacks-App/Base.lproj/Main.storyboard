@@ -221,7 +221,7 @@
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Wm2-FR-5CJ">
                                     <rect key="frame" x="0.0" y="114" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                    <color key="backgroundColor" name="NewBlack"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="58" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
@@ -264,7 +264,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="eLp-WV-D3d" firstAttribute="bottom" secondItem="PmS-AX-4ZZ" secondAttribute="bottom" id="QpW-Zd-qyv"/>
                             <constraint firstItem="eLp-WV-D3d" firstAttribute="trailing" secondItem="PmS-AX-4ZZ" secondAttribute="trailing" id="Wah-7I-egA"/>
@@ -451,7 +451,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kRW-v3-bLV" secondAttribute="trailing" id="6Od-MK-3gD"/>
                             <constraint firstItem="kRW-v3-bLV" firstAttribute="top" secondItem="vzX-iQ-Fzg" secondAttribute="top" id="cdt-GO-URe"/>
@@ -690,7 +690,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="A38-Q0-22K" firstAttribute="bottom" secondItem="P6v-vG-dYI" secondAttribute="bottom" id="LJ4-Qj-SOY"/>
                             <constraint firstAttribute="trailing" secondItem="P6v-vG-dYI" secondAttribute="trailing" id="WGU-hH-T6x"/>
@@ -807,7 +807,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="P1a-ah-hXj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kbW-kD-2tZ">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -894,7 +894,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XBN-G2-A3g">
                                 <rect key="frame" x="0.0" y="230" width="375" height="388"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="NewBlack"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mentorCell" rowHeight="76" id="DBm-UW-KRy" customClass="MentorTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="76"/>
@@ -946,6 +946,7 @@
                                                 <constraint firstItem="ZTa-3a-TJI" firstAttribute="leading" secondItem="N3F-Oy-1Ev" secondAttribute="leading" constant="62" id="zgh-vx-xSX"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <connections>
                                             <outlet property="contactButton" destination="9DD-8g-ZZ7" id="JJY-8b-6KG"/>
                                             <outlet property="mentorNameLabel" destination="0Mp-Sm-aHI" id="8TE-Q1-WyV"/>
@@ -1005,7 +1006,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="XBN-G2-A3g" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" id="1pP-39-Lpr"/>
                             <constraint firstItem="q7K-yf-0oq" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" constant="8" id="2U4-1r-0as"/>
@@ -1054,7 +1055,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="puE-ci-5n3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="allMentorCell" rowHeight="76" id="23d-QR-16z" customClass="MentorTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="76"/>
@@ -1107,6 +1108,7 @@
                                         <constraint firstItem="MEA-Wd-wW8" firstAttribute="leading" secondItem="dC3-n0-GvN" secondAttribute="trailing" constant="-5" id="vsT-iY-UUt"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="NewBlack"/>
                                 <connections>
                                     <outlet property="contactButton" destination="quh-ad-kkL" id="iXV-ai-gi9"/>
                                     <outlet property="mentorNameLabel" destination="bUt-sx-uTq" id="gvv-h4-q8F"/>
@@ -1156,7 +1158,7 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="mhA-lT-k7j">
                             <rect key="frame" x="0.0" y="142" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <color key="backgroundColor" name="NewBlack"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="talkCell" textLabel="I6O-7S-VsF" rowHeight="86" style="IBUITableViewCellStyleDefault" id="CE6-eA-Mv8" customClass="ResourcesTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
