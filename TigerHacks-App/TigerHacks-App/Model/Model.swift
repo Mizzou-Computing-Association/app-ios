@@ -116,7 +116,7 @@ class Model {
     func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSponsors"
+        let requestString = "https://tigerhacks.com/api/sponsors"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async {
