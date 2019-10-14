@@ -22,16 +22,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     let dateFormatter = DateFormatter()
     let longDateFormatter = DateFormatter()
 
-    let date1 = "10/12/2018"
-    let date2 = "10/13/2018"
-    let date3 = "10/14/2018"
+    let date1 = "11/08/2019"
+    let date2 = "11/09/2019"
+    let date3 = "11/10/2019"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //Initial Setup
-
-        self.setUpNavBar()
         dateFormatter.timeStyle = .short
         longDateFormatter.timeZone = TimeZone.current
         longDateFormatter.dateFormat = "MM/dd/yyyy"
@@ -39,7 +36,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         setDay()
         
         // Swipe To Change Day
-
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
@@ -49,7 +45,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.addGestureRecognizer(swipeLeft)
 
         //Refresh Control
-
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(_:)), for: UIControl.Event.valueChanged)
         scheduleTableView.addSubview(refreshControl)
@@ -57,11 +52,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 // MARK: - Load Schedules
-
+    
     func loadSchedules() {
         Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
             if let errorString = errorString {
@@ -70,7 +64,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 self.fullSchedule = events
                 var tempEvents = [Event]()
                 for event in events {
-                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+                    let event = Event(time: event.time, day: event.day, location: event.location, floor: event.floor, title: event.title, description: event.description)
                     tempEvents.append(event)
                 }
                 self.fullSchedule = tempEvents
@@ -79,7 +73,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 self.divideEventsByDay()
                 Model.sharedInstance.scheduleNotifications()
                 self.scheduleTableView.reloadData()
-                
             }
         }
     }
@@ -131,15 +124,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             daySwitcher.selectedSegmentIndex = 0
         }
         scheduleTableView.reloadData()
-    }
-
-// MARK: - Nav Bar Gradient
-
-    func setUpNavBar() {
-        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
-        //Tab bar
-        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
-        tabBarController?.tabBar.shadowImage =  UIImage()
     }
 
 // MARK: - Change Day

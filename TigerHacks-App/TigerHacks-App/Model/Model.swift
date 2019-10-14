@@ -36,8 +36,11 @@ class Model {
         //Resource Dummy Data
         resources = [
             Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
-            Resource(url: "https://join.slack.com/t/tigerhacks2018/shared_invite/enQtNDUwNTU1MTg3OTA5LWQ4NDNkOWJhMWNlNjM4NGIwZWE1NTEzZmZhOGE4MjRiMTM4NzA1ODYzMjZiZWQ0NmRkMTM4ZDYyYjMxZTM1NTY", title: "Join the Slack", description: ""),
-            Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: "")]
+            Resource(url: "https://join.slack.com/t/tigerhacks2019/shared_invite/enQtNzg3ODQxMjQyNDg2LWExZTIyNWQ1ZThlMGRhMzAwNjQ4MGEwZDhhMmQxNTUwMTcyOGZiNjAxNzFkN2IzZjQxMDhhZGI5ZmFlMzkxMWQ", title: "Join the Slack", description: ""),
+            Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: ""),
+            Resource(url: "https://twitter.com/tigerhackshd", title: "Twitter", description: ""),
+            Resource(url: "https://www.instagram.com/tigerhacks/", title: "Instagram", description: ""),
+            Resource(url: "https://www.facebook.com/TigerHacks/", title: "Facebook", description: "")]
     }
     
 // MARK: - Schedule Notifications
@@ -164,7 +167,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksPrizes"
+        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksNewPrizes"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -208,27 +211,25 @@ class Model {
         var prizes = [Prize]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [[String: Any]] else {
                 return (nil, "unable to parse response from server")
         }
         
         print("JSON: \(json)")
         
-        if let items = rootNode["prizes"] as? [[String: Any]] {
-            for item in items {
-                print("ITEM: \(item)")
-                if let prizeSponsorID = item["sponsor"] as? Int,
-                    let prizeTitle = item["title"] as? String,
-                    let prizeReward = item["reward"] as? String,
-                    let prizeDescription = item["description"] as? String,
-                    let prizeType = item["prizetype"] as? String,
-                    let enumPrizeType = PrizeType(rawValue: prizeType) {
-                    print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
-                    
-                    let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
-                    
-                    prizes.append(prize)
-                }
+        for item in items {
+            print("ITEM: \(item)")
+            if let prizeSponsorID = item["sponsor"] as? String,
+                let prizeTitle = item["title"] as? String,
+                let prizeReward = item["reward"] as? String,
+                let prizeDescription = item["description"] as? String,
+                let prizeType = item["prizetype"] as? String,
+                let enumPrizeType = PrizeType(rawValue: prizeType) {
+                print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
+                
+                let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
+                
+                prizes.append(prize)
             }
         }
         return (prizes, nil)
@@ -309,7 +310,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSchedule"
+        let requestString = "https://tigerhacks.com/api/schedule"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -353,77 +354,34 @@ class Model {
         var events = [Event]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [[String: Any]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        if let items = rootNode["schedule"] as? [[String: Any]] {
-            for item in items {
-                if let eventTime = item["time"] as? String,
-                    let eventTitle = item["title"] as? String,
-                    let eventLocation = item["location"] as? String,
-                    let eventDescription = item["description"] as? String,
-                    let eventFloor = item["floor"] as? Int {
+        for item in items {
+            if let eventTime = item["time"],
+                let eventTitle = item["title"] {
+                let eventLocation = item["location"] ?? " "
+                let eventDescription = item["description"] ?? " "
+                
+                if let eventTime = eventTime as? Double,
+                    let eventTitle = eventTitle as? String,
+                    let eventLocation = eventLocation as? String,
+                    let eventDescription = eventDescription as? String {
                     
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+                    let date = Date(timeIntervalSince1970: eventTime/1000)
                     
-                    if let date = dateFormatter.date(from: eventTime) {
-                        let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-                        if let finalDate = calendar.date(from: components) {
-                            let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
-                            events.append(event)
-                        }
-                    }
+                    let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
+                    print("Event: " + String(describing: event))
+                    events.append(event)
+                    
                 }
+                
             }
         }
         
         fullSchedule = sortEvents(events: fullSchedule)
         return (events, nil)
-    }
-
-// MARK: - Gradient color
-
-    func setBarGradient(navigationBar: UINavigationBar) {
-        navigationBar.setBackgroundImage(Model.sharedInstance.setGradientImageNavBar(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
-    }
-
-    func setGradientImageNavBar() -> UIImage {
-
-        //Color is here 251    248    227
-        let colorsMove = [
-            UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0),
-            UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
-        var gradientImageMove = UIImage()
-        //Set the stopping point of each color of the gradient
-        let locations = [0.55, 1]
-        if DeviceType.IS_IPHONE_X {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
-        } else if DeviceType.IS_IPHONE_XS_MAX {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
-        } else {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
-        }
-        return gradientImageMove
-    }
-
-    func setGradientImageTabBar() -> UIImage {
-        let colorsMove = [
-        UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0),
-        UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0)]
-        var gradientImageMove = UIImage()
-        let locations = [0.0, 0.6]
-        if DeviceType.IS_IPHONE_X {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
-        } else if DeviceType.IS_IPHONE_XS_MAX {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
-        } else {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
-        }
-        return gradientImageMove
     }
 
     // MARK: - Sort Schedule Events

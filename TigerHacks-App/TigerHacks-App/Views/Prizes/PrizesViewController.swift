@@ -38,7 +38,6 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         // Initial Setup
 
-        setUpNavBar()
         prizeTableView.delegate = self
         prizeTableView.dataSource = self
         Model.sharedInstance.fakeAPICall()
@@ -158,16 +157,6 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             prizeTableView.reloadData()
         }
         
-        
-    }
-
-// MARK: - Nav Bar Gradient
-
-    func setUpNavBar() {
-        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
-        //Tab bar
-        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
-        tabBarController?.tabBar.shadowImage =  UIImage()
     }
 
 // MARK: - Favorites
@@ -228,16 +217,11 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             favoritePrizeTitles = stringFavoritedArray
             favoritePrizes = [Prize]()
             for title in favoritePrizeTitles {
-                for prize in allPrizes {
-                    if title == prize.title {
-                        for (index,favoritePrize) in favoritePrizes.enumerated() {
-                            if favoritePrize.title == title {
-                                print("Removing prize from favoritePrizes: \(favoritePrize.title)")
-                                favoritePrizes.remove(at: index)
-                            }
-                        }
-                        favoritePrizes.append(prize)
+                for prize in allPrizes where prize.title == title {
+                    for (index, favoritePrize) in favoritePrizes.enumerated() where favoritePrize.title == title {
+                        favoritePrizes.remove(at: index)
                     }
+                    favoritePrizes.append(prize)
                 }
             }
             print("Favorite Prize Titles: \(favoritePrizeTitles)")
