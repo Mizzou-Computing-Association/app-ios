@@ -7,34 +7,71 @@
 //
 
 import UIKit
+import MapKit
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionSubview: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-
+    @IBOutlet weak var mapView: MKMapView!
+    
     var titleText = "No Title"
     var locationText = "No Location"
     var timeText = "No Time"
     var descriptionText = "No Description"
+    
+    let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
+    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+    
+    let locationManager = CLLocationManager()
+    let pin = MKPointAnnotation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Label Initializing
-        titleLabel.text = titleText
-        //navigationItem.title = titleText
-        locationLabel.text = locationText
+        if titleText != "" && titleText != " " {
+            titleLabel.text = titleText
+        } else {
+            titleLabel.text = "No Title"
+        }
+        
+        if locationText != ""  && locationText != " " {
+            locationLabel.text = locationText
+        } else {
+            mapView.isHidden = true
+            locationLabel.text = "No Location"
+        }
+        
+        if descriptionText != "" && descriptionText != " " {
+            descriptionLabel.text = descriptionText
+        } else {
+            descriptionLabel.text = "No Description"
+        }
+        
         timeLabel.text = timeText
-        descriptionLabel.text = descriptionText
-
         //Subview Corner Curving
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
         descriptionSubview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        
+        // MapView
+        mapView.mapType = .hybrid
+        
+        mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
+        
+        pin.coordinate = CLLocationCoordinate2D(latitude: 38.946111, longitude: -92.330466)
+        
+        pin.title = titleText
+        
+        mapView.addAnnotation(pin)
+        
+//        let locationImage = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
+//        centeringButton.setImage(locationImage, for: .normal)
+//        centeringButtonBackground.layer.cornerRadius = 8
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,3 +82,4 @@ class EventDetailViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
+

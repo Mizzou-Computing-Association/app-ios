@@ -4,7 +4,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+
         <capability name="Named colors" minToolsVersion="9.0"/>
+
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -217,7 +219,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-AX-4ZZ">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+
                                 <color key="backgroundColor" name="NewBlack"/>
+
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Wm2-FR-5CJ">
                                     <rect key="frame" x="0.0" y="114" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -274,8 +278,10 @@
                         <viewLayoutGuide key="safeArea" id="eLp-WV-D3d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
+
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
                             <rect key="frame" x="49" y="6" width="245" height="32"/>
+
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Developer"/>
@@ -495,6 +501,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1F8-16-a0T">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+
                                 <color key="backgroundColor" name="NewBlack"/>
                                 <color key="sectionIndexBackgroundColor" name="NewBlack"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="x5x-Bv-hqM">
@@ -679,12 +686,18 @@
                                             <constraint firstAttribute="trailing" secondItem="GcV-5A-jf7" secondAttribute="trailing" constant="28" id="zmF-vp-FF0"/>
                                         </constraints>
                                     </view>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iop-dc-dEd">
+                                        <rect key="frame" x="21" y="189" width="334" height="270"/>
+                                    </mapView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Pmf-sC-m17" secondAttribute="bottom" id="LRe-FG-CG8"/>
                                     <constraint firstItem="Pmf-sC-m17" firstAttribute="centerY" secondItem="P6v-vG-dYI" secondAttribute="centerY" id="RW7-VQ-GdQ"/>
                                     <constraint firstItem="Pmf-sC-m17" firstAttribute="leading" secondItem="P6v-vG-dYI" secondAttribute="leading" id="Ryq-2q-Yew"/>
                                     <constraint firstItem="Pmf-sC-m17" firstAttribute="centerX" secondItem="P6v-vG-dYI" secondAttribute="centerX" id="SUn-UQ-InB"/>
+                                    <constraint firstItem="iop-dc-dEd" firstAttribute="trailing" secondItem="012-8C-4CY" secondAttribute="trailing" id="dCn-Pz-lI7"/>
+                                    <constraint firstItem="iop-dc-dEd" firstAttribute="leading" secondItem="012-8C-4CY" secondAttribute="leading" id="iJZ-mR-ylF"/>
+                                    <constraint firstItem="iop-dc-dEd" firstAttribute="top" secondItem="012-8C-4CY" secondAttribute="bottom" constant="12.5" id="nv5-3R-rjM"/>
                                     <constraint firstAttribute="trailing" secondItem="Pmf-sC-m17" secondAttribute="trailing" id="pR9-T6-mmL"/>
                                     <constraint firstItem="Pmf-sC-m17" firstAttribute="top" secondItem="P6v-vG-dYI" secondAttribute="top" id="pg2-pi-aI1"/>
                                 </constraints>
@@ -696,6 +709,7 @@
                             <constraint firstAttribute="trailing" secondItem="P6v-vG-dYI" secondAttribute="trailing" id="WGU-hH-T6x"/>
                             <constraint firstItem="P6v-vG-dYI" firstAttribute="leading" secondItem="z3U-st-pIl" secondAttribute="leading" id="Y5h-R0-qWR"/>
                             <constraint firstItem="P6v-vG-dYI" firstAttribute="top" secondItem="z3U-st-pIl" secondAttribute="top" id="kOx-fs-Bx3"/>
+                            <constraint firstItem="A38-Q0-22K" firstAttribute="bottom" secondItem="iop-dc-dEd" secondAttribute="bottom" constant="115" id="mux-ef-hZf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A38-Q0-22K"/>
                     </view>
@@ -704,6 +718,7 @@
                         <outlet property="descriptionLabel" destination="XSb-HG-bb9" id="VxG-5c-0E7"/>
                         <outlet property="descriptionSubview" destination="012-8C-4CY" id="PqZ-mv-OHd"/>
                         <outlet property="locationLabel" destination="vuX-nC-GPc" id="U7s-Cl-WAo"/>
+                        <outlet property="mapView" destination="iop-dc-dEd" id="y91-55-ARW"/>
                         <outlet property="timeLabel" destination="GcV-5A-jf7" id="obp-R9-1Jz"/>
                         <outlet property="titleLabel" destination="BiT-Az-aul" id="n8R-FD-xw3"/>
                     </connections>

@@ -56,7 +56,7 @@ class Model {
                     print("success")
                     self.addNotifications()
                 })
-            case .authorized:
+            case .authorized: 
                 print("Authorized")
                 self.addNotifications()
             case .denied:
@@ -372,7 +372,6 @@ class Model {
                     let date = Date(timeIntervalSince1970: eventTime/1000)
                     
                     let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
-                    print("Event: " + String(describing: event))
                     events.append(event)
                     
                 }
