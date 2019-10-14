@@ -36,7 +36,7 @@ class Model {
         //Resource Dummy Data
         resources = [
             Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
-            Resource(url: "https://join.slack.com/t/tigerhacks2018/shared_invite/enQtNDUwNTU1MTg3OTA5LWQ4NDNkOWJhMWNlNjM4NGIwZWE1NTEzZmZhOGE4MjRiMTM4NzA1ODYzMjZiZWQ0NmRkMTM4ZDYyYjMxZTM1NTY", title: "Join the Slack", description: ""),
+            Resource(url: "https://join.slack.com/t/tigerhacks2019/shared_invite/enQtNzg3ODQxMjQyNDg2LWExZTIyNWQ1ZThlMGRhMzAwNjQ4MGEwZDhhMmQxNTUwMTcyOGZiNjAxNzFkN2IzZjQxMDhhZGI5ZmFlMzkxMWQ", title: "Join the Slack", description: ""),
             Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: ""),
             Resource(url: "https://twitter.com/tigerhackshd", title: "Twitter", description: ""),
             Resource(url: "https://www.instagram.com/tigerhacks/", title: "Instagram", description: ""),
@@ -119,7 +119,7 @@ class Model {
     func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSponsors"
+        let requestString = "https://tigerhacks.com/api/sponsors"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async {

@@ -4,6 +4,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+
+        <capability name="Named colors" minToolsVersion="9.0"/>
+
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,7 +56,7 @@
                                                         <constraint firstAttribute="width" constant="170" id="j9X-2l-eaK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -216,11 +219,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PmS-AX-4ZZ">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+
+                                <color key="backgroundColor" name="NewBlack"/>
+
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Wm2-FR-5CJ">
                                     <rect key="frame" x="0.0" y="114" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                    <color key="backgroundColor" name="NewBlack"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="58" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
@@ -239,7 +244,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
                                                     <rect key="frame" x="15" y="30" width="318.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -254,6 +259,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="lSY-Oj-VTM" secondAttribute="bottom" constant="8" id="uQw-Zm-ngT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <connections>
                                             <outlet property="prizeReward" destination="lSY-Oj-VTM" id="Nvz-YH-e7D"/>
                                             <outlet property="prizeTitle" destination="bXY-34-OJc" id="8zp-xM-D2L"/>
@@ -262,7 +268,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="eLp-WV-D3d" firstAttribute="bottom" secondItem="PmS-AX-4ZZ" secondAttribute="bottom" id="QpW-Zd-qyv"/>
                             <constraint firstItem="eLp-WV-D3d" firstAttribute="trailing" secondItem="PmS-AX-4ZZ" secondAttribute="trailing" id="Wah-7I-egA"/>
@@ -272,8 +278,10 @@
                         <viewLayoutGuide key="safeArea" id="eLp-WV-D3d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
-                            <rect key="frame" x="65" y="6" width="245" height="32"/>
+
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
+                            <rect key="frame" x="49" y="6" width="245" height="32"/>
+
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Developer"/>
@@ -413,7 +421,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <constraints>
                                             <constraint firstItem="z69-b9-GVt" firstAttribute="top" secondItem="U0d-2k-oWC" secondAttribute="bottom" constant="3" id="8bb-Vr-fIF"/>
                                             <constraint firstItem="NS5-hP-PVi" firstAttribute="leading" secondItem="19o-1T-Vgs" secondAttribute="leading" constant="23" id="9HS-li-7hn"/>
@@ -449,7 +457,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kRW-v3-bLV" secondAttribute="trailing" id="6Od-MK-3gD"/>
                             <constraint firstItem="kRW-v3-bLV" firstAttribute="top" secondItem="vzX-iQ-Fzg" secondAttribute="top" id="cdt-GO-URe"/>
@@ -493,11 +501,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1F8-16-a0T">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+
+                                <color key="backgroundColor" name="NewBlack"/>
+                                <color key="sectionIndexBackgroundColor" name="NewBlack"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="x5x-Bv-hqM">
                                     <rect key="frame" x="0.0" y="129" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                    <color key="backgroundColor" name="NewBlack"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="73" id="1NF-sO-0LS" customClass="ScheduleTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
@@ -525,7 +535,7 @@
                                                         <constraint firstAttribute="width" constant="215" id="zYF-4d-I85"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -541,6 +551,7 @@
                                                 <constraint firstItem="17G-cO-w7j" firstAttribute="leading" secondItem="dIU-7r-IsA" secondAttribute="trailing" id="uVJ-Xp-253"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <connections>
                                             <outlet property="eventLabel" destination="oBE-B6-SAy" id="X90-QH-ZWZ"/>
                                             <outlet property="locationLabel" destination="dIU-7r-IsA" id="u8r-gp-PhU"/>
@@ -554,7 +565,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="rQF-AO-XtM" firstAttribute="trailing" secondItem="1F8-16-a0T" secondAttribute="trailing" id="M75-GX-Bg5"/>
                             <constraint firstItem="rQF-AO-XtM" firstAttribute="bottom" secondItem="1F8-16-a0T" secondAttribute="bottom" id="SWx-78-iqt"/>
@@ -564,7 +575,7 @@
                         <viewLayoutGuide key="safeArea" id="rQF-AO-XtM"/>
                     </view>
                     <navigationItem key="navigationItem" title="Schedule" largeTitleDisplayMode="never" id="Gpj-Vc-aLn">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4Wg-KD-dtt">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4Wg-KD-dtt">
                             <rect key="frame" x="75.5" y="6" width="224" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -655,7 +666,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="jQg-NN-Mx1" secondAttribute="trailing" constant="20" id="271-2b-8Y2"/>
                                             <constraint firstItem="jQg-NN-Mx1" firstAttribute="top" secondItem="vuX-nC-GPc" secondAttribute="bottom" constant="7.5" id="4bb-8C-aA8"/>
@@ -692,7 +703,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="A38-Q0-22K" firstAttribute="bottom" secondItem="P6v-vG-dYI" secondAttribute="bottom" id="LJ4-Qj-SOY"/>
                             <constraint firstAttribute="trailing" secondItem="P6v-vG-dYI" secondAttribute="trailing" id="WGU-hH-T6x"/>
@@ -733,7 +744,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="iUO-NY-X23" secondAttribute="bottom" id="JXO-js-mmc"/>
                             <constraint firstItem="iUO-NY-X23" firstAttribute="leading" secondItem="FZh-eC-tOC" secondAttribute="leading" id="k3R-Z4-WmI"/>
@@ -767,7 +778,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                         <color key="selectedImageTintColor" red="0.96470588235294119" green="0.59607843137254901" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
@@ -787,13 +798,13 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wMF-po-wGm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Prizes" image="gift-7" selectedImage="gift-7" id="gHS-9c-bpQ">
-                        <color key="badgeColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="badgeColor" name="NewBlack"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZgO-aN-bIv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -811,7 +822,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="P1a-ah-hXj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kbW-kD-2tZ">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -898,7 +909,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XBN-G2-A3g">
                                 <rect key="frame" x="0.0" y="230" width="375" height="388"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="NewBlack"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mentorCell" rowHeight="76" id="DBm-UW-KRy" customClass="MentorTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="76"/>
@@ -950,6 +961,7 @@
                                                 <constraint firstItem="ZTa-3a-TJI" firstAttribute="leading" secondItem="N3F-Oy-1Ev" secondAttribute="leading" constant="62" id="zgh-vx-xSX"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="NewBlack"/>
                                         <connections>
                                             <outlet property="contactButton" destination="9DD-8g-ZZ7" id="JJY-8b-6KG"/>
                                             <outlet property="mentorNameLabel" destination="0Mp-Sm-aHI" id="8TE-Q1-WyV"/>
@@ -1009,7 +1021,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="XBN-G2-A3g" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" id="1pP-39-Lpr"/>
                             <constraint firstItem="q7K-yf-0oq" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" constant="8" id="2U4-1r-0as"/>
@@ -1058,7 +1070,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="puE-ci-5n3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="allMentorCell" rowHeight="76" id="23d-QR-16z" customClass="MentorTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="76"/>
@@ -1111,6 +1123,7 @@
                                         <constraint firstItem="MEA-Wd-wW8" firstAttribute="leading" secondItem="dC3-n0-GvN" secondAttribute="trailing" constant="-5" id="vsT-iY-UUt"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="NewBlack"/>
                                 <connections>
                                     <outlet property="contactButton" destination="quh-ad-kkL" id="iXV-ai-gi9"/>
                                     <outlet property="mentorNameLabel" destination="bUt-sx-uTq" id="gvv-h4-q8F"/>
@@ -1138,7 +1151,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BhH-51-iGM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1156,11 +1169,11 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="E64-Rf-qRO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="mhA-lT-k7j">
                             <rect key="frame" x="0.0" y="142" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <color key="backgroundColor" name="NewBlack"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="talkCell" textLabel="I6O-7S-VsF" rowHeight="86" style="IBUITableViewCellStyleDefault" id="CE6-eA-Mv8" customClass="ResourcesTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
@@ -1179,6 +1192,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="NewBlack"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1250,7 +1264,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NewBlack"/>
                         <constraints>
                             <constraint firstItem="d23-F4-gkA" firstAttribute="leading" secondItem="L4c-tJ-OdM" secondAttribute="leading" id="1ux-bK-y8H"/>
                             <constraint firstItem="L4c-tJ-OdM" firstAttribute="trailing" secondItem="gFf-Ir-X3i" secondAttribute="trailing" constant="210" id="5wJ-dV-Ixi"/>
@@ -1287,7 +1301,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bSn-m7-Y3i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1307,7 +1321,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uwY-X5-xox">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99215686274509807" green="0.98039215686274506" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1329,7 +1343,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yzl-hJ-m4l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.99215686270000003" green="0.98039215690000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BarColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1350,6 +1364,12 @@
         <image name="pin-map-7" width="30" height="30"/>
         <image name="safari" width="30" height="30"/>
         <image name="video-player-7" width="30" height="30"/>
+        <namedColor name="BarColor">
+            <color red="0.1962246192893401" green="0.1962246192893401" blue="0.1962246192893401" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NewBlack">
+            <color red="0.26271244883537292" green="0.2627638578414917" blue="0.26270923018455505" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6CL-3g-IGv"/>
