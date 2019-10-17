@@ -11,15 +11,20 @@ import UIKit
 import CoreData
 import CoreGraphics
 import UserNotifications
+import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+
+		GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+		GIDSignIn.sharedInstance()?.delegate = self
         
         //MARK: Pre-load schedule!
         Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
@@ -64,7 +69,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
 
     }
-    
+
+	@available(iOS 9.0, *)
+	func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+	  -> Bool {
+		return GIDSignIn.sharedInstance()?.handle(url) ?? false
+	}
+
+	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+		if let error = error {
+			return
+		}
+		guard let authentication = user.authentication else { return }
+		let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+		Auth.auth().signIn(with: credential)
+	}
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -1,0 +1,6 @@
+framework module Pods_TigerHacks_App {
+  umbrella header "Pods-TigerHacks-App-umbrella.h"
+
+  export *
+  module * { export * }
+}

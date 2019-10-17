@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import UserNotifications
+import FirebaseAuth
 // swiftlint:disable type_body_length
 class Model {
     static var sharedInstance = Model()
@@ -24,6 +25,7 @@ class Model {
     var mainPrizes: [Prize]?
     var resources: [Resource]?
     var fullSchedule: [Event]?
+	var profile: Profile?
     
     let weekdayDict: [Int: String] = [1: "Sunday", 2: "Monday", 3: "Tuesday", 4: "Wednesday", 5: "Thursday", 6: "Friday", 7: "Saturday"]
     
@@ -388,4 +390,18 @@ class Model {
         guard let events = events else { return nil }
         return events.sorted(by: { $0.time < $1.time })
     }
+
+	func getProfile(_ callback: @escaping (Profile?) -> Void) {
+		if let user = Auth.auth().currentUser {
+			URLSession.shared.dataTask(with: URL(string: "https://tigerhacks.com/api/profile?userid=\(user.uid)")!) { data, _, _ in
+				if let data = data {
+					self.profile = try? JSONDecoder().decode(Profile.self, from: data)
+					callback(self.profile)
+				}
+			}.resume()
+		} else {
+			self.profile = nil
+			callback(profile)
+		}
+	}
 }
