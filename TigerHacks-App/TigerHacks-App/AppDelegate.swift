@@ -12,10 +12,11 @@ import CoreData
 import CoreGraphics
 import UserNotifications
 import Firebase
+import FirebaseMessaging
 import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate,MessagingDelegate {
 
     var window: UIWindow?
 
@@ -66,6 +67,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 }    
             }
         }
+        
+        // Register for Remote Notifications
+        
+        if #available(iOS 10.0, *) {
+          // For iOS 10 display notification (sent via APNS)
+          UNUserNotificationCenter.current().delegate = self
+
+          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+        } else {
+          let settings: UIUserNotificationSettings =
+          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+          application.registerUserNotificationSettings(settings)
+        }
+
+        application.registerForRemoteNotifications()
+        
+        Messaging.messaging().delegate = self
+        
+        
         return true
 
     }
@@ -108,6 +131,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+
+//        if let messageID = userInfo[gcmMessageIDKey] {
+//          print("Message ID: \(messageID)")
+//        }
+
+        // Print full message.
+        print(userInfo)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+      // If you are receiving a notification message while your app is in the background,
+      // this callback will not be fired till the user taps on the notification launching the application.
+      // TODO: Handle data of notification
+
+      // With swizzling disabled you must let Messaging know about the message, for Analytics
+       Messaging.messaging().appDidReceiveMessage(userInfo)
+
+      // Print message ID.
+//      if let messageID = userInfo[gcmMessageIDKey] {
+//        print("Message ID: \(messageID)")
+//      }
+
+      // Print full message.
+      print(userInfo)
+
+      completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+
 
     // MARK: - Core Data stack
 
