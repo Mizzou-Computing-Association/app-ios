@@ -14,6 +14,7 @@ import UserNotifications
 import Firebase
 import FirebaseMessaging
 import GoogleSignIn
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate,MessagingDelegate {
@@ -88,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         
         Messaging.messaging().delegate = self
         
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            CLLocationManager().requestWhenInUseAuthorization()
+        }
         
         return true
 

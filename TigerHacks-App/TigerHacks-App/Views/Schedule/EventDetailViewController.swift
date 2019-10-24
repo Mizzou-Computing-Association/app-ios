@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
@@ -69,9 +70,16 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
         
         mapView.addAnnotation(pin)
         
-//        let locationImage = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
-//        centeringButton.setImage(locationImage, for: .normal)
-//        centeringButtonBackground.layer.cornerRadius = 8
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +88,13 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+}
+
+extension EventDetailViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }
 

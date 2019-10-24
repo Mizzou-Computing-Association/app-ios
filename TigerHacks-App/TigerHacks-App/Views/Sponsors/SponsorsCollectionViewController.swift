@@ -231,7 +231,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.section {
-        case 0,1,2:
+        case 0, 1, 2:
             performSegue(withIdentifier: "sponsorSegue", sender: self)
         case 3:
             if bronzeSponsors[indexPath.row].name == "All Mentors" {
@@ -292,5 +292,3 @@ class SponsorsCollectionViewController: UICollectionViewController {
         
     }
 }
-
-

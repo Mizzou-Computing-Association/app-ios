@@ -481,7 +481,7 @@
                                             <constraint firstAttribute="trailing" secondItem="GcV-5A-jf7" secondAttribute="trailing" constant="28" id="zmF-vp-FF0"/>
                                         </constraints>
                                     </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iop-dc-dEd">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iop-dc-dEd">
                                         <rect key="frame" x="21" y="189" width="334" height="270"/>
                                     </mapView>
                                 </subviews>
