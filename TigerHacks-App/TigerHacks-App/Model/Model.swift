@@ -119,6 +119,7 @@ class Model {
     }
     
     func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
+        print("Sponsors Load")
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let requestString = "https://tigerhacks.com/api/sponsors"
@@ -145,19 +146,58 @@ class Model {
                 return
             }
             
-//            let jsonData = data //String(data: data, encoding: .utf8)
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+                let rootNode = json as? [String: [[String: Any]]] else {
+                    completionHandler(nil, "unable to parse response from server")
+                    return
+            }
+
+            print("JSON: \(json)")
+            var sponsors = [Sponsor]()
             
-//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-//                let rootNode = json as? [String: Any] else {
-//                    completionHandler(nil, "unable to parse response from server")
-//            }
-//
-//            print("JSON: \(json)")
-//
-            let sponsorsObject = try? JSONDecoder().decode(SponsorResponse.self, from: data)
+            for (_, item) in rootNode {
+                for realItem in item {
+                    if let name = realItem["name"],
+                        let description = realItem["description"],
+                        let level = realItem["level"],
+                        let image = realItem["image"],
+                        let website = realItem["website"] {
+
+                        if let description = description as? String,
+                            let name = name as? String,
+                            let image = image as? String,
+                            let level = level as? String,
+                            let website = website as? String {
+                            
+                            var realMentors = [Mentor]()
+                            let mentors = realItem["mentors"]
+                            
+                            if let mentors = mentors as? [[String: String]] {
+                                for mentor in mentors {
+                                    print(mentor)
+                                    if let mentorName = mentor["name"],
+                                        let skills = mentor["skills"],
+                                        let contact = mentor["contact"] {
+                                        print("making mentor")
+                                        let skillsArray = skills.components(separatedBy: ",")
+                                        realMentors.append(Mentor(name: mentorName, skills: skillsArray, contact: contact))
+                                        
+                                    }
+                                }
+                            }
+                           
+                            let sponsor = Sponsor(mentors: realMentors, name: name, description: description, website: website, image: nil, imageUrl: image, level: Int(level)!)
+                            print("Real Mentors: \(realMentors)")
+                            
+                            sponsors.append(sponsor)
+                        }
+                    }
+                }
+                
+            }
             
             dispatchQueueForHandler.async(execute: {
-                completionHandler(sponsorsObject?.sponsors, nil)
+                completionHandler(sponsors, nil)
             })
 
         }
@@ -215,7 +255,6 @@ class Model {
             let items = json as? [[String: Any]] else {
                 return (nil, "unable to parse response from server")
         }
-        
         
         for item in items {
             if let prizeSponsorID = item["sponsor"] as? String,
@@ -373,8 +412,6 @@ class Model {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     if let date = dateFormatter.date(from: eventTime) {
-                        print("date \(date)")
-
                         let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
                         events.append(event)
                     } else {
@@ -387,7 +424,6 @@ class Model {
         }
         
         fullSchedule = sortEvents(events: fullSchedule)
-        print("full schedule: \(fullSchedule)")
         return (events, nil)
     }
 

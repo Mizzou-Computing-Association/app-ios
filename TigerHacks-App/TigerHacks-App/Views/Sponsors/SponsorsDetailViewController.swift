@@ -46,10 +46,10 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         imageViewBorder.layer.cornerRadius = 10
         imageViewBorder.layer.borderWidth = 1
         imageViewBorder.layer.borderColor = UIColor.lightGray.cgColor
-
+        
         sponsorImage.image = image ?? UIImage(named: "noImage")
         sponsorTitle.text = "\(titleText ?? "There is no name")"
-        sponsorLocation.text = "\(locationText ?? "There is no location")"
+        sponsorLocation.text = ""
         sponsorWebsite.setTitle(websiteText, for: .normal)
         sponsorWebsite.setTitle("There is no website", for: .disabled)
         if URL.init(string: websiteText ?? "uh oh") != nil {

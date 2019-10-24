@@ -77,7 +77,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
-                            <rect key="frame" x="65" y="6" width="245" height="32"/>
+                            <rect key="frame" x="49" y="6" width="245" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Developer"/>

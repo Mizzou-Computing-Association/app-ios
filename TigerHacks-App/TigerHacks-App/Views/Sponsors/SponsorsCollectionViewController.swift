@@ -83,15 +83,19 @@ class SponsorsCollectionViewController: UICollectionViewController {
                     name: "All Mentors",
                     description: nil,
                     website: nil,
-                    location: nil,
                     image: UIImage(named: "tigerLogo-allMentors"),
                     imageUrl: nil,
-                    level: nil))
+                    level: 5))
+                self.sortSponsors()
                 self.getAllMentors()
                 completionHandler(sponsors, nil)
 
             }
         }
+    }
+    
+    func sortSponsors() {
+        sponsors = sponsors.sorted(by: { $0.level < $1.level })
     }
 
     func getAllMentors() {
@@ -104,6 +108,7 @@ class SponsorsCollectionViewController: UICollectionViewController {
             }
 
         }
+        print("All Mentors: \(allMentors)")
     }
 
 // MARK: - Collection View
@@ -169,7 +174,6 @@ class SponsorsCollectionViewController: UICollectionViewController {
                 }
 
                 destination.titleText = sponsor.name
-                destination.locationText = sponsor.location
                 destination.websiteText = sponsor.website
                 destination.descriptionText = sponsor.description
                 if let mentorList = sponsor.mentors {
