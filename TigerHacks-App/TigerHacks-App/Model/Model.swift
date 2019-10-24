@@ -144,7 +144,6 @@ class Model {
                 })
                 return
             }
-            print(data)
             
 //            let jsonData = data //String(data: data, encoding: .utf8)
             
@@ -192,7 +191,7 @@ class Model {
                 })
                 return
             }
-            print(data)
+
             let (prizes, errorString) = self.prizeParse(with: data)
 
             if let errorString = errorString {
@@ -217,17 +216,14 @@ class Model {
                 return (nil, "unable to parse response from server")
         }
         
-        print("JSON: \(json)")
         
         for item in items {
-            print("ITEM: \(item)")
             if let prizeSponsorID = item["sponsor"] as? String,
                 let prizeTitle = item["title"] as? String,
                 let prizeReward = item["reward"] as? String,
                 let prizeDescription = item["description"] as? String,
                 let prizeType = item["prizetype"] as? String,
                 let enumPrizeType = PrizeType(rawValue: prizeType) {
-                print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
                 
                 let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
                 
@@ -353,35 +349,45 @@ class Model {
     }
     
     func scheduleParse(with data: Data) -> ([Event]?, String?) {
+        print("Starting Schedule Parse")
         var events = [Event]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let items = json as? [[String: Any]] else {
+            let items = json as? [String: [[String: Any]]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        for item in items {
-            if let eventTime = item["time"],
-                let eventTitle = item["title"] {
-                let eventLocation = item["location"] ?? " "
-                let eventDescription = item["description"] ?? " "
-                
-                if let eventTime = eventTime as? Double,
+        for (_, item) in items {
+            if let realItem = item.first,
+                let eventTime = realItem["time"],
+                let eventTitle = realItem["title"] {
+                let eventLocation = realItem["location"] ?? " "
+                let eventDescription = realItem["description"] ?? " "
+
+                if let eventTime = eventTime as? String,
                     let eventTitle = eventTitle as? String,
                     let eventLocation = eventLocation as? String,
                     let eventDescription = eventDescription as? String {
-                    
-                    let date = Date(timeIntervalSince1970: eventTime/1000)
-                    
-                    let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
-                    events.append(event)
-                    
+
+//                    let date = Date(timeIntervalSince1970: eventTime/1000)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    if let date = dateFormatter.date(from: eventTime) {
+                        print("date \(date)")
+
+                        let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
+                        events.append(event)
+                    } else {
+                        print("date no work")
+                    }
+
                 }
-                
+
             }
         }
         
         fullSchedule = sortEvents(events: fullSchedule)
+        print("full schedule: \(fullSchedule)")
         return (events, nil)
     }
 

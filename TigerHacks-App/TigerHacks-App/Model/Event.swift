@@ -11,17 +11,18 @@ import UserNotifications
 
 struct Event {
     var time: Date
-    var day: Int
-    var location: String
-    var floor: Int
+    var day: Int?
+    var location: String?
+    var floor: Int?
     var title: String
-    var description: String
+    var description: String?
+    
 
     var content: UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
 
         content.title = NSString.localizedUserNotificationString(forKey: self.title, arguments: nil)
-        content.body = NSString.localizedUserNotificationString(forKey: self.description, arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: self.description ?? "", arguments: nil)
         content.sound = UNNotificationSound.default
 
         return content

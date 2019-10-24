@@ -268,24 +268,24 @@ extension MapViewController: UITableViewDataSource, UITableViewDelegate {
         switch floorSelector.selectedSegmentIndex {
         case 0:
             destination.titleText = floorOneEvents[selectedRow.row].title
-            destination.locationText = floorOneEvents[selectedRow.row].location
+            destination.locationText = floorOneEvents[selectedRow.row].location ??  "No Location"
             destination.timeText = dateFormatter.string(from: floorOneEvents[selectedRow.row].time)
-            destination.descriptionText = floorOneEvents[selectedRow.row].description
+            destination.descriptionText = floorOneEvents[selectedRow.row].description ??  "No Description"
         case 1:
             destination.titleText = floorTwoEvents[selectedRow.row].title
-            destination.locationText = floorTwoEvents[selectedRow.row].location
+            destination.locationText = floorTwoEvents[selectedRow.row].location ??  "No Location"
             destination.timeText = dateFormatter.string(from: floorTwoEvents[selectedRow.row].time)
-            destination.descriptionText = floorTwoEvents[selectedRow.row].description
+            destination.descriptionText = floorTwoEvents[selectedRow.row].description ??  "No Description"
         case 2:
             destination.titleText = floorThreeEvents[selectedRow.row].title
-            destination.locationText = floorThreeEvents[selectedRow.row].location
+            destination.locationText = floorThreeEvents[selectedRow.row].location ??  "No Location"
             destination.timeText = dateFormatter.string(from: floorThreeEvents[selectedRow.row].time)
-            destination.descriptionText = floorThreeEvents[selectedRow.row].description
+            destination.descriptionText = floorThreeEvents[selectedRow.row].description ??  "No Description"
         case 3:
             destination.titleText = outsideEvents[selectedRow.row].title
-            destination.locationText = outsideEvents[selectedRow.row].location
+            destination.locationText = outsideEvents[selectedRow.row].location ??  "No Location"
             destination.timeText = dateFormatter.string(from: outsideEvents[selectedRow.row].time)
-            destination.descriptionText = outsideEvents[selectedRow.row].description
+            destination.descriptionText = outsideEvents[selectedRow.row].description ??  "No Description"
         default:
             destination.titleText = "There is NO Event"
             destination.locationText = "Who Knows Where"

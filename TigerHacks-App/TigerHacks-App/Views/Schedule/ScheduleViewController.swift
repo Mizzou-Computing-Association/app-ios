@@ -217,19 +217,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
         if daySwitcher.selectedSegmentIndex == 0 {
             destination.titleText = dayOneArray[selectedRow.row].title
-            destination.locationText = dayOneArray[selectedRow.row ].location
+            destination.locationText = dayOneArray[selectedRow.row ].location ?? "No Location"
             destination.timeText = dateFormatter.string(from: dayOneArray[selectedRow.row].time)
-            destination.descriptionText = dayOneArray[selectedRow.row].description
+            destination.descriptionText = dayOneArray[selectedRow.row].description ??  "No Description"
         } else if daySwitcher.selectedSegmentIndex == 1 {
             destination.titleText = dayTwoArray[selectedRow.row].title
-            destination.locationText = dayTwoArray[selectedRow.row].location
+            destination.locationText = dayTwoArray[selectedRow.row].location ?? "No Location"
             destination.timeText = dateFormatter.string(from: dayTwoArray[selectedRow.row].time)
-            destination.descriptionText = dayTwoArray[selectedRow.row].description
+            destination.descriptionText = dayTwoArray[selectedRow.row].description ??  "No Description"
         } else {
             destination.titleText = dayThreeArray[selectedRow.row].title
-            destination.locationText = dayThreeArray[selectedRow.row].location
+            destination.locationText = dayThreeArray[selectedRow.row].location ?? "No Location"
             destination.timeText = dateFormatter.string(from: dayThreeArray[selectedRow.row].time)
-            destination.descriptionText = dayThreeArray[selectedRow.row].description
+            destination.descriptionText = dayThreeArray[selectedRow.row].description ??  "No Description"
         }
     }
 }
