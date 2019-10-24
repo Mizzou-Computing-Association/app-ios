@@ -30,3 +30,4 @@ struct Sponsor: Decodable {
         case level
     }
 }
+

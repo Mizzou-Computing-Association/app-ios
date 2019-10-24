@@ -15,6 +15,12 @@ class SponsorsCollectionViewController: UICollectionViewController {
     var sponsors = [Sponsor]()
     var allMentors = [Mentor]()
     var refreshControl: UIRefreshControl!
+    
+    let levelDict: [Int: String] = [0: "Platinum", 1: "Gold", 2: "Silver", 3: "Bronze"]
+    var platinumTotal = 0
+    var goldTotal = 0
+    var silverTotal = 0
+    var bronzeTotal = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +34,13 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
         // Collection View Setup
 
-        let numberOfCells = CGFloat(2)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
 
             flowLayout.minimumInteritemSpacing = 10
             flowLayout.minimumLineSpacing = 10
             flowLayout.sectionInset.left = 10
             flowLayout.sectionInset.right = 10
-            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
+//            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
             let cellWidth = (view.frame.width)// - (numberOfCells-1)*horizontalSpacing)/numberOfCells
             flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth/2)
             
@@ -85,11 +90,29 @@ class SponsorsCollectionViewController: UICollectionViewController {
                     website: nil,
                     image: UIImage(named: "tigerLogo-allMentors"),
                     imageUrl: nil,
-                    level: 5))
+                    level: 3))
+                self.countSponsors()
                 self.sortSponsors()
                 self.getAllMentors()
                 completionHandler(sponsors, nil)
 
+            }
+        }
+    }
+    
+    func countSponsors() {
+        for sponsor in sponsors {
+            switch sponsor.level {
+            case 0:
+                platinumTotal += 1
+            case 1:
+                goldTotal += 1
+            case 2:
+                silverTotal += 1
+            case 3:
+                bronzeTotal += 1
+            default:
+                bronzeTotal += 1
             }
         }
     }
@@ -113,38 +136,65 @@ class SponsorsCollectionViewController: UICollectionViewController {
 
 // MARK: - Collection View
 
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 4
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SponsorHeader {
+            sectionHeader.headerTitle.text = levelDict[indexPath.section]
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sponsors.count
+        switch (section) {
+        case 0:
+            return platinumTotal
+        case 1:
+            return goldTotal
+        case 2:
+            return silverTotal
+        case 3:
+            return bronzeTotal
+        default:
+            return sponsors.count
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SponsorCollectionViewCell
 
-        cell.view.clipsToBounds = true
-        cell.view.layer.cornerRadius = 20
-        cell.view.layer.borderWidth = 0.5
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
+        if indexPath.section == sponsors[indexPath.row].level {
+            cell.view.clipsToBounds = true
+            cell.view.layer.cornerRadius = 20
+            cell.view.layer.borderWidth = 0.5
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowOpacity = 0.5
+            cell.layer.masksToBounds = false
+            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
 
-        cell.view.layer.borderColor = UIColor.lightGray.cgColor
-        if let image = sponsors[indexPath.row].image {
-            cell.sponsorImage?.image = image
-        } else if let imageUrl = sponsors[indexPath.row].imageUrl,
-            !imageUrl.isEmpty {
-            Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
-                if let error = errorString {
-                    print("ERROR! could not download image: \(error.localizedLowercase)")
-                } else if let image = finalImage {
-                    self.sponsors[indexPath.row].image = image
-                    collectionView.reloadItems(at: [indexPath])
+            cell.view.layer.borderColor = UIColor.lightGray.cgColor
+            
+            
+            if let image = sponsors[indexPath.row].image {
+                cell.sponsorImage?.image = image
+            } else if let imageUrl = sponsors[indexPath.row].imageUrl,
+                !imageUrl.isEmpty {
+                Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
+                    if let error = errorString {
+                        print("ERROR! could not download image: \(error.localizedLowercase)")
+                    } else if let image = finalImage {
+                        self.sponsors[indexPath.row].image = image
+                        collectionView.reloadItems(at: [indexPath])
+                    }
                 }
             }
         }
-
         return cell
     }
 
@@ -191,3 +241,5 @@ class SponsorsCollectionViewController: UICollectionViewController {
         }
     }
 }
+
+

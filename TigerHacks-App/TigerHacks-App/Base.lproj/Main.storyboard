@@ -620,13 +620,13 @@
                         <color key="backgroundColor" name="NewBlack"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kbW-kD-2tZ">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sponsorCell" id="nhp-p4-aZ2" customClass="SponsorCollectionViewCell" customModule="TigerHacks_App" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="50" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -661,6 +661,26 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SectionHeader" id="eQ3-9F-uDv" customClass="SponsorHeader" customModule="TigerHacks_App" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wm-Ig-C47">
+                                    <rect key="frame" x="8" y="15" width="48.5" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="8wm-Ig-C47" firstAttribute="leading" secondItem="eQ3-9F-uDv" secondAttribute="leading" constant="8" id="24v-7i-o4g"/>
+                                <constraint firstAttribute="bottom" secondItem="8wm-Ig-C47" secondAttribute="bottom" constant="14" id="F2N-fT-hFG"/>
+                                <constraint firstItem="8wm-Ig-C47" firstAttribute="top" secondItem="eQ3-9F-uDv" secondAttribute="top" constant="15" id="gX5-vx-mTS"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="headerTitle" destination="8wm-Ig-C47" id="Vcd-IB-FCH"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="hR2-Nr-QlP" id="wqV-dB-zON"/>
                             <outlet property="delegate" destination="hR2-Nr-QlP" id="FOK-uG-rSz"/>

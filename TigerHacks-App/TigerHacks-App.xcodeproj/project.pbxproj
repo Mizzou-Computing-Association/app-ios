@@ -47,6 +47,7 @@
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
 		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370E4AA2087C7A6009983FC /* Youtube.swift */; };
+		8384908023624650008AAE9F /* SponsorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384907F23624650008AAE9F /* SponsorHeader.swift */; };
 		83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */; };
 		83E2C0E9AFD6703BA1FEEB29 /* Pods_TigerHacks_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7007CD21398F2C78113EFBCC /* Pods_TigerHacks_App.framework */; };
 		83F2AFD22054816700A137E5 /* MentorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */; };
@@ -103,6 +104,7 @@
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
 		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		8370E4AA2087C7A6009983FC /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
+		8384907F23624650008AAE9F /* SponsorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorHeader.swift; sourceTree = "<group>"; };
 		83A77838234C075A00F66758 /* TigerHacks-App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TigerHacks-App.entitlements"; sourceTree = "<group>"; };
 		83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMentorTableViewController.swift; sourceTree = "<group>"; };
 		83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorTableViewCell.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */,
 				834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */,
 				83F2AFD12054816700A137E5 /* MentorTableViewCell.swift */,
+				8384907F23624650008AAE9F /* SponsorHeader.swift */,
 			);
 			path = Sponsors;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */,
 				834C30C720533096003DA584 /* Sponsor.swift in Sources */,
 				16B3C75C2358F8D2001BDD48 /* Profile.swift in Sources */,
+				8384908023624650008AAE9F /* SponsorHeader.swift in Sources */,
 				834C30C32053307B003DA584 /* Event.swift in Sources */,
 				834C30DB20534100003DA584 /* ScheduleTableViewCell.swift in Sources */,
 				834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */,
