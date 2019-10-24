@@ -17,6 +17,11 @@ class SponsorsCollectionViewController: UICollectionViewController {
     var refreshControl: UIRefreshControl!
     
     let levelDict: [Int: String] = [0: "Platinum", 1: "Gold", 2: "Silver", 3: "Bronze"]
+    var platinumSponsors = [Sponsor]()
+    var goldSponsors = [Sponsor]()
+    var silverSponsors = [Sponsor]()
+    var bronzeSponsors = [Sponsor]()
+
     var platinumTotal = 0
     var goldTotal = 0
     var silverTotal = 0
@@ -104,15 +109,15 @@ class SponsorsCollectionViewController: UICollectionViewController {
         for sponsor in sponsors {
             switch sponsor.level {
             case 0:
-                platinumTotal += 1
+                platinumSponsors.append(sponsor)
             case 1:
-                goldTotal += 1
+                goldSponsors.append(sponsor)
             case 2:
-                silverTotal += 1
+                silverSponsors.append(sponsor)
             case 3:
-                bronzeTotal += 1
+                bronzeSponsors.append(sponsor)
             default:
-                bronzeTotal += 1
+                bronzeSponsors.append(sponsor)
             }
         }
     }
@@ -150,95 +155,141 @@ class SponsorsCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch (section) {
+        switch section {
         case 0:
-            return platinumTotal
+            return platinumSponsors.count
         case 1:
-            return goldTotal
+            return goldSponsors.count
         case 2:
-            return silverTotal
+            return silverSponsors.count
         case 3:
-            return bronzeTotal
+            return bronzeSponsors.count
         default:
-            return sponsors.count
+            return bronzeSponsors.count
         }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! SponsorCollectionViewCell
+        var sponsor: Sponsor?
+        switch indexPath.section {
+        case 0:
+            sponsor = platinumSponsors[indexPath.row]
+        case 1:
+            sponsor = goldSponsors[indexPath.row]
+        case 2:
+            sponsor = silverSponsors[indexPath.row]
+        case 3:
+            sponsor = bronzeSponsors[indexPath.row]
+        default:
+            sponsor = bronzeSponsors[indexPath.row]
+        }
+       
+        cell.view.clipsToBounds = true
+        cell.view.layer.cornerRadius = 20
+        cell.view.layer.borderWidth = 0.5
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
 
-        if indexPath.section == sponsors[indexPath.row].level {
-            cell.view.clipsToBounds = true
-            cell.view.layer.cornerRadius = 20
-            cell.view.layer.borderWidth = 0.5
-            cell.layer.shadowColor = UIColor.black.cgColor
-            cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-            cell.layer.shadowRadius = 2.0
-            cell.layer.shadowOpacity = 0.5
-            cell.layer.masksToBounds = false
-            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
-
-            cell.view.layer.borderColor = UIColor.lightGray.cgColor
-            
-            
-            if let image = sponsors[indexPath.row].image {
+        cell.view.layer.borderColor = UIColor.lightGray.cgColor
+        if let sponsor = sponsor {
+            if let image = sponsor.image {
                 cell.sponsorImage?.image = image
-            } else if let imageUrl = sponsors[indexPath.row].imageUrl,
+            } else if let imageUrl = sponsor.imageUrl,
                 !imageUrl.isEmpty {
                 Model.sharedInstance.dowloadImage(imageString: imageUrl, dispatchQueueForHandler: DispatchQueue.main) { (finalImage, errorString) in
                     if let error = errorString {
                         print("ERROR! could not download image: \(error.localizedLowercase)")
                     } else if let image = finalImage {
-                        self.sponsors[indexPath.row].image = image
+                        switch indexPath.section {
+                        case 0:
+                            self.platinumSponsors[indexPath.row].image = image
+                        case 1:
+                            self.goldSponsors[indexPath.row].image = image
+                        case 2:
+                            self.silverSponsors[indexPath.row].image = image
+                        case 3:
+                            self.bronzeSponsors[indexPath.row].image = image
+                        default:
+                            self.bronzeSponsors[indexPath.row].image = image
+                        }
                         collectionView.reloadItems(at: [indexPath])
                     }
                 }
             }
         }
+        
         return cell
     }
 
 // MARK: - Segues
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        if sponsors[indexPath.row].name == "All Mentors" {
-            performSegue(withIdentifier: "mentorSegue", sender: self)
-        } else {
+        
+        switch indexPath.section {
+        case 0,1,2:
             performSegue(withIdentifier: "sponsorSegue", sender: self)
+        case 3:
+            if bronzeSponsors[indexPath.row].name == "All Mentors" {
+                performSegue(withIdentifier: "mentorSegue", sender: self)
+            } else {
+              performSegue(withIdentifier: "sponsorSegue", sender: self)
+            }
+        default:
+            performSegue(withIdentifier: "sponsorSegue", sender: self)
+            
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "sponsorSegue" {
-            let destination = segue.destination as! SponsorsDetailViewController
-            let selectedItem = collectionView?.indexPathsForSelectedItems?.first
-
-            if let row = selectedItem?.row {
-                let sponsor = sponsors[row]
-                if let image = sponsor.image {
-                    destination.image = image
-                } else {
-                    destination.image = UIImage(named: "noImage")
-                }
-
-                destination.titleText = sponsor.name
-                destination.websiteText = sponsor.website
-                destination.descriptionText = sponsor.description
-                if let mentorList = sponsor.mentors {
-                    destination.mentorList = mentorList
-                }
-
+        var sponsor: Sponsor?
+        
+        if let indexPath = collectionView?.indexPathsForSelectedItems?.first {
+            switch indexPath.section {
+            case 0:
+                sponsor = platinumSponsors[indexPath.row]
+            case 1:
+                sponsor = goldSponsors[indexPath.row]
+            case 2:
+                sponsor = silverSponsors[indexPath.row]
+            case 3:
+                sponsor = bronzeSponsors[indexPath.row]
+            default:
+                sponsor = bronzeSponsors[indexPath.row]
             }
-        } else {
+            
+            if segue.identifier == "sponsorSegue" {
+                let destination = segue.destination as! SponsorsDetailViewController
 
-            let destination = segue.destination as! AllMentorTableViewController
+                if let sponsor = sponsor {
+                    if let image = sponsor.image {
+                        destination.image = image
+                    } else {
+                        destination.image = UIImage(named: "noImage")
+                    }
 
-            self.navigationItem.backBarButtonItem?.title = ""
+                    destination.titleText = sponsor.name
+                    destination.websiteText = sponsor.website
+                    destination.descriptionText = sponsor.description
+                    if let mentorList = sponsor.mentors {
+                        destination.mentorList = mentorList
+                    }
 
-            destination.mentorList = allMentors
+                }
+            } else {
+
+                let destination = segue.destination as! AllMentorTableViewController
+
+                self.navigationItem.backBarButtonItem?.title = ""
+
+                destination.mentorList = allMentors
+            }
         }
+        
     }
 }
 
