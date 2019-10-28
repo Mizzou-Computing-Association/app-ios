@@ -31,7 +31,8 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     var refreshControl: UIRefreshControl!
 
-    let baseSlackHooks = "slack://user?team=TD7JKSFPA&id="
+    let baseSlackHooks = "slack://channel?id="
+    let slackHooksEnd = "&team=TN5APUBT9"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +102,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         let mentorList = self.mentorList,
         let mentorContact = mentorList[tappedIndexPath.row].contact else { return }
 
-        let slackHooks = baseSlackHooks + mentorContact
+        let slackHooks = baseSlackHooks + mentorContact + slackHooksEnd
         let slackURL = URL(string: slackHooks)
 
         if UIApplication.shared.canOpenURL(slackURL!) {

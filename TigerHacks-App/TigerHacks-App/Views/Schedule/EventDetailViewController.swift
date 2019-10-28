@@ -97,4 +97,3 @@ extension EventDetailViewController: CLLocationManagerDelegate {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }
-

@@ -21,46 +21,56 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" name="NewBlack"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Wm2-FR-5CJ">
-                                    <rect key="frame" x="0.0" y="114" width="375" height="1"/>
+                                    <rect key="frame" x="0.0" y="158" width="375" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" name="NewBlack"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="58" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="58"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="prizeCell" rowHeight="102" id="Vld-h9-WUn" customClass="PrizeTableViewCell" customModule="TigerHacks_App" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vld-h9-WUn" id="fgY-uv-bY9">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="58"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-34-OJc">
-                                                    <rect key="frame" x="15" y="-6" width="319" height="35"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-34-OJc">
+                                                    <rect key="frame" x="15" y="5" width="319" height="32.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
-                                                    <rect key="frame" x="15" y="30" width="319" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-Oj-VTM">
+                                                    <rect key="frame" x="15" y="59.5" width="319" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49u-Ic-mTo">
+                                                    <rect key="frame" x="15" y="38.5" width="319" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="49u-Ic-mTo" firstAttribute="trailing" secondItem="lSY-Oj-VTM" secondAttribute="trailing" id="0K4-aS-R2T"/>
                                                 <constraint firstItem="bXY-34-OJc" firstAttribute="top" secondItem="fgY-uv-bY9" secondAttribute="top" constant="5" id="FFk-9H-KQi"/>
+                                                <constraint firstItem="49u-Ic-mTo" firstAttribute="top" secondItem="bXY-34-OJc" secondAttribute="bottom" constant="1" id="H7d-Rp-AtP"/>
                                                 <constraint firstItem="lSY-Oj-VTM" firstAttribute="leading" secondItem="fgY-uv-bY9" secondAttribute="leading" constant="15" id="Mtv-9R-ifQ"/>
                                                 <constraint firstItem="lSY-Oj-VTM" firstAttribute="leading" secondItem="bXY-34-OJc" secondAttribute="leading" id="PBD-lY-pHJ"/>
+                                                <constraint firstItem="lSY-Oj-VTM" firstAttribute="top" secondItem="49u-Ic-mTo" secondAttribute="bottom" constant="1" id="R4z-u9-f6Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="lSY-Oj-VTM" secondAttribute="trailing" constant="15" id="TnJ-9b-Jex"/>
-                                                <constraint firstItem="lSY-Oj-VTM" firstAttribute="top" secondItem="bXY-34-OJc" secondAttribute="bottom" constant="1" id="W6A-v6-1qq"/>
                                                 <constraint firstItem="bXY-34-OJc" firstAttribute="leading" secondItem="fgY-uv-bY9" secondAttribute="leading" constant="15" id="hVs-Xl-v12"/>
+                                                <constraint firstAttribute="bottom" secondItem="lSY-Oj-VTM" secondAttribute="bottom" constant="23" id="hf6-Dz-jsP"/>
+                                                <constraint firstItem="49u-Ic-mTo" firstAttribute="leading" secondItem="bXY-34-OJc" secondAttribute="leading" id="iAh-av-TpF"/>
                                                 <constraint firstAttribute="trailing" secondItem="bXY-34-OJc" secondAttribute="trailing" constant="15" id="mmT-Uo-8a1"/>
-                                                <constraint firstAttribute="bottom" secondItem="lSY-Oj-VTM" secondAttribute="bottom" constant="8" id="uQw-Zm-ngT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="NewBlack"/>
                                         <connections>
                                             <outlet property="prizeReward" destination="lSY-Oj-VTM" id="Nvz-YH-e7D"/>
                                             <outlet property="prizeTitle" destination="bXY-34-OJc" id="8zp-xM-D2L"/>
+                                            <outlet property="prizeType" destination="49u-Ic-mTo" id="C61-nZ-xr6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -76,19 +86,6 @@
                         <viewLayoutGuide key="safeArea" id="eLp-WV-D3d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Prizes" largeTitleDisplayMode="never" id="GfW-EG-NC1">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Yt7-xG-p5O">
-                            <rect key="frame" x="49" y="6" width="245" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Developer"/>
-                                <segment title="Beginner"/>
-                                <segment title="StartUp"/>
-                            </segments>
-                            <color key="tintColor" red="0.96470588239999999" green="0.59607843140000005" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="changeSection:" destination="gAm-gB-hPp" eventType="valueChanged" id="NJZ-Mp-bOC"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="favorite" id="Ubp-JP-C1k">
                             <connections>
                                 <action selector="toggleFavorites:" destination="gAm-gB-hPp" id="FhY-ac-zF8"/>
@@ -98,7 +95,6 @@
                     <connections>
                         <outlet property="favoriteBarButtonItem" destination="Ubp-JP-C1k" id="zXH-8a-Bdj"/>
                         <outlet property="prizeTableView" destination="PmS-AX-4ZZ" id="EOG-en-IaS"/>
-                        <outlet property="prizeTypeSwitcher" destination="Yt7-xG-p5O" id="TpM-gi-rve"/>
                         <segue destination="4VW-li-TyV" kind="show" identifier="prizeSegue" id="g6g-mQ-r8c"/>
                     </connections>
                 </viewController>

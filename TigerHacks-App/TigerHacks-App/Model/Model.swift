@@ -208,7 +208,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksNewPrizes"
+        let requestString = "https://tigerhacks.com/api/prizes"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -249,26 +249,39 @@ class Model {
     }
     
     func prizeParse(with data: Data) -> ([Prize]?, String?) {
+        print("Starting prize parse")
         var prizes = [Prize]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let items = json as? [[String: Any]] else {
+            let items = json as? [String: [[String: Any]]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        for item in items {
-            if let prizeSponsorID = item["sponsor"] as? String,
-                let prizeTitle = item["title"] as? String,
-                let prizeReward = item["reward"] as? String,
-                let prizeDescription = item["description"] as? String,
-                let prizeType = item["prizetype"] as? String,
-                let enumPrizeType = PrizeType(rawValue: prizeType) {
-                
-                let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
-                
-                prizes.append(prize)
+        for (catName, category) in items {
+            print(catName)
+            for prize in category {
+                print(prize)
+                if let prizeTitle = prize["title"] as? String,
+                    let prizeReward = prize["reward"] as? String,
+                    let prizeDescription = prize["description"] as? String,
+                    let prizeType = prize["prizeType"] as? String,
+                    let order = prize["order"] as? Int {
+                    
+                    if let enumPrizeType = PrizeType(rawValue: catName) {
+                        let prizeSponsorID = prize["sponsor"] as? String 
+                        let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType, order: order)
+                            prizes.append(prize)
+                    } else {
+                        print("enum prizeType bad")
+                        print(prizeType)
+                    }
+                } else {
+                    print("if let failing")
+                }
             }
+            
         }
+
         return (prizes, nil)
     }
 
