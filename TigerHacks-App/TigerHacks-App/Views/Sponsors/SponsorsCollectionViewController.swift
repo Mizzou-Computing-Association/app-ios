@@ -67,8 +67,14 @@ class SponsorsCollectionViewController: UICollectionViewController {
     @objc func refresh(_ sender: Any) {
         self.loadSponsors(dispatchQueueForHandler: DispatchQueue.main) {(sponsors, _) in
             self.sponsors.removeAll()
+            self.platinumSponsors.removeAll()
+            self.goldSponsors.removeAll()
+            self.silverSponsors.removeAll()
+            self.bronzeSponsors.removeAll()
+            
             if let sponsors = sponsors {
                 self.sponsors = sponsors
+                self.countSponsors()
             }
             self.refreshControl.endRefreshing()
         }
@@ -87,19 +93,24 @@ class SponsorsCollectionViewController: UICollectionViewController {
                 completionHandler(nil, "Error loading Sponsors")
             } else if let sponsors = sponsors {
                 self.sponsors = sponsors
+                var tempSponsors = sponsors
                 self.collectionView?.reloadData()
-                self.sponsors.append(Sponsor(
-                    mentors: nil,
-                    name: "All Mentors",
-                    description: nil,
-                    website: nil,
-                    image: UIImage(named: "tigerLogo-allMentors"),
-                    imageUrl: nil,
-                    level: 3))
+                let allMentorsSponsor = Sponsor(
+                mentors: nil,
+                name: "All Mentors",
+                description: nil,
+                website: nil,
+                image: UIImage(named: "tigerLogo-allMentors"),
+                imageUrl: nil,
+                level: 3)
+                
+                self.sponsors.append(allMentorsSponsor)
+                tempSponsors.append(allMentorsSponsor)
+                
                 self.countSponsors()
                 self.sortSponsors()
                 self.getAllMentors()
-                completionHandler(sponsors, nil)
+                completionHandler(tempSponsors, nil)
 
             }
         }

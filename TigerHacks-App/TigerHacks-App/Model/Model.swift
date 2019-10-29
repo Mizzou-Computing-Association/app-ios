@@ -174,12 +174,12 @@ class Model {
                             let mentors = realItem["mentors"]
                             
                             if let mentors = mentors as? [[String: String]] {
+                                print("mentors is working")
                                 for mentor in mentors {
-                                    print(mentor)
                                     if let mentorName = mentor["name"],
                                         let skills = mentor["skills"],
                                         let contact = mentor["contact"] {
-                                        print("making mentor")
+                                        print("making mentor: \(mentorName)")
                                         let skillsArray = skills.components(separatedBy: ",")
                                         realMentors.append(Mentor(name: mentorName, skills: skillsArray, contact: contact))
                                         
@@ -426,7 +426,7 @@ class Model {
                 if let eventLat = eventLat,
                     let eventLong = eventLong {
                     eventCoords = CLLocationCoordinate2D(latitude: eventLat, longitude: eventLong)
-                    print(eventCoords)
+//                    print(eventCoords)
                 }
                 
                 if let eventTime = eventTime as? String,
