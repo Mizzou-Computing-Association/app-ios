@@ -89,9 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         
         Messaging.messaging().delegate = self
         
-        if CLLocationManager.authorizationStatus() == .notDetermined {
-            CLLocationManager().requestWhenInUseAuthorization()
-        }
+        
         
         return true
 

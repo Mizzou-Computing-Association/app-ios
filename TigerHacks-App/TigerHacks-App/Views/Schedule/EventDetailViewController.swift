@@ -33,6 +33,11 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            CLLocationManager().requestWhenInUseAuthorization()
+        }
 
         //Label Initializing
         if titleText != "" && titleText != " " {
