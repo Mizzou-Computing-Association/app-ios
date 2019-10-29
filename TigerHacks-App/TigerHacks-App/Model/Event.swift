@@ -18,6 +18,7 @@ struct Event {
     var title: String
     var description: String?
     var coords: CLLocationCoordinate2D?
+	var id: String
     
     var content: UNMutableNotificationContent {
         let content = UNMutableNotificationContent()

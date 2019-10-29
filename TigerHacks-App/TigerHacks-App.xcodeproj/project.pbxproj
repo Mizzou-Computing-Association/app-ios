@@ -11,6 +11,7 @@
 		164A67EE23220CAE00525766 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 164A67EC23220CAE00525766 /* GTMSessionFetcher.framework */; };
 		164A67F12322C81A00525766 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164A67F02322C81A00525766 /* ProfileViewController.swift */; };
 		16B3C75C2358F8D2001BDD48 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B3C75B2358F8D2001BDD48 /* Profile.swift */; };
+		16BA3FC02368DA2D000091EE /* CheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BA3FBF2368DA2D000091EE /* CheckinViewController.swift */; };
 		7A3B191C22E7B5EF00817E1E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3B191A22E7B5EF00817E1E /* Fabric.framework */; };
 		7A3B191D22E7B5EF00817E1E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3B191B22E7B5EF00817E1E /* Crashlytics.framework */; };
 		7A5EECB022EA21FE00B48203 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A5EECAF22EA21FE00B48203 /* GoogleService-Info.plist */; };
@@ -39,13 +40,11 @@
 		834C30DD20534994003DA584 /* ResourcesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DC20534994003DA584 /* ResourcesTableViewController.swift */; };
 		834C30DF20534A05003DA584 /* TigerTalksDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */; };
 		834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E020534B32003DA584 /* EventDetailViewController.swift */; };
-		834C30E320534B62003DA584 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E220534B62003DA584 /* MapViewController.swift */; };
 		834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */; };
 		834C30E720534C14003DA584 /* SponsorsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */; };
 		834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */; };
 		834C30EB2053634E003DA584 /* ResourcesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */; };
 		834C30ED20538791003DA584 /* PrizeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C30EC20538791003DA584 /* PrizeDetailViewController.swift */; };
-		835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835CCC2E2058414800A6F86E /* MapTableViewCell.swift */; };
 		8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8370E4AA2087C7A6009983FC /* Youtube.swift */; };
 		8384908023624650008AAE9F /* SponsorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384907F23624650008AAE9F /* SponsorHeader.swift */; };
 		83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E116D92135B81700C52D8B /* AllMentorTableViewController.swift */; };
@@ -63,6 +62,7 @@
 		16B3C75B2358F8D2001BDD48 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		16B3C75D2358FA0D001BDD48 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		16B3C75E2358FA15001BDD48 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		16BA3FBF2368DA2D000091EE /* CheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewController.swift; sourceTree = "<group>"; };
 		7007CD21398F2C78113EFBCC /* Pods_TigerHacks_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TigerHacks_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A3B191A22E7B5EF00817E1E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		7A3B191B22E7B5EF00817E1E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -96,13 +96,11 @@
 		834C30DC20534994003DA584 /* ResourcesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesTableViewController.swift; sourceTree = "<group>"; };
 		834C30DE20534A05003DA584 /* TigerTalksDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TigerTalksDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E020534B32003DA584 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
-		834C30E220534B62003DA584 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		834C30E420534BC7003DA584 /* SponsorsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsCollectionViewController.swift; sourceTree = "<group>"; };
 		834C30E620534C14003DA584 /* SponsorsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsDetailViewController.swift; sourceTree = "<group>"; };
 		834C30E82053625E003DA584 /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		834C30EA2053634E003DA584 /* ResourcesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesTableViewCell.swift; sourceTree = "<group>"; };
 		834C30EC20538791003DA584 /* PrizeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeDetailViewController.swift; sourceTree = "<group>"; };
-		835CCC2E2058414800A6F86E /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		8370E4AA2087C7A6009983FC /* Youtube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Youtube.swift; sourceTree = "<group>"; };
 		8384907F23624650008AAE9F /* SponsorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorHeader.swift; sourceTree = "<group>"; };
 		83A77838234C075A00F66758 /* TigerHacks-App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TigerHacks-App.entitlements"; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			children = (
 				164A67EF2322C80900525766 /* Profile */,
 				834C30D42053406A003DA584 /* Schedule */,
-				834C30D7205340A9003DA584 /* Map */,
 				834C30D52053407F003DA584 /* Prizes */,
 				834C30D9205340B7003DA584 /* Resources */,
 				834C30D62053409B003DA584 /* Sponsors */,
@@ -258,6 +255,7 @@
 				834C30D220533F6C003DA584 /* ScheduleViewController.swift */,
 				834C30DA20534100003DA584 /* ScheduleTableViewCell.swift */,
 				834C30E020534B32003DA584 /* EventDetailViewController.swift */,
+				16BA3FBF2368DA2D000091EE /* CheckinViewController.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -283,15 +281,6 @@
 				8384907F23624650008AAE9F /* SponsorHeader.swift */,
 			);
 			path = Sponsors;
-			sourceTree = "<group>";
-		};
-		834C30D7205340A9003DA584 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				834C30E220534B62003DA584 /* MapViewController.swift */,
-				835CCC2E2058414800A6F86E /* MapTableViewCell.swift */,
-			);
-			path = Map;
 			sourceTree = "<group>";
 		};
 		834C30D9205340B7003DA584 /* Resources */ = {
@@ -480,7 +469,6 @@
 				834C30C32053307B003DA584 /* Event.swift in Sources */,
 				834C30DB20534100003DA584 /* ScheduleTableViewCell.swift in Sources */,
 				834C30E520534BC7003DA584 /* SponsorsCollectionViewController.swift in Sources */,
-				835CCC2F2058414800A6F86E /* MapTableViewCell.swift in Sources */,
 				834C30C520533085003DA584 /* Prize.swift in Sources */,
 				834C30D020533EBA003DA584 /* PrizeTableViewCell.swift in Sources */,
 				83E116DA2135B81700C52D8B /* AllMentorTableViewController.swift in Sources */,
@@ -498,10 +486,10 @@
 				834C30E120534B32003DA584 /* EventDetailViewController.swift in Sources */,
 				834C30E92053625E003DA584 /* SponsorCollectionViewCell.swift in Sources */,
 				AE4CBCD4215C1DD200BD049C /* SponsorResponse.swift in Sources */,
-				834C30E320534B62003DA584 /* MapViewController.swift in Sources */,
 				834C30CB205330AC003DA584 /* Model.swift in Sources */,
 				8370E4AC2087C7A6009983FC /* Youtube.swift in Sources */,
 				AE8E31D9208957BC0041520F /* Constants.swift in Sources */,
+				16BA3FC02368DA2D000091EE /* CheckinViewController.swift in Sources */,
 				8331AD0B216539C100F405AB /* ResourceDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,7 +640,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 89YGS6UCLW;
+				DEVELOPMENT_TEAM = 4ZEY85X5FX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -665,7 +653,7 @@
 				);
 				MARKETING_VERSION = 4;
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -683,7 +671,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 89YGS6UCLW;
+				DEVELOPMENT_TEAM = 4ZEY85X5FX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -696,7 +684,7 @@
 				);
 				MARKETING_VERSION = 4;
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

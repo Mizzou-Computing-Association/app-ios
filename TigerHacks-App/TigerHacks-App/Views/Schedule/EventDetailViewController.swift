@@ -18,12 +18,14 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var descriptionSubview: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    
-    var titleText = "No Title"
-    var locationText = "No Location"
-    var timeText = "No Time"
-    var descriptionText = "No Description"
+	@IBOutlet weak var checkinButton: UIBarButtonItem!
+
+//    var titleText = "No Title"
+//    var locationText = "No Location"
+//    var timeText = "No Time"
+//    var descriptionText = "No Description"
     var coordinates: CLLocationCoordinate2D?//(latitude: 38.946111, longitude: -92.330466)
+	var event: Event?
     
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
@@ -33,33 +35,27 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		guard let event = event else {
+			navigationController?.popViewController(animated: false)
+			return
+		}
+
         locationManager.delegate = self
 
         if CLLocationManager.authorizationStatus() == .notDetermined {
             CLLocationManager().requestWhenInUseAuthorization()
         }
 
-        //Label Initializing
-        if titleText != "" && titleText != " " {
-            titleLabel.text = titleText
-        } else {
-            titleLabel.text = "No Title"
-        }
-        
-        if locationText != ""  && locationText != " " {
-            locationLabel.text = locationText
-        } else {
-            mapView.isHidden = true
-            locationLabel.text = "No Location"
-        }
-        
-        if descriptionText != "" && descriptionText != " " {
-            descriptionLabel.text = descriptionText
-        } else {
-            descriptionLabel.text = "No Description"
-        }
-        
-        timeLabel.text = timeText
+		titleLabel.text = event.title
+		locationLabel.text = event.location ?? ""
+		mapView.isHidden = event.location == nil
+		descriptionLabel.text = event.description ?? ""
+		let formatter = DateFormatter()
+		formatter.timeStyle = .short
+		formatter.dateStyle = .short
+		timeLabel.text = formatter.string(from: event.time)
+
         //Subview Corner Curving
         descriptionSubview.clipsToBounds = true
         descriptionSubview.layer.cornerRadius = 20
@@ -75,7 +71,7 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
         } else {
             pin.coordinate = CLLocationCoordinate2D(latitude: 38.946111, longitude: -92.330466)
         }
-        pin.title = titleText
+		pin.title = event.title
         
         mapView.addAnnotation(pin)
         
@@ -89,6 +85,13 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+
+		Model.sharedInstance.getProfile { profile in
+			if let profile = profile {
+				self.checkinButton.tintColor = profile.admin ? .systemOrange : .clear
+				self.checkinButton.isEnabled = profile.admin
+			}
+		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +101,12 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let destination = segue.destination as? CheckinViewController {
+			destination.event = event
+		}
+	}
 }
 
 extension EventDetailViewController: CLLocationManagerDelegate {
