@@ -23,6 +23,7 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
     var locationText = "No Location"
     var timeText = "No Time"
     var descriptionText = "No Description"
+    var coordinates: CLLocationCoordinate2D?//(latitude: 38.946111, longitude: -92.330466)
     
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
@@ -64,8 +65,11 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
         
         mapView.setRegion(MKCoordinateRegion(center: mapCenter, span: mapSpan), animated: true)
         
-        pin.coordinate = CLLocationCoordinate2D(latitude: 38.946111, longitude: -92.330466)
-        
+        if let coordinates = coordinates {
+            pin.coordinate = coordinates
+        } else {
+            pin.coordinate = CLLocationCoordinate2D(latitude: 38.946111, longitude: -92.330466)
+        }
         pin.title = titleText
         
         mapView.addAnnotation(pin)
@@ -94,6 +98,6 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 extension EventDetailViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }

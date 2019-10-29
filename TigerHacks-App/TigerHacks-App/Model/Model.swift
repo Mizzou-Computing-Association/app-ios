@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UserNotifications
 import FirebaseAuth
+import MapKit
 // swiftlint:disable type_body_length
 class Model {
     static var sharedInstance = Model()
@@ -415,7 +416,19 @@ class Model {
                 let eventTitle = realItem["title"] {
                 let eventLocation = realItem["location"] ?? " "
                 let eventDescription = realItem["description"] ?? " "
-
+                let eventLat = realItem["lat"] as? Double
+                let eventLong = realItem["long"] as? Double
+                
+                var eventCoords: CLLocationCoordinate2D?
+//                print(eventLat)
+//                print(eventLong)
+                
+                if let eventLat = eventLat,
+                    let eventLong = eventLong {
+                    eventCoords = CLLocationCoordinate2D(latitude: eventLat, longitude: eventLong)
+                    print(eventCoords)
+                }
+                
                 if let eventTime = eventTime as? String,
                     let eventTitle = eventTitle as? String,
                     let eventLocation = eventLocation as? String,
@@ -425,7 +438,7 @@ class Model {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     if let date = dateFormatter.date(from: eventTime) {
-                        let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription)
+                        let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription, coords: eventCoords)
                         events.append(event)
                     } else {
                         print("date no work")

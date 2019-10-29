@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import MapKit
 
 struct Event {
     var time: Date
@@ -16,8 +17,8 @@ struct Event {
     var floor: Int?
     var title: String
     var description: String?
+    var coords: CLLocationCoordinate2D?
     
-
     var content: UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
 
