@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseAuth
 
 class CheckinViewController: UIViewController {
 
@@ -108,17 +109,23 @@ extension CheckinViewController: AVCaptureMetadataOutputObjectsDelegate {
 				if let match = regex?.firstMatch(in: url, options: [], range: NSRange(location: 0, length: url.utf16.count)), let idRange = Range(match.range(at: 1), in: url) {
 					let userId = url[idRange]
 					if let checkinURL = URL(string: "https://tigerhacks.com/api/checkin?event=\(event!.id)&userid=\(userId)") {
-						URLSession.shared.dataTask(with: checkinURL) { data, _, _ in
-							if let data = data {
-								let decoder = JSONDecoder()
-								decoder.keyDecodingStrategy = .convertFromSnakeCase
-								self.userInfo = try? decoder.decode(CheckinResponse.self, from: data)
-								DispatchQueue.main.async {
-									self.infoTableView.reloadData()
-									self.againButton.isEnabled = self.userInfo != nil
-								}
+						Auth.auth().currentUser?.getIDToken { token, _ in
+							if let token = token {
+								let config = URLSessionConfiguration.default
+								config.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
+								URLSession(configuration: config).dataTask(with: checkinURL) { data, _, _ in
+									if let data = data {
+										let decoder = JSONDecoder()
+										decoder.keyDecodingStrategy = .convertFromSnakeCase
+										self.userInfo = try? decoder.decode(CheckinResponse.self, from: data)
+										DispatchQueue.main.async {
+											self.infoTableView.reloadData()
+											self.againButton.isEnabled = self.userInfo != nil
+										}
+									}
+								}.resume()
 							}
-						}.resume()
+						}
 					}
 				}
 			}
