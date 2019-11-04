@@ -47,6 +47,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>TigerHacks needs your location to help you navigate the hackathon</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>TigerHacks needs your location to help you navigate the hackathon</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TigerHacks needs your location to help you navigate the hackathon</string>
 	<key>UIBackgroundModes</key>
@@ -72,9 +76,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>TigerHacks needs your location to help you navigate the hackathon</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>TigerHacks needs your location to help you navigate the hackathon</string>
 </dict>
 </plist>

@@ -33,11 +33,8 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-
-        if CLLocationManager.authorizationStatus() == .notDetermined {
-            CLLocationManager().requestWhenInUseAuthorization()
-        }
+        
+        requestLocationPerms()
 
         //Label Initializing
         if titleText != "" && titleText != " " {
@@ -98,7 +95,29 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    func requestLocationPerms() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                return
+        case .denied, .restricted:
+            let alert = UIAlertController(title: "Location Services disabled", message: "Please enable Location Services in Settings if you change your mind", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+    }
 }
+
+
 
 extension EventDetailViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

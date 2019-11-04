@@ -268,23 +268,23 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if favoritePrizeTitles.contains(allPrizes[indexPath.row].title) && allPrizes[indexPath.row].title.last != "⭐️" {
                 print("Favorited: \(allPrizes[indexPath.row].title)")
                 cell.prizeTitle.text = allPrizes[indexPath.row].title + " ⭐️"
-                cell.prizeReward.text = "Reward: " + allPrizes[indexPath.row].reward
+                cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
             } else {
                 print("Not favorited: \(allPrizes[indexPath.row].title)")
                 cell.prizeTitle.text = allPrizes[indexPath.row].title
-                cell.prizeReward.text = "Reward: " + allPrizes[indexPath.row].reward
+                cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
             }
             
         } else {
             if allPrizes[indexPath.row].title.last != "⭐️" {
                 cell.prizeTitle.text = favoritePrizes[indexPath.row].title + " ⭐️"
-                cell.prizeReward.text = "Reward: " + favoritePrizes[indexPath.row].reward
+                cell.prizeReward.text = "Prize: " + favoritePrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + favoritePrizes[indexPath.row].prizeType.rawValue
             } else {
                 cell.prizeTitle.text = favoritePrizes[indexPath.row].title
-                cell.prizeReward.text = "Reward: " + favoritePrizes[indexPath.row].reward
+                cell.prizeReward.text = "Prize: " + favoritePrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + favoritePrizes[indexPath.row].prizeType.rawValue
             }
         }
