@@ -19,6 +19,7 @@ class CheckinViewController: UIViewController {
 
 	var event: Event?
 	var userInfo: CheckinResponse?
+	var error: String = "Scan a TigerPass to check someone in!"
 
 	var captureSession = AVCaptureSession()
 
@@ -80,7 +81,7 @@ class CheckinViewController: UIViewController {
 		DispatchQueue.main.async {
 			self.qrCodeFrameView?.frame = .zero
 			self.captureSession.startRunning()
-			self.userInfo = nil
+			self.againButton.isEnabled = false
 			self.infoTableView.reloadData()
 		}
 	}
@@ -113,15 +114,20 @@ extension CheckinViewController: AVCaptureMetadataOutputObjectsDelegate {
 							if let token = token {
 								let config = URLSessionConfiguration.default
 								config.httpAdditionalHeaders = ["Authorization": "Bearer \(token)"]
-								URLSession(configuration: config).dataTask(with: checkinURL) { data, _, _ in
+								URLSession(configuration: config).dataTask(with: checkinURL) { data, _, error in
 									if let data = data {
 										let decoder = JSONDecoder()
 										decoder.keyDecodingStrategy = .convertFromSnakeCase
 										self.userInfo = try? decoder.decode(CheckinResponse.self, from: data)
+										self.error = try? decoder.decode(ErrorResponse.self, from: data).error
 										DispatchQueue.main.async {
 											self.infoTableView.reloadData()
-											self.againButton.isEnabled = self.userInfo != nil
+											self.againButton.isEnabled = true
 										}
+									}
+									if let error = error {
+										let alert = UIAlertController(title: "Error checking in", message: error.localizedDescription, preferredStyle: .alert)
+										self.present(alert, animated: true)
 									}
 								}.resume()
 							}
@@ -152,7 +158,7 @@ extension CheckinViewController: UITableViewDataSource {
 			default: cell.textLabel?.text = ""
 			}
 		} else {
-			cell.textLabel?.text = "Unable to check in user, please make sure they are registered"
+			cell.textLabel?.text = error
 		}
 		return cell
 	}
@@ -164,4 +170,8 @@ struct CheckinResponse: Codable {
 	let shirtSize: String
 	let dietaryRestrictions: [String]
 	let alreadyin: Bool
+}
+
+struct ErrorResponse: Codable {
+	let error: String
 }
