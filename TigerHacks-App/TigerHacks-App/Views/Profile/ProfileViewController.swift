@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-		Auth.auth().addStateDidChangeListener { _, user in
+		Auth.auth().addStateDidChangeListener { _, _ in
 			self.refresh()
 		}
 		view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
@@ -60,9 +60,9 @@ class ProfileViewController: UIViewController {
 			Model.sharedInstance.getProfile { profile in
 				DispatchQueue.main.async {
 					guard let profile = profile else { return }
-					self.tigerPassImageView.isHidden = false
+					self.tigerPassImageView.isHidden = !profile.registered
 					do {
-					self.tigerPassImageView.image = try UIImage(data: Data(contentsOf: URL(string: profile.pass)!))
+						self.tigerPassImageView.image = try UIImage(data: Data(contentsOf: URL(string: profile.pass)!))
 					} catch {}
 					self.registerButton.isHidden = profile.registered
 					self.signOutButton.isHidden = false
