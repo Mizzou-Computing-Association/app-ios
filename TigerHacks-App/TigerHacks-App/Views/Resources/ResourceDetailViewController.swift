@@ -9,16 +9,19 @@
 import UIKit
 import WebKit
 
-class ResourceDetailViewController: UIViewController, WKNavigationDelegate {
+class ResourceDetailViewController: UIViewController {
 
     @IBOutlet weak var resourceWebView: WKWebView!
+    @IBOutlet weak var progressView: UIProgressView!
     
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    var estimatedProgressObserver: NSKeyValueObservation?
+    
     var urlString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.resourceWebView.navigationDelegate = self
+        progressView.isHidden = true
         loadResource()
         // Do any additional setup after loading the view.
     }
@@ -77,20 +80,13 @@ class ResourceDetailViewController: UIViewController, WKNavigationDelegate {
 //        } else {
 //            resourceWebView.load(URLRequest(url: url))
 //        }
-    
         resourceWebView.load(URLRequest(url: url))
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        activityIndicator.stopAnimating()
-    }
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        activityIndicator.startAnimating()
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        activityIndicator.stopAnimating()
+    func setupEstimatedProgressObserver() {
+        estimatedProgressObserver = resourceWebView.observe(\.estimatedProgress, options: [.new]) { [weak self] webView, _ in
+            self?.progressView.progress = Float(webView.estimatedProgress)
+        }
     }
     
     @IBAction func openInSafari(_ sender: Any) {
@@ -99,5 +95,43 @@ class ResourceDetailViewController: UIViewController, WKNavigationDelegate {
             UIApplication.shared.open(url)
         }
         
+    }
+}
+
+extension ResourceDetailViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        UIView.transition(with: progressView,
+                          duration: 0.33,
+                          options: [.transitionCrossDissolve],
+                          animations: {
+                            self.progressView.isHidden = false
+        },
+                          completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        
+        UIView.transition(with: progressView,
+                          duration: 0.33,
+                          options: [.transitionCrossDissolve],
+                          animations: {
+                            self.progressView.isHidden = true
+        },
+                          completion: nil)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        
+        UIView.transition(with: progressView,
+                          duration: 0.33,
+                          options: [.transitionCrossDissolve],
+                          animations: {
+                            self.progressView.isHidden = true
+        },
+                          completion: nil)
     }
 }
