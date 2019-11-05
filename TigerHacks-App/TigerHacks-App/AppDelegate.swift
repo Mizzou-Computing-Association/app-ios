@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
                 
                 var tempEvents = [Event]()
                 for event in events {
-                    let event = Event(time: event.time, day: event.day, location: event.location, floor: event.floor, title: event.title, description: event.description)
+					let event = Event(time: event.time, day: event.day, location: event.location, floor: event.floor, title: event.title, description: event.description, id: event.id)
                     tempEvents.append(event)
                 }
                 

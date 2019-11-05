@@ -418,6 +418,7 @@ class Model {
                 let eventDescription = realItem["description"] ?? " "
                 let eventLat = realItem["lat"] as? Double
                 let eventLong = realItem["long"] as? Double
+				let eventId = realItem["id"]
                 
                 var eventCoords: CLLocationCoordinate2D?
 //                print(eventLat)
@@ -432,13 +433,14 @@ class Model {
                 if let eventTime = eventTime as? String,
                     let eventTitle = eventTitle as? String,
                     let eventLocation = eventLocation as? String,
-                    let eventDescription = eventDescription as? String {
+                    let eventDescription = eventDescription as? String,
+					let eventId = eventId as? String {
 
 //                    let date = Date(timeIntervalSince1970: eventTime/1000)
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     if let date = dateFormatter.date(from: eventTime) {
-                        let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription, coords: eventCoords)
+						let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription, coords: eventCoords, id: eventId)
                         events.append(event)
                     } else {
                         print("date no work")

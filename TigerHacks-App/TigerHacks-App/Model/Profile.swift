@@ -11,4 +11,5 @@ import UIKit
 struct Profile: Codable {
 	var registered: Bool
 	var pass: String
+	var admin: Bool
 }
