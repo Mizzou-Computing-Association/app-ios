@@ -119,7 +119,7 @@ extension CheckinViewController: AVCaptureMetadataOutputObjectsDelegate {
 										let decoder = JSONDecoder()
 										decoder.keyDecodingStrategy = .convertFromSnakeCase
 										self.userInfo = try? decoder.decode(CheckinResponse.self, from: data)
-										self.error = try? decoder.decode(ErrorResponse.self, from: data).error
+//                                        self.error = try? decoder.decode(ErrorResponse.self, from: data?).error
 										DispatchQueue.main.async {
 											self.infoTableView.reloadData()
 											self.againButton.isEnabled = true
@@ -152,7 +152,7 @@ extension CheckinViewController: UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "checkinCell", for: indexPath)
 		if let userInfo = userInfo {
 			switch indexPath.row {
-			case 0: cell.textLabel?.text = userInfo.alreadyin ? "\(userInfo.name) alread checked in!" : "\(userInfo.name) checked in successfully!"
+			case 0: cell.textLabel?.text = userInfo.alreadyin ? "\(userInfo.name) already  checked in!" : "\(userInfo.name) checked in successfully!"
 			case 1: cell.textLabel?.text = "Shirt size: \(userInfo.shirtSize)"
 			case 3: cell.textLabel?.text = "Dietary restrictions: \(userInfo.dietaryRestrictions.joined(separator: ", "))"
 			default: cell.textLabel?.text = ""

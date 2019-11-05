@@ -31,14 +31,14 @@ class ResourceDetailViewController: UIViewController {
 
         // Create the indicator
 
-        view.addSubview(activityIndicator)
-
-        // Position activity indicator in center
-
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: resourceWebView.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: resourceWebView.centerYAnchor)])
+//        view.addSubview(activityIndicator)
+//
+//        // Position activity indicator in center
+//
+//        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            activityIndicator.centerXAnchor.constraint(equalTo: resourceWebView.centerXAnchor),
+//            activityIndicator.centerYAnchor.constraint(equalTo: resourceWebView.centerYAnchor)])
 
         // Load Content
 //        if navigationItem.title == "Instagram" {

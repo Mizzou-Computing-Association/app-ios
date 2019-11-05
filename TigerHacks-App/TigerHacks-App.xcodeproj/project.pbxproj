@@ -640,7 +640,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 4ZEY85X5FX;
+				DEVELOPMENT_TEAM = 89YGS6UCLW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -653,7 +653,7 @@
 				);
 				MARKETING_VERSION = 4;
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App1";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -684,7 +684,7 @@
 				);
 				MARKETING_VERSION = 4;
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App1";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.missouri.TigerHacks-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
