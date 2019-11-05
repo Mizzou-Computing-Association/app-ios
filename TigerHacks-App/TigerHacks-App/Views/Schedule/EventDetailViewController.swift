@@ -39,13 +39,9 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
 		guard let event = event else {
 			navigationController?.popViewController(animated: false)
 			return
-		}
-
-        locationManager.delegate = self
-
-        if CLLocationManager.authorizationStatus() == .notDetermined {
-            CLLocationManager().requestWhenInUseAuthorization()
-        }
+    } 
+        
+    requestLocationPerms()
 
 		titleLabel.text = event.title
 		locationLabel.text = event.location ?? ""
@@ -102,12 +98,35 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let destination = segue.destination as? CheckinViewController {
-			destination.event = event
-		}
-	}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if let destination = segue.destination as? CheckinViewController {
+        destination.event = event
+      }
+    }
+    
+    func requestLocationPerms() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                return
+        case .denied, .restricted:
+            let alert = UIAlertController(title: "Location Services disabled", message: "Please enable Location Services in Settings if you change your mind", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+
+            present(alert, animated: true, completion: nil)
+            return
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+    }
+
 }
+
+
 
 extension EventDetailViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
