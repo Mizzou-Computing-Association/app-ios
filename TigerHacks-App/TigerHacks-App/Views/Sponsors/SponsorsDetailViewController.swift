@@ -13,7 +13,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     @IBOutlet weak var sponsorImage: UIImageView!
     @IBOutlet weak var sponsorTitle: UILabel!
-    @IBOutlet weak var sponsorLocation: UILabel!
     @IBOutlet weak var sponsorWebsite: UIButton!
     @IBOutlet weak var sponsorDescription: UILabel!
     @IBOutlet weak var mentorTableView: UITableView!
@@ -31,7 +30,8 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     var refreshControl: UIRefreshControl!
 
-    let baseSlackHooks = "slack://user?team=TD7JKSFPA&id="
+    let baseSlackHooks = "slack://channel?id="
+    let slackHooksEnd = "&team=TN5APUBT9"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +46,9 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         imageViewBorder.layer.cornerRadius = 10
         imageViewBorder.layer.borderWidth = 1
         imageViewBorder.layer.borderColor = UIColor.lightGray.cgColor
-
+        
         sponsorImage.image = image ?? UIImage(named: "noImage")
         sponsorTitle.text = "\(titleText ?? "There is no name")"
-        sponsorLocation.text = "\(locationText ?? "There is no location")"
         sponsorWebsite.setTitle(websiteText, for: .normal)
         sponsorWebsite.setTitle("There is no website", for: .disabled)
         if URL.init(string: websiteText ?? "uh oh") != nil {
@@ -101,7 +100,7 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         let mentorList = self.mentorList,
         let mentorContact = mentorList[tappedIndexPath.row].contact else { return }
 
-        let slackHooks = baseSlackHooks + mentorContact
+        let slackHooks = baseSlackHooks + mentorContact + slackHooksEnd
         let slackURL = URL(string: slackHooks)
 
         if UIApplication.shared.canOpenURL(slackURL!) {

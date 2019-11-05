@@ -11,14 +11,22 @@ import UIKit
 import CoreData
 import CoreGraphics
 import UserNotifications
+import Firebase
+import FirebaseMessaging
+import GoogleSignIn
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate,MessagingDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+
+		GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+		GIDSignIn.sharedInstance()?.delegate = self
         
         //MARK: Pre-load schedule!
         Model.sharedInstance.scheduleLoad(dispatchQueueForHandler: DispatchQueue.main) {(events, errorString) in
@@ -28,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 var tempEvents = [Event]()
                 for event in events {
-                    let event = Event(time: event.time, location: event.location, floor: event.floor, title: event.title, description: event.description)
+					let event = Event(time: event.time, day: event.day, location: event.location, floor: event.floor, title: event.title, description: event.description, id: event.id)
                     tempEvents.append(event)
                 }
                 
@@ -60,10 +68,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }    
             }
         }
+        
+        // Register for Remote Notifications
+        
+        if #available(iOS 10.0, *) {
+          // For iOS 10 display notification (sent via APNS)
+          UNUserNotificationCenter.current().delegate = self
+
+          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+          UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+        } else {
+          let settings: UIUserNotificationSettings =
+          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+          application.registerUserNotificationSettings(settings)
+        }
+
+        application.registerForRemoteNotifications()
+        
+        Messaging.messaging().delegate = self
+        
+        
+        
         return true
 
     }
-    
+
+	@available(iOS 9.0, *)
+	func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+	  -> Bool {
+		return GIDSignIn.sharedInstance()?.handle(url) ?? false
+	}
+
+	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+		if let error = error {
+			return
+		}
+		guard let authentication = user.authentication else { return }
+		let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+		Auth.auth().signIn(with: credential)
+	}
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -87,6 +133,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+
+//        if let messageID = userInfo[gcmMessageIDKey] {
+//          print("Message ID: \(messageID)")
+//        }
+
+        // Print full message.
+        print(userInfo)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+      // If you are receiving a notification message while your app is in the background,
+      // this callback will not be fired till the user taps on the notification launching the application.
+      // TODO: Handle data of notification
+
+      // With swizzling disabled you must let Messaging know about the message, for Analytics
+       Messaging.messaging().appDidReceiveMessage(userInfo)
+
+      // Print message ID.
+//      if let messageID = userInfo[gcmMessageIDKey] {
+//        print("Message ID: \(messageID)")
+//      }
+
+      // Print full message.
+      print(userInfo)
+
+      completionHandler(UIBackgroundFetchResult.newData)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+
 
     // MARK: - Core Data stack
 
@@ -134,4 +217,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-

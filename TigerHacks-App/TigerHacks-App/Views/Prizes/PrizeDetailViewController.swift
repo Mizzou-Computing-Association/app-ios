@@ -22,6 +22,7 @@ class PrizeDetailViewController: UIViewController {
     @IBOutlet weak var typeSubview: UIView!
 
     var sponsor: Sponsor?
+    var sponsorText: String?
     var titleText: String?
     var rewardText: String?
     var descriptionText: String?
@@ -68,22 +69,15 @@ class PrizeDetailViewController: UIViewController {
         // Set Label Text
 
         navigationItem.title = titleText
-        sponsorLabel.text = "\(sponsor?.name ?? "This isn't a sponsored prize")"
+        sponsorLabel.text = "\(sponsorText ?? "This isn't a sponsored prize")"
         rewardLabel.text = "\(rewardText ?? "There is no reward. Personally I wouldn't try for this prize...")"
         descriptionLabel.text = "\(descriptionText ?? "There is no description. Weird, somebody probably should've provided a description")"
         typeLabel.text = "\(typeText ?? "There is no type")"
-        
-        // Favorites
-        
-        
-        
-        //setupFavoriteBarButtonItem()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if let defaultFavorites = defaults.array(forKey: "Favorited"){
+        if let defaultFavorites = defaults.array(forKey: "Favorited") {
             if let stringFavoritePrizes = defaultFavorites as? [String],
                 let titleText = titleText {
                 favoritePrizes = stringFavoritePrizes
@@ -147,7 +141,7 @@ class PrizeDetailViewController: UIViewController {
         }
     }
     
-    func toggleFavorited(){
+    func toggleFavorited() {
         if favorited {
             favorited = false
             favoritePrizes.removeAll { (title) -> Bool in

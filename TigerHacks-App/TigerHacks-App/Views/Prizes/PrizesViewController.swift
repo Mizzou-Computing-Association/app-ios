@@ -4,7 +4,7 @@
 //
 //  Created by Jonah Zukosky on 3/9/18.
 //  Copyright © 2018 Zukosky, Jonah. All rights reserved.
-//
+
 
 import UIKit
 
@@ -38,12 +38,12 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         // Initial Setup
 
-        setUpNavBar()
         prizeTableView.delegate = self
         prizeTableView.dataSource = self
         Model.sharedInstance.fakeAPICall()
+        getFavoritedPrizes()
         loadPrizes()
-
+        
         // Swipe to change level
 
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -83,39 +83,23 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 print("Error: \(errorString)")
             } else if let prizes = prizes {
                 self.allPrizes = prizes
-                print("prizes from vc: \(prizes)")
+//                print("prizes from vc: \(prizes)")
                 var tempPrizes = [Prize]()
                 for prize in prizes {
-                    let newPrize = Prize(sponsorID: prize.sponsorID, title: prize.title, reward: prize.reward, description: prize.description, prizeType: prize.prizeType)
+                    let newPrize = Prize(sponsorID: prize.sponsorID, title: prize.title, reward: prize.reward, description: prize.description, prizeType: prize.prizeType, order: prize.order)
                     tempPrizes.append(newPrize)
                 }
                 self.allPrizes = tempPrizes
-                self.dividePrizes()
-                print("tempPrizes from vc: \(tempPrizes)")
+                self.sortPrizes()
+                self.prizeTableView.reloadData()
+//                print("tempPrizes from vc: \(tempPrizes)")
             }
         }
-        //self.prizeTableView.reloadData()
     }
     
-    func dividePrizes() {
-        var tempBeginners = [Prize]()
-        var tempMains = [Prize]()
-        var tempStartUps = [Prize]()
-        
-        for prize in allPrizes {
-            switch prize.prizeType {
-            case .Main:
-                tempMains.append(prize)
-            case .Beginner:
-                tempBeginners.append(prize)
-            case .StartUp:
-                tempStartUps.append(prize)
-            }
-        }
-        beginnerPrizes = tempBeginners
-        mainPrizes = tempMains
-        startUpPrizes = tempStartUps
-        prizeTableView.reloadData()
+    func sortPrizes() {
+        allPrizes = allPrizes.sorted(by: { $0.order < $1.order })
+        favoritePrizes = favoritePrizes.sorted(by: { $0.order < $1.order })
     }
 
     @objc func refresh(_ sender: Any) {
@@ -136,38 +120,7 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {return}
-
-        if !favorited {
-            switch swipeGesture.direction {
-            case .left:
-                if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                    prizeTypeSwitcher.selectedSegmentIndex = 1
-                } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                    prizeTypeSwitcher.selectedSegmentIndex = 2
-                }
-            case .right:
-                if prizeTypeSwitcher.selectedSegmentIndex == 2 {
-                    prizeTypeSwitcher.selectedSegmentIndex = 1
-                } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                    prizeTypeSwitcher.selectedSegmentIndex = 0
-                }
-            default:
-                break
-            }
-            prizeTableView.reloadData()
-        }
         
-        
-    }
-
-// MARK: - Nav Bar Gradient
-
-    func setUpNavBar() {
-        Model.sharedInstance.setBarGradient(navigationBar: (navigationController?.navigationBar)!)
-        //Tab bar
-        tabBarController?.tabBar.backgroundImage = Model.sharedInstance.setGradientImageTabBar()
-        tabBarController?.tabBar.shadowImage =  UIImage()
     }
 
 // MARK: - Favorites
@@ -196,21 +149,54 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func addFavorite(path: IndexPath) {
+        getFavoritedPrizes()
+
+        if favoritePrizes.filter({ $0.title == allPrizes[path.row].title }).count > 0 {
+            print("prize is in favorite prizes")
+        
+            if let defaultFavorites = defaults.array(forKey: "Favorited"),
+                let stringFavoritePrizes = defaultFavorites as? [String] {
+                var newStringPrizes = stringFavoritePrizes
+                newStringPrizes.removeAll { (title) -> Bool in
+                    if title == allPrizes[path.row].title {
+                        print("removing prize")
+                        print(title)
+                    }
+                    return title == allPrizes[path.row].title
+                }
+                print(newStringPrizes)
+                defaults.set(newStringPrizes, forKey: "Favorited")
+            }
+        } else {
+            favoritePrizeTitles.append(allPrizes[path.row].title)
+            if let defaultFavorites = defaults.array(forKey: "Favorited"),
+                let stringFavoritePrizes = defaultFavorites as? [String] {
+                print(Array(Set(stringFavoritePrizes + favoritePrizeTitles)))
+                defaults.set(Array(Set(stringFavoritePrizes + favoritePrizeTitles)), forKey: "Favorited")
+            } else {
+                print(Array(Set(favoritePrizeTitles)))
+                defaults.set(Array(Set(favoritePrizeTitles)), forKey: "Favorited")
+            }
+        }
+        
+        if let newFavorites = defaults.array(forKey: "Favorited") as? [String] {
+            favoritePrizeTitles = newFavorites
+        }
+        
+        prizeTableView.reloadData()
+    }
+    
     func toggleFavorited() {
         if favorited {
             favorited = false
-            prizeTypeSwitcher.tintColor = view.tintColor
-            prizeTypeSwitcher.isEnabled = true
             favoriteButton?.setBackgroundImage(favoriteIconImage, for: .normal)
-            //getFavoritedPrizes()
             prizeTableView.reloadData()
 
         } else {
             favorited = true
-            prizeTypeSwitcher.tintColor = UIColor.gray
-            prizeTypeSwitcher.isEnabled = false
             favoriteButton?.setBackgroundImage(favoriteSelectedIconImage, for: .normal)
-//            getFavoritedPrizes()
+            getFavoritedPrizes()
             prizeTableView.reloadData()
             
         }
@@ -223,25 +209,37 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func getFavoritedPrizes() {
+        print("Getting Favorited Prizes")
         if let favoritedArray = defaults.array(forKey: "Favorited"),
             let stringFavoritedArray = favoritedArray as? [String] {
             favoritePrizeTitles = stringFavoritedArray
             favoritePrizes = [Prize]()
             for title in favoritePrizeTitles {
                 for prize in allPrizes {
-                    if title == prize.title {
-                        for (index,favoritePrize) in favoritePrizes.enumerated() {
-                            if favoritePrize.title == title {
-                                print("Removing prize from favoritePrizes: \(favoritePrize.title)")
+                    if prize.title.last == "⭐️" {
+                        var newTitle = prize.title
+                        newTitle.removeLast()
+                        newTitle.removeLast()
+                        
+                        if newTitle == title {
+                           for (index, favoritePrize) in favoritePrizes.enumerated() where favoritePrize.title == title {
+                               favoritePrizes.remove(at: index)
+                           }
+                           favoritePrizes.append(prize)
+                       }
+                    } else {
+                        if prize.title == title {
+                            for (index, favoritePrize) in favoritePrizes.enumerated() where favoritePrize.title == title {
                                 favoritePrizes.remove(at: index)
                             }
+                            favoritePrizes.append(prize)
                         }
-                        favoritePrizes.append(prize)
                     }
                 }
             }
             print("Favorite Prize Titles: \(favoritePrizeTitles)")
             print("Favorite Prizes: \(favoritePrizes)")
+            sortPrizes()
             prizeTableView.reloadData()
         }
     }
@@ -252,13 +250,14 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if favorited {
             return favoritePrizes.count
         } else {
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                return mainPrizes.count
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                return beginnerPrizes.count
-            } else {
-                return startUpPrizes.count
-            }
+            return allPrizes.count
+//            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
+//                return mainPrizes.count
+//            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
+//                return beginnerPrizes.count
+//            } else {
+//                return startUpPrizes.count
+//            }
         }
     }
 
@@ -266,21 +265,45 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "prizeCell", for: indexPath) as! PrizeTableViewCell
     
         if !favorited {
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                cell.prizeTitle.text = mainPrizes[indexPath.row].title
-                cell.prizeReward.text = mainPrizes[indexPath.row].reward
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                cell.prizeTitle.text = beginnerPrizes[indexPath.row].title
-                cell.prizeReward.text = beginnerPrizes[indexPath.row].reward
+            if favoritePrizeTitles.contains(allPrizes[indexPath.row].title) && allPrizes[indexPath.row].title.last != "⭐️" {
+                cell.prizeTitle.text = allPrizes[indexPath.row].title + " ⭐️"
+                cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
+                cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
             } else {
-                cell.prizeTitle.text = startUpPrizes[indexPath.row].title
-                cell.prizeReward.text = startUpPrizes[indexPath.row].reward
+                cell.prizeTitle.text = allPrizes[indexPath.row].title
+                cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
+                cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
             }
+            
         } else {
-            cell.prizeTitle.text = favoritePrizes[indexPath.row].title
-            cell.prizeReward.text = favoritePrizes[indexPath.row].reward
+            if allPrizes[indexPath.row].title.last != "⭐️" {
+                cell.prizeTitle.text = favoritePrizes[indexPath.row].title + " ⭐️"
+                cell.prizeReward.text = "Prize: " + favoritePrizes[indexPath.row].reward
+                cell.prizeType.text = "Type: " + favoritePrizes[indexPath.row].prizeType.rawValue
+            } else {
+                cell.prizeTitle.text = favoritePrizes[indexPath.row].title
+                cell.prizeReward.text = "Prize: " + favoritePrizes[indexPath.row].reward
+                cell.prizeType.text = "Type: " + favoritePrizes[indexPath.row].prizeType.rawValue
+            }
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if !favorited {
+            
+            let favoriteAction = UIContextualAction(style: .normal, title:  "⭐️", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+                self.addFavorite(path: indexPath)
+                print("OK, marked as Closed")
+                success(true)
+            })
+//            favoriteAction.image = UIImage(named: "favorite_selected")
+            favoriteAction.backgroundColor = .systemYellow
+
+            return UISwipeActionsConfiguration(actions: [favoriteAction])
+        }
+        
+        return UISwipeActionsConfiguration(actions: [])
     }
 
 // MARK: - Segues
@@ -297,29 +320,18 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Assign values to any outlets in Prize Detail
 
         if !favorited {
-            if prizeTypeSwitcher.selectedSegmentIndex == 0 {
-                //destination.sponsor = testMainPrizes[selectedRow?.row ?? 0].sponsor
-                destination.descriptionText = mainPrizes[selectedRow?.row ?? 0].description
-                destination.titleText = mainPrizes[selectedRow?.row ?? 0].title
-                destination.rewardText = mainPrizes[selectedRow?.row ?? 0].reward
-                destination.typeText = "Main"
-            } else if prizeTypeSwitcher.selectedSegmentIndex == 1 {
-                //destination.sponsor = testBeginnerPrizes[selectedRow?.row ?? 0].sponsor
-                destination.descriptionText = beginnerPrizes[selectedRow?.row ?? 0].description
-                destination.titleText = beginnerPrizes[selectedRow?.row ?? 0].title
-                destination.rewardText = beginnerPrizes[selectedRow?.row ?? 0].reward
-                destination.typeText = "Beginner"
-            } else {
-                destination.descriptionText = startUpPrizes[selectedRow?.row ?? 0].description
-                destination.titleText = startUpPrizes[selectedRow?.row ?? 0].title
-                destination.rewardText = startUpPrizes[selectedRow?.row ?? 0].reward
-                destination.typeText = "StartUp"
-            }
+            destination.descriptionText = allPrizes[selectedRow?.row ?? 0].description
+            destination.titleText = allPrizes[selectedRow?.row ?? 0].title
+            destination.rewardText = allPrizes[selectedRow?.row ?? 0].reward
+            destination.typeText = allPrizes[selectedRow?.row ?? 0].prizeType.rawValue
+            destination.sponsorText = allPrizes[selectedRow?.row ?? 0].sponsorID
         } else {
             destination.descriptionText = favoritePrizes[selectedRow?.row ?? 0].description
             destination.titleText = favoritePrizes[selectedRow?.row ?? 0].title
             destination.rewardText = favoritePrizes[selectedRow?.row ?? 0].reward
             destination.typeText = favoritePrizes[selectedRow?.row ?? 0].prizeType.rawValue
+            destination.sponsorText = favoritePrizes[selectedRow?.row ?? 0].sponsorID
+
         }
         
     }

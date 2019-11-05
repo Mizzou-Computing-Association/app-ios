@@ -2,39 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>101828787945-u09j02nfjm66s2plim283r433as0vle2.apps.googleusercontent.com</string>
+	<string>177120544304-vmhutqbh8g0csn6ksqashr8192aos3rk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.101828787945-u09j02nfjm66s2plim283r433as0vle2</string>
+	<string>com.googleusercontent.apps.177120544304-vmhutqbh8g0csn6ksqashr8192aos3rk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC13zJBGpl41NBWCasY7DZoVcM934hwcmI</string>
+	<string>AIzaSyDclASdYPrIHgyQhV63Mig5qHZZEkd7_cE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>101828787945</string>
+	<string>177120544304</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tigerhacks.tigerhacksios</string>
+	<string>edu.missouri.TigerHacks-App</string>
 	<key>PROJECT_ID</key>
-	<string>tigerhacksapp</string>
+	<string>tigerhacks</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tigerhacksapp.appspot.com</string>
+	<string>tigerhacks.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
 	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:101828787945:ios:1b04e8f65336b5d6</string>
+	<string>1:177120544304:ios:6a022230115c9aef844ff5</string>
 	<key>DATABASE_URL</key>
-	<string>https://tigerhacksapp.firebaseio.com</string>
+	<string>https://tigerhacks.firebaseio.com</string>
 </dict>
 </plist>

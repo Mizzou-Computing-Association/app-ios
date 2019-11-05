@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import UserNotifications
+import FirebaseAuth
+import MapKit
 // swiftlint:disable type_body_length
 class Model {
     static var sharedInstance = Model()
@@ -24,6 +26,7 @@ class Model {
     var mainPrizes: [Prize]?
     var resources: [Resource]?
     var fullSchedule: [Event]?
+	var profile: Profile?
     
     let weekdayDict: [Int: String] = [1: "Sunday", 2: "Monday", 3: "Tuesday", 4: "Wednesday", 5: "Thursday", 6: "Friday", 7: "Saturday"]
     
@@ -36,8 +39,11 @@ class Model {
         //Resource Dummy Data
         resources = [
             Resource(url: "http://tigerhacks.missouri.edu", title: "TigerHacks Site", description: ""),
-            Resource(url: "https://join.slack.com/t/tigerhacks2018/shared_invite/enQtNDUwNTU1MTg3OTA5LWQ4NDNkOWJhMWNlNjM4NGIwZWE1NTEzZmZhOGE4MjRiMTM4NzA1ODYzMjZiZWQ0NmRkMTM4ZDYyYjMxZTM1NTY", title: "Join the Slack", description: ""),
-            Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: "")]
+            Resource(url: "https://join.slack.com/t/tigerhacks2019/shared_invite/enQtNzg3ODQxMjQyNDg2LWExZTIyNWQ1ZThlMGRhMzAwNjQ4MGEwZDhhMmQxNTUwMTcyOGZiNjAxNzFkN2IzZjQxMDhhZGI5ZmFlMzkxMWQ", title: "Join the Slack", description: ""),
+            Resource(url: "https://tigerhacks-2018.devpost.com", title: "Devpost", description: ""),
+            Resource(url: "https://twitter.com/tigerhackshd", title: "Twitter", description: ""),
+            Resource(url: "https://www.instagram.com/tigerhacks/", title: "Instagram", description: ""),
+            Resource(url: "https://www.facebook.com/TigerHacks/", title: "Facebook", description: "")]
     }
     
 // MARK: - Schedule Notifications
@@ -53,7 +59,7 @@ class Model {
                     print("success")
                     self.addNotifications()
                 })
-            case .authorized:
+            case .authorized: 
                 print("Authorized")
                 self.addNotifications()
             case .denied:
@@ -114,9 +120,10 @@ class Model {
     }
     
     func sponsorsLoad(dispatchQueueForHandler: DispatchQueue, completionHandler: @escaping ([Sponsor]?, String?) -> Void) {
+        print("Sponsors Load")
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSponsors"
+        let requestString = "https://tigerhacks.com/api/sponsors"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async {
@@ -139,21 +146,59 @@ class Model {
                 })
                 return
             }
-            print(data)
             
-//            let jsonData = data //String(data: data, encoding: .utf8)
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
+                let rootNode = json as? [String: [[String: Any]]] else {
+                    completionHandler(nil, "unable to parse response from server")
+                    return
+            }
+
+            print("JSON: \(json)")
+            var sponsors = [Sponsor]()
             
-//            guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-//                let rootNode = json as? [String: Any] else {
-//                    completionHandler(nil, "unable to parse response from server")
-//            }
-//
-//            print("JSON: \(json)")
-//
-            let sponsorsObject = try? JSONDecoder().decode(SponsorResponse.self, from: data)
+            for (_, item) in rootNode {
+                for realItem in item {
+                    if let name = realItem["name"],
+                        let description = realItem["description"],
+                        let level = realItem["level"],
+                        let image = realItem["image"],
+                        let website = realItem["website"] {
+
+                        if let description = description as? String,
+                            let name = name as? String,
+                            let image = image as? String,
+                            let level = level as? String,
+                            let website = website as? String {
+                            
+                            var realMentors = [Mentor]()
+                            let mentors = realItem["mentors"]
+                            
+                            if let mentors = mentors as? [[String: String]] {
+                                print("mentors is working")
+                                for mentor in mentors {
+                                    if let mentorName = mentor["name"],
+                                        let skills = mentor["skills"],
+                                        let contact = mentor["contact"] {
+                                        print("making mentor: \(mentorName)")
+                                        let skillsArray = skills.components(separatedBy: ",")
+                                        realMentors.append(Mentor(name: mentorName, skills: skillsArray, contact: contact))
+                                        
+                                    }
+                                }
+                            }
+                           
+                            let sponsor = Sponsor(mentors: realMentors, name: name, description: description, website: website, image: nil, imageUrl: image, level: Int(level)!)
+                            print("Real Mentors: \(realMentors)")
+                            
+                            sponsors.append(sponsor)
+                        }
+                    }
+                }
+                
+            }
             
             dispatchQueueForHandler.async(execute: {
-                completionHandler(sponsorsObject?.sponsors, nil)
+                completionHandler(sponsors, nil)
             })
 
         }
@@ -164,7 +209,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksPrizes"
+        let requestString = "https://tigerhacks.com/api/prizes"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -187,7 +232,7 @@ class Model {
                 })
                 return
             }
-            print(data)
+
             let (prizes, errorString) = self.prizeParse(with: data)
 
             if let errorString = errorString {
@@ -205,32 +250,39 @@ class Model {
     }
     
     func prizeParse(with data: Data) -> ([Prize]?, String?) {
+        print("Starting prize parse")
         var prizes = [Prize]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [String: [[String: Any]]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        print("JSON: \(json)")
-        
-        if let items = rootNode["prizes"] as? [[String: Any]] {
-            for item in items {
-                print("ITEM: \(item)")
-                if let prizeSponsorID = item["sponsor"] as? Int,
-                    let prizeTitle = item["title"] as? String,
-                    let prizeReward = item["reward"] as? String,
-                    let prizeDescription = item["description"] as? String,
-                    let prizeType = item["prizetype"] as? String,
-                    let enumPrizeType = PrizeType(rawValue: prizeType) {
-                    print("all the if lets worked~~~~~~~~~~~~~~~~~~~")
+        for (catName, category) in items {
+            print(catName)
+            for prize in category {
+                print(prize)
+                if let prizeTitle = prize["title"] as? String,
+                    let prizeReward = prize["reward"] as? String,
+                    let prizeDescription = prize["description"] as? String,
+                    let prizeType = prize["prizeType"] as? String,
+                    let order = prize["order"] as? Int {
                     
-                    let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType)
-                    
-                    prizes.append(prize)
+                    if let enumPrizeType = PrizeType(rawValue: catName) {
+                        let prizeSponsorID = prize["sponsor"] as? String 
+                        let prize = Prize(sponsorID: prizeSponsorID, title: prizeTitle, reward: prizeReward, description: prizeDescription, prizeType: enumPrizeType, order: order)
+                            prizes.append(prize)
+                    } else {
+                        print("enum prizeType bad")
+                        print(prizeType)
+                    }
+                } else {
+                    print("if let failing")
                 }
             }
+            
         }
+
         return (prizes, nil)
     }
 
@@ -309,7 +361,7 @@ class Model {
         
         let config = URLSessionConfiguration.default // Session Configuration
         let session = URLSession(configuration: config) // Load configuration into Session
-        let requestString = "https://n61dynih7d.execute-api.us-east-2.amazonaws.com/production/tigerhacksSchedule"
+        let requestString = "https://tigerhacks.com/api/schedule"
         
         guard let url = URL(string: requestString) else {
             dispatchQueueForHandler.async(execute: {
@@ -350,33 +402,52 @@ class Model {
     }
     
     func scheduleParse(with data: Data) -> ([Event]?, String?) {
+        print("Starting Schedule Parse")
         var events = [Event]()
         
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let rootNode = json as? [String: Any] else {
+            let items = json as? [String: [[String: Any]]] else {
                 return (nil, "unable to parse response from server")
         }
         
-        if let items = rootNode["schedule"] as? [[String: Any]] {
-            for item in items {
-                if let eventTime = item["time"] as? String,
-                    let eventTitle = item["title"] as? String,
-                    let eventLocation = item["location"] as? String,
-                    let eventDescription = item["description"] as? String,
-                    let eventFloor = item["floor"] as? Int {
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-                    
-                    if let date = dateFormatter.date(from: eventTime) {
-                        let calendar = Calendar.current
-                        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-                        if let finalDate = calendar.date(from: components) {
-                            let event = Event(time: finalDate, location: eventLocation, floor: eventFloor, title: eventTitle, description: eventDescription)
-                            events.append(event)
-                        }
-                    }
+        for (_, item) in items {
+            if let realItem = item.first,
+                let eventTime = realItem["time"],
+                let eventTitle = realItem["title"] {
+                let eventLocation = realItem["location"] ?? " "
+                let eventDescription = realItem["description"] ?? " "
+                let eventLat = realItem["lat"] as? Double
+                let eventLong = realItem["long"] as? Double
+				let eventId = realItem["id"]
+                
+                var eventCoords: CLLocationCoordinate2D?
+//                print(eventLat)
+//                print(eventLong)
+                
+                if let eventLat = eventLat,
+                    let eventLong = eventLong {
+                    eventCoords = CLLocationCoordinate2D(latitude: eventLat, longitude: eventLong)
+//                    print(eventCoords)
                 }
+                
+                if let eventTime = eventTime as? String,
+                    let eventTitle = eventTitle as? String,
+                    let eventLocation = eventLocation as? String,
+                    let eventDescription = eventDescription as? String,
+					let eventId = eventId as? String {
+
+//                    let date = Date(timeIntervalSince1970: eventTime/1000)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    if let date = dateFormatter.date(from: eventTime) {
+						let event = Event(time: date, day: 0, location: eventLocation, floor: 0, title: eventTitle, description: eventDescription, coords: eventCoords, id: eventId)
+                        events.append(event)
+                    } else {
+                        print("date no work")
+                    }
+
+                }
+
             }
         }
         
@@ -384,51 +455,23 @@ class Model {
         return (events, nil)
     }
 
-// MARK: - Gradient color
-
-    func setBarGradient(navigationBar: UINavigationBar) {
-        navigationBar.setBackgroundImage(Model.sharedInstance.setGradientImageNavBar(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
-    }
-
-    func setGradientImageNavBar() -> UIImage {
-
-        //Color is here 251    248    227
-        let colorsMove = [
-            UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0),
-            UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)]
-        var gradientImageMove = UIImage()
-        //Set the stopping point of each color of the gradient
-        let locations = [0.55, 1]
-        if DeviceType.IS_IPHONE_X {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
-        } else if DeviceType.IS_IPHONE_XS_MAX {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
-        } else {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
-        }
-        return gradientImageMove
-    }
-
-    func setGradientImageTabBar() -> UIImage {
-        let colorsMove = [
-        UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0),
-        UIColor(red: 251.0/255.0, green: 248.0/255.0, blue: 227.0/255.0, alpha: 1.0)]
-        var gradientImageMove = UIImage()
-        let locations = [0.0, 0.6]
-        if DeviceType.IS_IPHONE_X {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 88), locations: locations)
-        } else if DeviceType.IS_IPHONE_XS_MAX {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 95), locations: locations)
-        } else {
-            gradientImageMove = UIImage.convertGradientToImage(colors: colorsMove, frame: CGRect(x: 0, y: 0, width: ScreenSize.SCREEN_WIDTH, height: 64), locations: locations)
-        }
-        return gradientImageMove
-    }
-
     // MARK: - Sort Schedule Events
     func sortEvents(events: [Event]?) -> [Event]? {
         guard let events = events else { return nil }
         return events.sorted(by: { $0.time < $1.time })
     }
+
+	func getProfile(_ callback: @escaping (Profile?) -> Void) {
+		if let user = Auth.auth().currentUser {
+			URLSession.shared.dataTask(with: URL(string: "https://tigerhacks.com/api/profile?userid=\(user.uid)")!) { data, _, _ in
+				if let data = data {
+					self.profile = try? JSONDecoder().decode(Profile.self, from: data)
+					callback(self.profile)
+				}
+			}.resume()
+		} else {
+			self.profile = nil
+			callback(profile)
+		}
+	}
 }

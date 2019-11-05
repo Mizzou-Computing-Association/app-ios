@@ -10,17 +10,23 @@
 import Foundation
 
 struct Prize {
-    //var sponsor: Sponsor?
-    var sponsorID: Int?
+    var sponsorID: String?
     var title: String
     var reward: String
     var description: String
     var prizeType: PrizeType
+    var order: Int
 
 }
 
 enum PrizeType: String {
     case Main
+    case Developer
     case Beginner
     case StartUp
+    case Visual
+    case Sponsored
+    case Visuals
+    case Audio
+    case Hardware
 }
