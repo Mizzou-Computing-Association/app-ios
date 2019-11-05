@@ -479,6 +479,9 @@
                                     </view>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iop-dc-dEd">
                                         <rect key="frame" x="21" y="189" width="334" height="270"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="270" id="4ib-8Z-cVa"/>
+                                        </constraints>
                                     </mapView>
                                 </subviews>
                                 <constraints>
@@ -500,7 +503,6 @@
                             <constraint firstAttribute="trailing" secondItem="P6v-vG-dYI" secondAttribute="trailing" id="WGU-hH-T6x"/>
                             <constraint firstItem="P6v-vG-dYI" firstAttribute="leading" secondItem="z3U-st-pIl" secondAttribute="leading" id="Y5h-R0-qWR"/>
                             <constraint firstItem="P6v-vG-dYI" firstAttribute="top" secondItem="z3U-st-pIl" secondAttribute="top" id="kOx-fs-Bx3"/>
-                            <constraint firstItem="A38-Q0-22K" firstAttribute="bottom" secondItem="iop-dc-dEd" secondAttribute="bottom" constant="115" id="mux-ef-hZf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A38-Q0-22K"/>
                     </view>
@@ -701,14 +703,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6D-1j-VDR">
-                                <rect key="frame" x="116" y="52" width="243" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3q-KO-tkw">
-                                <rect key="frame" x="116" y="90" width="243" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="116" y="62" width="243" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -824,7 +820,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fh-hw-Ndq">
-                                <rect key="frame" x="116" y="119" width="46" height="30"/>
+                                <rect key="frame" x="116" y="92" width="46" height="30"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
@@ -836,23 +832,20 @@
                         <constraints>
                             <constraint firstItem="XBN-G2-A3g" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" id="1pP-39-Lpr"/>
                             <constraint firstItem="q7K-yf-0oq" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" constant="8" id="2U4-1r-0as"/>
+                            <constraint firstItem="5fh-hw-Ndq" firstAttribute="top" secondItem="C6D-1j-VDR" secondAttribute="bottom" id="2jW-es-cJs"/>
+                            <constraint firstItem="C6D-1j-VDR" firstAttribute="top" secondItem="zu2-b2-JkB" secondAttribute="top" constant="8" id="2mf-Lc-bDc"/>
                             <constraint firstItem="ZoD-3A-cu5" firstAttribute="trailing" secondItem="3Bp-CN-IkE" secondAttribute="trailing" constant="270" id="DRk-z3-JHx"/>
                             <constraint firstItem="ZoD-3A-cu5" firstAttribute="trailing" secondItem="XBN-G2-A3g" secondAttribute="trailing" id="HKr-GN-HB2"/>
                             <constraint firstItem="ZoD-3A-cu5" firstAttribute="trailing" secondItem="gfI-xu-Isa" secondAttribute="trailing" constant="15" id="Lzw-nn-bU8"/>
                             <constraint firstItem="gfI-xu-Isa" firstAttribute="top" secondItem="zu2-b2-JkB" secondAttribute="bottom" constant="8" id="Neg-OI-obD"/>
                             <constraint firstItem="C6D-1j-VDR" firstAttribute="leading" secondItem="q7K-yf-0oq" secondAttribute="trailing" constant="8" id="PqZ-xF-Ru6"/>
                             <constraint firstItem="ZoD-3A-cu5" firstAttribute="bottom" secondItem="XBN-G2-A3g" secondAttribute="bottom" id="QIL-iz-Tt9"/>
-                            <constraint firstItem="W3q-KO-tkw" firstAttribute="top" secondItem="C6D-1j-VDR" secondAttribute="bottom" constant="8" id="Sji-xq-c6k"/>
-                            <constraint firstItem="5fh-hw-Ndq" firstAttribute="leading" secondItem="W3q-KO-tkw" secondAttribute="leading" id="Zyo-gg-1jH"/>
-                            <constraint firstItem="C6D-1j-VDR" firstAttribute="top" secondItem="ZoD-3A-cu5" secondAttribute="top" constant="8" id="g8D-MN-Jlj"/>
+                            <constraint firstItem="5fh-hw-Ndq" firstAttribute="leading" secondItem="C6D-1j-VDR" secondAttribute="leading" id="aAa-AS-p1e"/>
                             <constraint firstItem="gfI-xu-Isa" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" constant="15" id="k1F-8J-IXL"/>
                             <constraint firstItem="XBN-G2-A3g" firstAttribute="top" secondItem="3Bp-CN-IkE" secondAttribute="bottom" constant="2" id="kVt-hR-5GQ"/>
-                            <constraint firstItem="C6D-1j-VDR" firstAttribute="leading" secondItem="W3q-KO-tkw" secondAttribute="leading" id="qKw-Hg-SVB"/>
-                            <constraint firstItem="ZoD-3A-cu5" firstAttribute="trailing" secondItem="W3q-KO-tkw" secondAttribute="trailing" constant="16" id="sz5-E5-Oua"/>
                             <constraint firstItem="ZoD-3A-cu5" firstAttribute="trailing" secondItem="C6D-1j-VDR" secondAttribute="trailing" constant="16" id="tvX-XD-BjG"/>
                             <constraint firstItem="q7K-yf-0oq" firstAttribute="top" secondItem="ZoD-3A-cu5" secondAttribute="top" constant="8" id="vcm-eO-tSy"/>
                             <constraint firstItem="3Bp-CN-IkE" firstAttribute="top" secondItem="gfI-xu-Isa" secondAttribute="bottom" constant="8" id="xYw-1E-QBb"/>
-                            <constraint firstItem="5fh-hw-Ndq" firstAttribute="top" secondItem="W3q-KO-tkw" secondAttribute="bottom" constant="8" id="yGz-5u-30w"/>
                             <constraint firstItem="3Bp-CN-IkE" firstAttribute="leading" secondItem="ZoD-3A-cu5" secondAttribute="leading" constant="16" id="yWX-RT-DYW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZoD-3A-cu5"/>
@@ -865,7 +858,6 @@
                         <outlet property="navItem" destination="Kv6-UE-vvl" id="loH-kK-06r"/>
                         <outlet property="sponsorDescription" destination="azd-gz-XaJ" id="GBO-iH-oF2"/>
                         <outlet property="sponsorImage" destination="zu2-b2-JkB" id="ucP-1I-Iry"/>
-                        <outlet property="sponsorLocation" destination="W3q-KO-tkw" id="Fbk-hs-mBZ"/>
                         <outlet property="sponsorTitle" destination="C6D-1j-VDR" id="PI6-FU-3Pk"/>
                         <outlet property="sponsorWebsite" destination="5fh-hw-Ndq" id="gYY-gF-I7J"/>
                     </connections>

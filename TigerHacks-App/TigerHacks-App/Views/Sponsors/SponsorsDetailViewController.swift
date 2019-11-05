@@ -13,7 +13,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     @IBOutlet weak var sponsorImage: UIImageView!
     @IBOutlet weak var sponsorTitle: UILabel!
-    @IBOutlet weak var sponsorLocation: UILabel!
     @IBOutlet weak var sponsorWebsite: UIButton!
     @IBOutlet weak var sponsorDescription: UILabel!
     @IBOutlet weak var mentorTableView: UITableView!
@@ -50,7 +49,6 @@ class SponsorsDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         sponsorImage.image = image ?? UIImage(named: "noImage")
         sponsorTitle.text = "\(titleText ?? "There is no name")"
-        sponsorLocation.text = ""
         sponsorWebsite.setTitle(websiteText, for: .normal)
         sponsorWebsite.setTitle("There is no website", for: .disabled)
         if URL.init(string: websiteText ?? "uh oh") != nil {

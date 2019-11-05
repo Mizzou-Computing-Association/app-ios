@@ -266,12 +266,10 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
         if !favorited {
             if favoritePrizeTitles.contains(allPrizes[indexPath.row].title) && allPrizes[indexPath.row].title.last != "⭐️" {
-                print("Favorited: \(allPrizes[indexPath.row].title)")
                 cell.prizeTitle.text = allPrizes[indexPath.row].title + " ⭐️"
                 cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
             } else {
-                print("Not favorited: \(allPrizes[indexPath.row].title)")
                 cell.prizeTitle.text = allPrizes[indexPath.row].title
                 cell.prizeReward.text = "Prize: " + allPrizes[indexPath.row].reward
                 cell.prizeType.text = "Type: " + allPrizes[indexPath.row].prizeType.rawValue
@@ -326,11 +324,14 @@ class PrizesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             destination.titleText = allPrizes[selectedRow?.row ?? 0].title
             destination.rewardText = allPrizes[selectedRow?.row ?? 0].reward
             destination.typeText = allPrizes[selectedRow?.row ?? 0].prizeType.rawValue
+            destination.sponsorText = allPrizes[selectedRow?.row ?? 0].sponsorID
         } else {
             destination.descriptionText = favoritePrizes[selectedRow?.row ?? 0].description
             destination.titleText = favoritePrizes[selectedRow?.row ?? 0].title
             destination.rewardText = favoritePrizes[selectedRow?.row ?? 0].reward
             destination.typeText = favoritePrizes[selectedRow?.row ?? 0].prizeType.rawValue
+            destination.sponsorText = favoritePrizes[selectedRow?.row ?? 0].sponsorID
+
         }
         
     }

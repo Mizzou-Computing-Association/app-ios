@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "sponsorCell"
 
-class SponsorsCollectionViewController: UICollectionViewController {
+class SponsorsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var sponsors = [Sponsor]()
     var allMentors = [Mentor]()
@@ -38,18 +38,19 @@ class SponsorsCollectionViewController: UICollectionViewController {
         }
 
         // Collection View Setup
+        collectionView.collectionViewLayout.invalidateLayout()
 
-        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-
-            flowLayout.minimumInteritemSpacing = 10
-            flowLayout.minimumLineSpacing = 10
-            flowLayout.sectionInset.left = 10
-            flowLayout.sectionInset.right = 10
-//            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
-            let cellWidth = (view.frame.width)// - (numberOfCells-1)*horizontalSpacing)/numberOfCells
-            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth/2)
-            
-        }
+//        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+//
+//            flowLayout.minimumInteritemSpacing = 10
+//            flowLayout.minimumLineSpacing = 10
+//            flowLayout.sectionInset.left = 10
+//            flowLayout.sectionInset.right = 10
+////            let horizontalSpacing = flowLayout.minimumInteritemSpacing + flowLayout.sectionInset.right*2
+////            let cellWidth = (view.frame.width)// - (numberOfCells-1)*horizontalSpacing)/numberOfCells
+////            flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth/2)
+//
+//        }
 
         // Refresh Control
 
@@ -156,8 +157,43 @@ class SponsorsCollectionViewController: UICollectionViewController {
         return 4
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        collectionView.collectionViewLayout.invalidateLayout()
 
+        var sponsor: Sponsor?
+        
+        switch indexPath.section {
+        case 0:
+            sponsor = platinumSponsors[indexPath.row]
+        case 1:
+            sponsor = goldSponsors[indexPath.row]
+        case 2:
+            sponsor = silverSponsors[indexPath.row]
+        case 3:
+            sponsor = bronzeSponsors[indexPath.row]
+        default:
+            sponsor = bronzeSponsors[indexPath.row]
+        }
+        
+        if sponsor?.name == "All Mentors" {
+            return CGSize(width: view.frame.width, height: view.frame.width/2)
+        } else if sponsor?.name == "Panera" || sponsor?.name == "Centene" {
+            return CGSize(width: view.frame.width, height: view.frame.width/3)
+        } 
+            
+        if let sponsorImage = sponsor?.image {
+            if sponsor?.name == "Tradebot" {
+                return CGSize(width: view.frame.width, height: sponsorImage.size.height/2)
+            }
+            return CGSize(width: view.frame.width, height: sponsorImage.size.height)
+            
+        } else {
+            return CGSize(width: view.frame.width, height: view.frame.width/2)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as? SponsorHeader {
             sectionHeader.headerTitle.text = levelDict[indexPath.section]
             return sectionHeader
@@ -205,7 +241,15 @@ class SponsorsCollectionViewController: UICollectionViewController {
         cell.layer.shadowOpacity = 0.5
         cell.layer.masksToBounds = false
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.view.layer.cornerRadius).cgPath
-
+        
+        if sponsor?.name == "Panera" {
+            print("THIS MUST BE PANERA ")
+            print(sponsor)
+            cell.view.backgroundColor = UIColor(red: 103/255, green: 118/255, blue: 33/255, alpha: 1.0)
+        } else {
+            cell.view.backgroundColor = UIColor.white
+        }
+    
         cell.view.layer.borderColor = UIColor.lightGray.cgColor
         if let sponsor = sponsor {
             if let image = sponsor.image {

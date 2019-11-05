@@ -26,7 +26,7 @@ class EventDetailViewController: UIViewController, MKMapViewDelegate {
     var coordinates: CLLocationCoordinate2D?//(latitude: 38.946111, longitude: -92.330466)
     
     let mapCenter = CLLocationCoordinate2D(latitude: 38.946047, longitude: -92.330131)
-    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+    let mapSpan = MKCoordinateSpan(latitudeDelta: 0.0013, longitudeDelta: 0.0013)
     
     let locationManager = CLLocationManager()
     let pin = MKPointAnnotation()
