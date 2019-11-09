@@ -154,7 +154,7 @@ extension CheckinViewController: UITableViewDataSource {
 			switch indexPath.row {
 			case 0: cell.textLabel?.text = userInfo.alreadyin ? "\(userInfo.name) already  checked in!" : "\(userInfo.name) checked in successfully!"
 			case 1: cell.textLabel?.text = "Shirt size: \(userInfo.shirtSize)"
-			case 3: cell.textLabel?.text = "Dietary restrictions: \(userInfo.dietaryRestrictions.joined(separator: ", "))"
+			case 2: cell.textLabel?.text = "Dietary restrictions: \(userInfo.dietaryRestrictions.joined(separator: ", "))"
 			default: cell.textLabel?.text = ""
 			}
 		} else {
